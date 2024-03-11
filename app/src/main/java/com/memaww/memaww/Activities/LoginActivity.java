@@ -1,14 +1,16 @@
-package com.memaww.memaww;
+package com.memaww.memaww.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class SliderActivity extends AppCompatActivity {
+import com.memaww.memaww.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_slider);
+        setContentView(R.layout.activity_login);
     }
 }

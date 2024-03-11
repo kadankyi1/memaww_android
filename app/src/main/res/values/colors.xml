@@ -9,9 +9,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- MY COLORS -->
-    <!-- MY COLORS -->
-    <color name="memaww_blue">#2196F3</color>
-    <color name="memaww_blue_dark">#0A68B3</color>
+    <color name="color_memaww_blue">#2196F3</color>
+    <color name="color_memaww_blue_dark">#0A68B3</color>
+    <color name="color_dot_inactive">#ada996</color>
+    <color name="color_shadow">#4e4e4e</color>
 
 
 </resources>

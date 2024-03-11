@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SliderActivity">
-
-
+    tools:context=".Activities.SliderActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/slider_activity_guideline_h1"
@@ -91,9 +89,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/colorAccent"
-        android:text="@string/slider_activity_back"
-        android:visibility="invisible"
+        android:textColor="@color/black"
+        android:text="Back"
+        android:visibility="visible"
         android:background="@drawable/transparent_background_transparent_stroke_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/slider_activity_guideline_v2"
@@ -107,8 +105,8 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/slider_activity_next"
-        android:textColor="@color/colorAccent"
+        android:text="Next"
+        android:textColor="@color/black"
         android:background="@drawable/transparent_background_transparent_stroke_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/slider_activity_guideline_v3"

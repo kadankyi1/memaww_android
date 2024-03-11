@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/memaww_blue"
-    tools:context=".StartActivity">
+    android:background="@color/color_memaww_blue"
+    tools:context=".Activities.StartActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/start_activity_guideline_h1"

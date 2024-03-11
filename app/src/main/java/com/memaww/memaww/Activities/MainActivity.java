@@ -1,14 +1,16 @@
-package com.memaww.memaww;
+package com.memaww.memaww.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class StartActivity extends AppCompatActivity {
+import com.memaww.memaww.R;
+
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_main);
     }
 }
