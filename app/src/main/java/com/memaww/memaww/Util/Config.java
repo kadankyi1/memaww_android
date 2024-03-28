@@ -1,6 +1,7 @@
 package com.memaww.memaww.Util;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,15 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.NumberPicker;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.memaww.memaww.R;
 
@@ -18,10 +28,23 @@ import java.util.Set;
 
 public class Config {
 
+    // CURRENT HTTP
+    public static final String CURRENT_HTTP_IN_USE = "http://";
+    //public static final String CURRENT_HTTP_IN_USE = "https://";
 
+    // LIVE OR TEST ENVIRONMENT
+    public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "10.0.2.2/memaww/public"; // TEST
+    //public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "app.memaww.com"; // LIVE
+
+    // SERVER-SIDE API FOR LOGIN
+    public static final String LINK_LOGIN = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/sign-in";
+
+    public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT = "USER_ID";
+    public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_LONG = "USER_ID_LONG";
+    public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_FIRST_NAME = "USER_FIRST_NAME";
+    public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_LAST_NAME = "USER_LAST_NAME";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_PHONE = "USER_PHONE";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_EMAIL = "USER_EMAIL";
-    public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID = "USER_ID";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN = "USER_PASSWORD";
 
     // GET SHARED PREFERENCE STRING-SET
@@ -218,6 +241,125 @@ public class Config {
         }
         thisActivity = null;
         Config.freeMemory();
+    }
+
+
+    // FUNCTION FOR SETTING A NUMBER PICKER AND GETTING THE NUMBER VALUE CHANGE LISTENER
+    public static NumberPicker.OnValueChangeListener openNumberPickerForCountries(Activity thisActivity, NumberPicker.OnValueChangeListener  mNumberSetListener, int minNumber, int maxNumber, Boolean disNumbersOnUiToUser, String[] displayStringsValues, int defaultCountry) {
+
+        final Dialog d = new Dialog(thisActivity);
+        d.setContentView(R.layout.country_picker_dialog);
+        Button b1 = (Button) d.findViewById(R.id.fragment_signup_stage2_dialog_button);
+        final NumberPicker np = (NumberPicker) d.findViewById(R.id.fragment_signup_stage2_numberpicker);
+        np.setMaxValue(maxNumber);
+        np.setMinValue(minNumber);
+        np.setWrapSelectorWheel(false);
+        np.setValue(defaultCountry);
+        if(disNumbersOnUiToUser){
+            np.setDisplayedValues(displayStringsValues);
+        }
+        np.setOnValueChangedListener(mNumberSetListener);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.show();
+
+        return mNumberSetListener;
+    }
+
+    // DIALOG TYPE 1 SHOWS AN OKAY BUTTON THAT DOES NOTHING
+    public static Dialog.OnCancelListener showDialogType1(final Activity thisActivity, String subTitle, String subBody, String subBody2, Dialog.OnCancelListener cancelListener, Boolean canNotBeClosedFromOutSideClick, String positiveButtonText, String negativeButtonText){
+
+        if(thisActivity != null) {
+            final Dialog dialog = new Dialog(thisActivity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            if (canNotBeClosedFromOutSideClick) {
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
+            }
+            if (subBody2.trim().equalsIgnoreCase("show-positive-image")) {
+                dialog.setContentView(R.layout.positive_icon_dialog);
+            } else {
+                dialog.setContentView(R.layout.login_activity_dialog);
+            }
+
+            TextView dialogTextView = dialog.findViewById(R.id.login_activity_dialog_text);
+            TextView dialogTextView2 = dialog.findViewById(R.id.login_activity_dialog_text2);
+            ImageView dialogTextImageView = dialog.findViewById(R.id.login_activity_dialog_imageview);
+            dialogTextView.setText(subBody);
+
+            if (subBody.trim().equalsIgnoreCase("")) {
+                dialogTextView.setVisibility(View.INVISIBLE);
+            } else {
+                dialogTextView.setText(subBody);
+            }
+
+            if (subBody2.trim().equalsIgnoreCase("") || subBody2.trim().equalsIgnoreCase("show-positive-image")) {
+                dialogTextView2.setVisibility(View.INVISIBLE);
+            } else {
+                dialogTextView2.setText(subBody2);
+            }
+
+            if (subTitle.trim().equalsIgnoreCase("1")) {
+                dialogTextImageView.setVisibility(View.GONE);
+            }
+
+            dialogTextView2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = CURRENT_HTTP_IN_USE + "www.fishpott.com/service_agreements.html";
+                    //openActivity(thisActivity, WebViewActivity.class, 1, 0, 1, WEBVIEW_KEY_URL, url);
+                }
+            });
+
+            Button positiveDialogButton = dialog.findViewById(R.id.login_activity_dialog_button);
+            Button negativeDialogButton = dialog.findViewById(R.id.login_activity_dialog_button_cancel);
+            if (!positiveButtonText.trim().equalsIgnoreCase("")) {
+                positiveDialogButton.setText(positiveButtonText);
+            }
+            if (!negativeButtonText.trim().equalsIgnoreCase("")) {
+                negativeDialogButton.setText(negativeButtonText);
+            } else {
+                negativeDialogButton.setVisibility(View.GONE);
+            }
+            positiveDialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.cancel();
+                }
+            });
+            negativeDialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+            dialog.setOnCancelListener(cancelListener);
+            return cancelListener;
+        } else {
+            return null;
+        }
+    }
+
+
+    //TOAST TYPE 1 SHOWS JUST A TEXT
+    public static void showToastType1(Activity thisActivity, String toastInfo){
+        View toastView = thisActivity.getLayoutInflater().inflate(R.layout.toast, (ViewGroup) thisActivity.findViewById(R.id.activity_login_toast_root));
+        TextView toastTextView = toastView.findViewById(R.id.activity_login_toast_text);
+        toastTextView.setText(toastInfo);
+        Toast toast = new Toast(thisActivity.getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM | Gravity.FILL_HORIZONTAL, 0, 0);
+        //toast.setGravity(Gravity.FILL_HORIZONTAL, 0, 0);
+        //toast.setGravity(Gravity.BOTTOM, 0, 0);
+        //toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(toastView);
+        toast.show();
     }
 
 }
