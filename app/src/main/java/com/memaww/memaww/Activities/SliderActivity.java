@@ -54,7 +54,7 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.slider_activity_next_button){
-            if(mSlideViewPager.getCurrentItem() == 1){
+            if(mSlideViewPager.getCurrentItem() == 2){
                 Config.openActivity(SliderActivity.this, LoginActivity.class, 1, 0, 0, "", "");
             } else {
                 mSlideViewPager.setCurrentItem(mCurrenPage+1);
@@ -68,8 +68,8 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
     public void addDotsIndicator(int position){
 
         mDotlayout.removeAllViews();
-        mDots = new TextView[2];
-        for (int i = 0; i < 2; i++ ){
+        mDots = new TextView[3];
+        for (int i = 0; i < 3; i++ ){
             mDots[i] = new TextView (this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
             mDots[i].setTextSize(50);
@@ -98,7 +98,14 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
                 mBackBtn.setVisibility(View.INVISIBLE);
                 mNextBtn.setText("Next");
                 mBackBtn.setText("");
-            } else {
+            } else if(i == 1){
+                mNextBtn.setEnabled(true);
+                mBackBtn.setEnabled(true);
+                mBackBtn.setVisibility(View.VISIBLE);
+                mNextBtn.setText("Next");
+                mBackBtn.setText("Back");
+
+            } else if(i == 2){
                 mNextBtn.setEnabled(true);
                 mBackBtn.setEnabled(true);
                 mBackBtn.setVisibility(View.VISIBLE);
@@ -140,7 +147,14 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
                     mBackBtn.setVisibility(View.INVISIBLE);
                     mNextBtn.setText("Next");
                     mBackBtn.setText("");
-                } else {
+                }  else if(i == 1){
+                    mNextBtn.setEnabled(true);
+                    mBackBtn.setEnabled(true);
+                    mBackBtn.setVisibility(View.VISIBLE);
+                    mNextBtn.setText("Next");
+                    mBackBtn.setText("Back");
+
+                } else if(i == 2){
                     mNextBtn.setEnabled(true);
                     mBackBtn.setEnabled(true);
                     mBackBtn.setVisibility(View.VISIBLE);

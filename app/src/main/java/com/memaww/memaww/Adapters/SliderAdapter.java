@@ -30,7 +30,7 @@ public class SliderAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -44,8 +44,10 @@ public class SliderAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         if(position == 0){
             view = layoutInflater.inflate(R.layout.slider_layout_info1, container, false);
-        } else {
+        } else if(position == 1){
             view = layoutInflater.inflate(R.layout.slider_layout_info2, container, false);
+        } else {
+            view = layoutInflater.inflate(R.layout.slider_layout_info3, container, false);
         }
 
         container.addView(view);

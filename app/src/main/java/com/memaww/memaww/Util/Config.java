@@ -196,7 +196,14 @@ public class Config {
     // CHECK IF USER IS LOGGED IN
     public static Boolean userIsLoggedIn(Activity thisActivity){
         Boolean userIsLoggedIn = false;
-        if(!getSharedPreferenceString(thisActivity.getApplicationContext(), SHARED_PREF_KEY_USER_CREDENTIALS_USER_PHONE).trim().equalsIgnoreCase("") && !getSharedPreferenceString(thisActivity.getApplicationContext(), SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN).trim().equalsIgnoreCase("")){
+        if(
+                !getSharedPreferenceString(thisActivity.getApplicationContext(), SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT).trim().equalsIgnoreCase("")
+                        && !getSharedPreferenceString(thisActivity.getApplicationContext(), SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_LONG).trim().equalsIgnoreCase("")
+                        && !getSharedPreferenceString(thisActivity.getApplicationContext(), SHARED_PREF_KEY_USER_CREDENTIALS_USER_FIRST_NAME).trim().equalsIgnoreCase("")
+                        && !getSharedPreferenceString(thisActivity.getApplicationContext(), SHARED_PREF_KEY_USER_CREDENTIALS_USER_LAST_NAME).trim().equalsIgnoreCase("")
+                        && !getSharedPreferenceString(thisActivity.getApplicationContext(), SHARED_PREF_KEY_USER_CREDENTIALS_USER_PHONE).trim().equalsIgnoreCase("")
+                        && !getSharedPreferenceString(thisActivity.getApplicationContext(), SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN).trim().equalsIgnoreCase("")
+        ){
             userIsLoggedIn = true;
         } else {
             userIsLoggedIn = false;

@@ -91,7 +91,7 @@
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
         android:text="Back"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:background="@drawable/transparent_background_transparent_stroke_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/slider_activity_guideline_v2"

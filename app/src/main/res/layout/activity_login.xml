@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/activity_login_guideline_h9"
@@ -125,22 +125,20 @@
             android:id="@+id/activity_login_cover_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/login_activity_cover_image_shadow"
-            android:elevation="20dp"
             android:contentDescription=""
-            android:scaleType="centerCrop"
+            android:elevation="20dp"
             app:layout_constraintBottom_toTopOf="@+id/activity_login_guideline_h1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/login_activity_cover_image" />
+            app:layout_constraintEnd_toStartOf="@+id/activity_login_guideline_v2"
+            app:layout_constraintStart_toStartOf="@+id/activity_login_guideline_v1"
+            app:layout_constraintTop_toTopOf="@+id/activity_login_guideline_h8"
+            app:srcCompat="@drawable/logo_with_name_blue" />
 
 
         <TextView
             android:id="@+id/activity_login_country_textview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="ChooseCountry"
+            android:text="Choose Country"
             android:textAlignment="center"
             android:background="@drawable/login_country_textview_background"
             android:gravity="center"

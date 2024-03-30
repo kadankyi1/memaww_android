@@ -74,14 +74,11 @@
         android:layout_height="0dp"
         android:contentDescription=""
         android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/slider_activity_slider_layout_guideline_h1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/slider1" />
-
+        app:srcCompat="@drawable/slider3" />
     <TextView
         android:id="@+id/slider_activity_slider_layout_slider_text_title"
         android:layout_width="0dp"
@@ -90,7 +87,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="LAUNDRY MADE EASY"
+        android:text="CLEAN LAUNDRY DELIVERED"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="22sp"
@@ -110,7 +107,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="We at MeMaww have put together this service to make it easy for you to get your laundry done. We hope you benefit and like this service at least half as much as we have loved to bring the service to you"
+        android:text="Your laundry is washed and made ready. Our drop-off team will then contact you and have your washed laundry delivered at your most convenient time"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/slider_activity_slider_layout_guideline_h3"
