@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/orders"
+        android:title="MyOrders"
+        android:icon="@drawable/list_clipboard"
+        />
+    <item
+        android:id="@+id/invite"
+        android:title="Invite"
+        android:icon="@drawable/user_plus"
+        />
+    <item
+        android:id="@+id/place_order"
+        android:title="Start"
+        android:icon="@drawable/plus_circle"
+        android:enabled="true"
+        />
+    <item
+        android:id="@+id/support"
+        android:title="Support"
+        android:icon="@drawable/support"
+        />
+    <item
+        android:id="@+id/contact"
+        android:title="Profile"
+        android:icon="@drawable/profile_circle"
+        />
+</menu>
