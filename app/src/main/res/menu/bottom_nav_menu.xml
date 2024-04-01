@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/orders"
+        android:id="@+id/myorders"
         android:title="MyOrders"
         android:icon="@drawable/list_clipboard"
         />
@@ -11,7 +11,7 @@
         android:icon="@drawable/user_plus"
         />
     <item
-        android:id="@+id/place_order"
+        android:id="@+id/start_order"
         android:title="Start"
         android:icon="@drawable/plus_circle"
         android:enabled="true"
@@ -22,7 +22,7 @@
         android:icon="@drawable/support"
         />
     <item
-        android:id="@+id/contact"
+        android:id="@+id/profile"
         android:title="Profile"
         android:icon="@drawable/profile_circle"
         />

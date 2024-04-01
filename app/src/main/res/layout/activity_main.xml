@@ -18,14 +18,14 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_mainactivity_guideline_h_3"
+        android:id="@+id/activity_main_h_guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_mainactivity_constraint_layout_2"
+        android:id="@+id/activity_main_constraintlayout2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/color_memaww_blue_dark"
@@ -37,35 +37,35 @@
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_mainactivity_constraintlayout2_guideline_v_1"
+            android:id="@+id/activity_main_constraintlayout2_v_guideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.02" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_mainactivity_constraintlayout2_guideline_v_4"
+            android:id="@+id/activity_main_constraintlayout2_v_guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.12" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_mainactivity_constraintlayout2_guideline_v_2"
+            android:id="@+id/activity_main_constraintlayout2_v_guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.98" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_mainactivity_constraintlayout2_guideline_v_3"
+            android:id="@+id/activity_main_constraintlayout2_v_guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.88" />
 
         <ImageView
-            android:id="@+id/activity_mainactivity_constraintlayout2_menuicon_imageview"
+            android:id="@+id/activity_main_constraintlayout2_infoicon_imageview"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginBottom="8dp"
@@ -74,23 +74,23 @@
             android:layout_marginTop="8dp"
             android:contentDescription=""
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activity_mainactivity_constraintlayout2_guideline_v_4"
-            app:layout_constraintStart_toEndOf="@+id/activity_mainactivity_constraintlayout2_guideline_v_1"
+            app:layout_constraintEnd_toStartOf="@+id/activity_main_constraintlayout2_v_guideline4"
+            app:layout_constraintStart_toEndOf="@+id/activity_main_constraintlayout2_v_guideline1"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/info"
             app:tint="@color/white" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/activity_mainactivity_constraintlayout2_profileicon_holder_constraintlayout"
+            android:id="@+id/activity_main_constraintlayout2_profileicon_holder_constraintlayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activity_mainactivity_constraintlayout2_guideline_v_2"
-            app:layout_constraintStart_toEndOf="@+id/activity_mainactivity_constraintlayout2_guideline_v_3"
+            app:layout_constraintEnd_toStartOf="@+id/activity_main_constraintlayout2_v_guideline2"
+            app:layout_constraintStart_toEndOf="@+id/activity_main_constraintlayout2_v_guideline3"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/activity_mainactivity_constraintlayout2_searchicon_imageview"
+                android:id="@+id/activity_main_constraintlayout2_searchicon_imageview"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="8dp"
@@ -107,7 +107,7 @@
 
 
         <TextView
-            android:id="@+id/activity_mainactivity_constraintlayout2_fp_textView"
+            android:id="@+id/activity_main_constraintlayout2_fp_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -120,13 +120,13 @@
             android:textColor="@color/white"
             android:textSize="34sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activity_mainactivity_constraintlayout2_guideline_v_3"
-            app:layout_constraintStart_toEndOf="@+id/activity_mainactivity_constraintlayout2_guideline_v_4"
+            app:layout_constraintEnd_toStartOf="@+id/activity_main_constraintlayout2_v_guideline3"
+            app:layout_constraintStart_toEndOf="@+id/activity_main_constraintlayout2_v_guideline4"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_mainactivity_guideline_h_2"
+        android:id="@+id/activity_main_guideline_h_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -134,7 +134,7 @@
 
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/activity_mainactivity_fragments_holder_viewpager"
+        android:id="@+id/activity_main_fragmentsholder_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -144,14 +144,14 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_mainactivity_guideline_v_1"
+        android:id="@+id/activity_main_guideline_v_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_mainactivity_guideline_v_2"
+        android:id="@+id/activity_main_guideline_v_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -159,7 +159,7 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
+        android:id="@+id/activity_main_bottomnavigationview"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"

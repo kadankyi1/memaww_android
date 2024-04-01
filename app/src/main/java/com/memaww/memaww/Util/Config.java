@@ -47,6 +47,10 @@ public class Config {
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_EMAIL = "USER_EMAIL";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN = "USER_PASSWORD";
 
+
+    // OTHERS
+    public static final String WEBVIEW_KEY_URL = "URL";
+
     // GET SHARED PREFERENCE STRING-SET
     public static Set<String> getSharedPreferenceStringSet(Context context, String key) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
