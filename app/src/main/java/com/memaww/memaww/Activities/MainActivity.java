@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // SETTING LISTENERS
         mMainMenuBottomNavigationView.setOnItemSelectedListener(this);
         mFragmentsHolderViewPager.addOnPageChangeListener(viewListener);
+        mInfoIconImageView.setOnClickListener(this);
 
         // TEMPORARY NEEDED ACTIONS
         mMainMenuBottomNavigationView.setSelectedItemId(R.id.start_order);

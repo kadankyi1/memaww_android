@@ -242,7 +242,7 @@
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/activity_login_loader"
-            style="@style/ProgressBarBlack"
+            style="@style/ProgressBarBlue"
             android:layout_width="26dp"
             android:layout_height="32dp"
             android:layout_marginBottom="8dp"

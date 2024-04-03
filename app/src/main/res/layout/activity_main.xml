@@ -107,7 +107,7 @@
 
 
         <TextView
-            android:id="@+id/activity_main_constraintlayout2_fp_textView"
+            android:id="@+id/activity_main_constraintlayout2_memaww_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -137,21 +137,21 @@
         android:id="@+id/activity_main_fragmentsholder_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/activity_main_bottomnavigationview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/activity_main_h_guideline_h1" />
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_main_guideline_v_1"
+        android:id="@+id/activity_main_v_guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_main_guideline_v_2"
+        android:id="@+id/activity_main_v_guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

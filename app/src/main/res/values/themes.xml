@@ -34,7 +34,7 @@
     </style>
 
 
-    <style name="ProgressBarBlack" parent="@style/Widget.AppCompat.ProgressBar">
+    <style name="ProgressBarBlue" parent="@style/Widget.AppCompat.ProgressBar">
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:indeterminateTint">@color/color_memaww_blue_dark</item>
         <item name="android:minWidth">200dp</item>

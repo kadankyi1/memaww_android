@@ -229,6 +229,8 @@ public class Config {
                 thisActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             } else if(includeAnimation == 2){
                 thisActivity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+            } else if(includeAnimation == 3){
+                thisActivity.overridePendingTransition(R.anim.slide_out_down, R.anim.slide_in_up);
             }
 
         } else if(finishActivity == 2){
@@ -239,6 +241,8 @@ public class Config {
                 thisActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             } else if(includeAnimation == 2){
                 thisActivity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+            } else if(includeAnimation == 3){
+                thisActivity.overridePendingTransition(R.anim.slide_out_down, R.anim.slide_in_up);
             }
 
         } else {
@@ -247,6 +251,8 @@ public class Config {
                 thisActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             } else if(includeAnimation == 2){
                 thisActivity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+            } else if(includeAnimation == 3){
+                thisActivity.overridePendingTransition(R.anim.slide_out_down, R.anim.slide_in_up);
             }
 
         }

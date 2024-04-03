@@ -26,6 +26,7 @@ public class StartActivity extends AppCompatActivity {
                     Config.openActivity(StartActivity.this, MainActivity.class, 1, 2, 0, "", "");
                     return;
                 } else {
+                    //Config.openActivity(StartActivity.this, MainActivity.class, 1, 2, 0, "", "");
                     Config.openActivity(StartActivity.this, SliderActivity.class, 1, 2, 0, "", "");
                     return;
                 }
