@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="15dp"
+    android:background="@drawable/top_rounded_corner_gray_background"
+    tools:context=".Fragments.LightWeightItemsFormFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.61" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.71" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.86" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_h7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_v1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_v2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_v3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.70" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_guideline_v4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.30" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_v_guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_collectionform_v_guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_collectionform_pickuplocation_edittext_layout_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/loginActivityHintStyle"
+            app:layout_constraintLeft_toRightOf="@+id/fragment_collectionform_guideline_v1"
+            app:layout_constraintRight_toLeftOf="@+id/fragment_collectionform_guideline_v2"
+            app:layout_constraintTop_toTopOf="@+id/fragment_collectionform_guideline_h1">
+
+            <EditText
+                android:id="@+id/fragment_collectionform_pickuplocation_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Just Wash"
+                android:maxLength="40"
+                android:inputType="text"
+                android:labelFor="@id/fragment_collectionform_pickuplocation_edittext"
+                android:textColor="@drawable/login_activity_input_text_color" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_collectionform_pickuplocdatetime_layout_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:theme="@style/loginActivityHintStyle"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_collectionform_guideline_v2"
+            app:layout_constraintStart_toEndOf="@+id/fragment_collectionform_guideline_v1"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_pickuplocation_edittext_layout_holder">
+
+            <EditText
+                android:id="@+id/fragment_collectionform_pickupdatetime_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Wash &amp; Iron"
+                android:inputType="datetime"
+                android:labelFor="@id/fragment_collectionform_pickupdatetime_edittext"
+                android:maxLength="20"
+                android:textColor="@drawable/login_activity_input_text_color" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_collectionform_contactpersonphone_layout_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:theme="@style/loginActivityHintStyle"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_collectionform_guideline_v2"
+            app:layout_constraintStart_toStartOf="@+id/fragment_collectionform_guideline_v1"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_pickuplocdatetime_layout_holder"
+            app:layout_constraintVertical_bias="0.0">
+
+            <EditText
+                android:id="@+id/fragment_collectionform_contactpersonphone_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:digits="0123456789"
+                android:maxLength="10"
+                android:hint="Contact Phone Number"
+                android:inputType="phone"
+                android:labelFor="@id/fragment_collectionform_pickupdatetime_edittext"
+                android:textColor="@drawable/login_activity_input_text_color" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fragment_collectionform_done_button"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_rounded_green_pressed_white"
+            android:text="Done"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_collectionform_guideline_v2"
+            app:layout_constraintStart_toStartOf="@+id/fragment_collectionform_guideline_v1"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_contactpersonphone_layout_holder"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

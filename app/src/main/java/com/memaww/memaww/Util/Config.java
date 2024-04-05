@@ -19,6 +19,10 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.memaww.memaww.R;
 
 import java.util.ArrayList;
@@ -259,6 +263,25 @@ public class Config {
         thisActivity = null;
         Config.freeMemory();
     }
+
+
+
+    // OPENING A FRAGMENT
+    public static void openFragment(FragmentManager fragmentManager, int fragmentContainerId, Fragment newFragment, String fragmentName, int includeAnimation){
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if(includeAnimation == 1){
+            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right, R.anim.slide_in_right, R.anim.slide_out_right);
+        } else if (includeAnimation == 2){
+            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_left);
+        } else if (includeAnimation == 3){
+            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down,R.anim.slide_in_down, R.anim.slide_out_up);
+        }
+
+        transaction.addToBackStack(fragmentName);
+        transaction.add(fragmentContainerId, newFragment, fragmentName).commit();
+        fragmentManager = null;
+    }
+
 
 
     // FUNCTION FOR SETTING A NUMBER PICKER AND GETTING THE NUMBER VALUE CHANGE LISTENER

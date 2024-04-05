@@ -28,12 +28,80 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_book_v_guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.065" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_book_v_guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_book_menuholder_constraintlayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_memaww_blue_dark"
+        app:layout_constraintBottom_toTopOf="@+id/activity_book_v_guideline5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/activity_book_menuholder_v_guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/activity_book_menuholder_v_guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <ImageView
+            android:id="@+id/activity_book_menuholder_back_imageview"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/activity_book_menuholder_v_guideline6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/activity_book_menuholder_title_textview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Order Collection"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@+id/activity_book_menuholder_v_guideline6"
+            app:layout_constraintEnd_toStartOf="@+id/activity_book_menuholder_v_guideline7"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ScrollView
         android:id="@+id/activity_book_formitemsholder_scrollview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@+id/activity_book_menuholder_constraintlayout"
+        app:layout_constraintBottom_toTopOf="@+id/activity_book_proceedholder_constraintlayout"
         app:layout_constraintStart_toEndOf="@+id/activity_book_v_guideline1"
         app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline2">
 
@@ -100,7 +168,7 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
-                        android:text="Collection"
+                        android:text="Collection &amp; Drop-Off"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -114,7 +182,7 @@
                         android:id="@+id/activity_book_dateicon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/calender"
+                        android:src="@drawable/location"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
@@ -128,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="Mon, 8 Apr"
+                        android:text="Adenta, Accra"
                         android:textColor="@color/color_gray"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -167,13 +235,13 @@
                         android:id="@+id/activity_book_pickuppersonicon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="10dp"
                         android:src="@drawable/person_pin"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_pickupiconholder_constraintlayout"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_timeicon_imageview" />
+                        app:layout_constraintTop_toBottomOf="@+id/activity_book_dateicon_imageview" />
 
 
                     <TextView
@@ -188,7 +256,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/activity_book_pickuppersonicon_imageview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_timeicon_imageview" />
+                        app:layout_constraintTop_toBottomOf="@+id/activity_book_dateicon_imageview" />
 
 
                     <ImageView
@@ -216,6 +284,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
+                android:visibility="gone"
                 android:elevation="10dp"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_pickup_constraintlayout"
@@ -406,7 +475,7 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
-                        android:text="Wearable | Just Wash"
+                        android:text="Lightweight Items"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -419,7 +488,7 @@
                         android:id="@+id/activity_book_justwashdate_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wash | Dry | Deliver In Plastic Bag"
+                        android:text="Shirts | Trousers | Napkins | Anything small"
                         android:textColor="@color/color_gray"
                         android:textSize="12sp"
                         android:layout_marginStart="20dp"
@@ -469,6 +538,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:elevation="10dp"
+                android:visibility="gone"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintBottom_toTopOf="@+id/activity_book_formitemsholderscrollview_justwashnonwearables_constraintlayout"
                 app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_justwash_constraintlayout"
@@ -506,7 +576,7 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
-                        android:text="Wearable | Wash &amp; Iron"
+                        android:text="Lightweight | Wash &amp; Iron"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -606,7 +676,7 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
-                        android:text="Bulky Items - Just Wash"
+                        android:text="Bulky Items"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -619,7 +689,7 @@
                         android:id="@+id/activity_book_justwashnonwearablesdate_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wash | Dry | Deliver In Plastic Bag"
+                        android:text="Duvets | Bedsheets | Blankets | Anything Big"
                         android:textColor="@color/color_gray"
                         android:textSize="12sp"
                         android:layout_marginStart="20dp"
@@ -666,6 +736,7 @@
                 android:id="@+id/activity_book_formitemsholderscrollview_washandironnonwearables_constraintlayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:elevation="10dp"
@@ -768,383 +839,45 @@
     </ScrollView>
 
 
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-    <!--
-    <?xml version="1.0" encoding="utf-8"?>
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_book_proceedholder_constraintlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".Fragments.StartOrderFragment">
+        android:layout_height="60dp"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="10dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_book_v_guideline1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_book_v_guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_book_v_guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_book_h_guideline1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.15" />
-
-        <TextView
-            android:id="@+id/activity_book_pickuplabel_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="Collection"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_v_guideline1"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/activity_book_dateicon_imageview"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/calender"
-            android:layout_marginTop="10dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_v_guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_pickuplabel_textview" />
-
-        <TextView
-            android:id="@+id/activity_book_date_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="11dp"
-            android:text="Mon, 8 Apr"
-            android:textColor="@color/color_gray"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline3"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_dateicon_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_pickuplabel_textview" />
-
-
-        <ImageView
-            android:id="@+id/activity_book_timeicon_imageview"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/time_clock"
-            app:layout_constraintStart_toStartOf="@+id/activity_book_v_guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_pickuplabel_textview" />
-
-
-        <TextView
-            android:id="@+id/activity_book_time_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="11dp"
-            android:text="Mon, 8 Apr"
-            android:textColor="@color/color_gray"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_timeicon_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_pickuplabel_textview" />
-
-
-        <ImageView
-            android:id="@+id/activity_book_collectpersonicon_imageview"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/person_pin"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintStart_toStartOf="@+id/activity_book_v_guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_dateicon_imageview"
-            app:layout_constraintBottom_toTopOf="@+id/activity_book_firsthorizontalpartition_view"/>
-
-
-        <TextView
-            android:id="@+id/activity_book_collectperson_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="0244778999"
-            android:textColor="@color/color_gray"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/activity_book_firsthorizontalpartition_view"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_collectpersonicon_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_dateicon_imageview" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_book_h_guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.30" />
-
-        <View
-            android:id="@+id/activity_book_firsthorizontalpartition_view"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/activity_book_h_guideline1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/activity_book_deliverylabel_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="Delivery"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_v_guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_firsthorizontalpartition_view" />
-
-
-        <ImageView
-            android:id="@+id/activity_book_deliverydateicon_imageview"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/calender"
-            android:layout_marginTop="10dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_v_guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_deliverylabel_textview" />
-
-        <TextView
-            android:id="@+id/activity_book_deliverydate_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="11dp"
-            android:text="Mon, 8 Apr"
-            android:textColor="@color/color_gray"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline3"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_dateicon_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_deliverylabel_textview" />
-
-
-        <ImageView
-            android:id="@+id/activity_book_deliverytimeicon_imageview"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/time_clock"
-            app:layout_constraintStart_toStartOf="@+id/activity_book_v_guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_deliverylabel_textview" />
-
-
-        <TextView
-            android:id="@+id/activity_book_deliverytime_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="11dp"
-            android:text="Mon, 8 Apr"
-            android:textColor="@color/color_gray"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_timeicon_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_deliverylabel_textview" />
-
-
-        <ImageView
-            android:id="@+id/activity_book_deliverypersonicon_imageview"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/person_pin"
-            app:layout_constraintStart_toStartOf="@+id/activity_book_v_guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_deliverydateicon_imageview" />
-
-
-        <TextView
-            android:id="@+id/activity_book_deliveryperson_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="10dp"
-            android:text="0244778999"
-            android:textColor="@color/color_gray"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_collectpersonicon_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_deliverydateicon_imageview" />
-
-        <View
-            android:id="@+id/activity_book_secondhorizontalpartition_view"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/activity_book_h_guideline2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/activity_book_justwash_cardview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:elevation="3dp"
-            app:layout_constraintBottom_toTopOf="@+id/activity_book_h_guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline3"
-            app:layout_constraintStart_toStartOf="@+id/activity_book_v_guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/activity_book_secondhorizontalpartition_view"
-            app:layout_constraintVertical_bias="0.0">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/activity_book_proceedholder_button"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/activity_book_justwashicon_imageview"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/person_pin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/activity_book_justwashlabel_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Wearables - Just Wash"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_book_justwashicon_imageview" />
-
-                <TextView
-                    android:id="@+id/activity_book_justwashdesc_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="Wash + Dry + Folded -In- Bag"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_book_justwashlabel_textview" />
-
-                <ImageView
-                    android:id="@+id/activity_book_justwashquantityminus_imageview"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/minus_circle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/activity_book_justwashpriceholder_constraintlayout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_book_justwashdesc_textview"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/activity_book_justwashpriceholder_constraintlayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_marginStart="16dp"
-                    android:background="@color/color_gray_light"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintCircleRadius="2dp"
-                    app:layout_constraintEnd_toStartOf="@+id/activity_book_justwashquantityplus_imageview"
-                    app:layout_constraintStart_toEndOf="@+id/activity_book_justwashquantityminus_imageview"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_book_justwashdesc_textview"
-                    app:layout_constraintVertical_bias="0.0">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/activity_book_justwashpriceholder_textinputlayout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:theme="@style/loginActivityHintStyle"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <EditText
-                            android:id="@+id/activity_book_justwashpriceholder_edit_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:ems="10"
-                            android:hint="Qnty"
-                            android:inputType="phone"
-                            android:labelFor="@id/activity_login_phone_edit_text"
-                            android:maxLength="10"
-                            android:textColor="@drawable/login_activity_input_text_color" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:id="@+id/activity_book_justwashquantityplus_imageview"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/plus_circle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/activity_book_justwashpriceholder_constraintlayout"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_book_justwashdesc_textview"
-                    app:layout_constraintVertical_bias="0.0" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_book_h_guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.8" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_book_h_guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.9" />
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_rounded_green_pressed_white"
+                android:text="Proceed | $25"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    -->
+
+
+
+    <FrameLayout
+        android:id="@+id/activity_book_formholder_fragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/activity_book_v_guideline7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/activity_book_v_guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline2"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
