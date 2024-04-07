@@ -27,6 +27,21 @@
         <item name="android:textColorLink">@color/color_memaww_blue_dark</item>
     </style>
 
+
+    <style name="fragmentFormHintStyle" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <item name="android:textSize">20sp</item>
+        <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/color_memaww_blue_dark</item>
+        <item name="colorControlNormal">@color/color_memaww_blue_dark</item>
+        <item name="colorControlActivated">@color/color_memaww_blue_dark</item>
+        <item name="android:textColorHighlight">@color/color_dot_inactive</item>
+        <item name="android:textColorLink">@color/color_memaww_blue_dark</item>
+    </style>
+
+
     <style name="ProgressBarWHite" parent="@style/Widget.AppCompat.ProgressBar">
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:indeterminateTint">@color/white</item>

@@ -43,6 +43,9 @@ public class Config {
     // SERVER-SIDE API FOR LOGIN
     public static final String LINK_LOGIN = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/sign-in";
 
+    // SERVER-SIDE API FOR PLACING COLLECTION ORDER
+    public static final String LINK_COLLECTION_ORDER = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/request-collection";
+
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT = "USER_ID";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_LONG = "USER_ID_LONG";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_FIRST_NAME = "USER_FIRST_NAME";
