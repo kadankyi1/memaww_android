@@ -149,6 +149,8 @@ public class BookingActivity extends AppCompatActivity implements View.OnClickLi
         fragmentOpenStatus = 0;
     }
 
+
+
     public void placeOrder(final String collect_loc_raw, final String collect_loc_gps, final String collect_datetime
             , final String contact_person_phone, final String drop_loc_raw, final String drop_loc_gps, final String drop_datetime
             , final String smallitems_justwash_quantity, final String smallitems_washandiron_quantity, final String bigitems_justwash_quantity

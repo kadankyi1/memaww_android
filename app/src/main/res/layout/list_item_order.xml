@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/article_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:elevation="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/list_item_order_v_guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+        <ImageView
+            android:id="@+id/list_item_order_image_roundedcornerimageview"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.100000024" />
+
+
+        <ImageView
+            android:id="@+id/list_item_order_items_imageview"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shirt"
+            app:layout_constraintBottom_toTopOf="@+id/tag_holder"
+            app:layout_constraintEnd_toStartOf="@+id/list_item_order_body_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/list_item_order_title_textview"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_order_title_textview"
+            app:layout_constraintVertical_bias="0.100000024" />
+
+        <TextView
+            android:id="@+id/list_item_order_body_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=" x 10"
+            android:textColor="@color/color_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/tag_holder"
+            app:layout_constraintEnd_toStartOf="@+id/list_item_order_v_guideline1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/list_item_order_items_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_order_title_textview" />
+
+
+        <ImageView
+            android:id="@+id/list_item_order_pickuploc_imageview"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shirt"
+            app:layout_constraintBottom_toTopOf="@+id/tag_holder"
+            app:layout_constraintEnd_toStartOf="@+id/list_item_order_loc_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/list_item_order_v_guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_order_title_textview"
+            app:layout_constraintVertical_bias="0.100000024" />
+
+        <TextView
+            android:id="@+id/list_item_order_loc_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=" x 10"
+            android:textColor="@color/color_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/tag_holder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/list_item_order_pickuploc_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_order_title_textview" />
+
+        <TextView
+            android:id="@+id/list_item_order_title_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="#19317"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/list_item_order_orderamount_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/list_item_order_image_roundedcornerimageview"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/list_item_order_orderamount_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="$10"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/list_item_order_title_textview"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tag_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/badge_background_with_only_border_line"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/list_item_order_items_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_order_body_textview"
+            app:layout_constraintVertical_bias="0.9">
+
+            <TextView
+                android:id="@+id/list_item_order_label_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="PENDING"
+                android:textColor="@color/color_gray"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/list_item_order_orderdate_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Apr 4"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/list_item_order_title_textview"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_order_body_textview"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

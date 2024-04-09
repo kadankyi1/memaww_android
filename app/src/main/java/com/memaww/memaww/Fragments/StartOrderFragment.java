@@ -31,7 +31,7 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
 
     private CardView mGoodOrderCardView, mFastOrderCardView;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
-    private String loginResponse;
+    private String loginResponse, serverResponse = "";
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -83,16 +83,13 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
         if(view.getId() == mGoodOrderCardView.getId()){
             Config.openActivity(getActivity(), BookingActivity.class, 0, 0, 0, "", "");
         } else if(view.getId() == mFastOrderCardView.getId()){
-            placeOrder("order_type", "country", "phone", "first_name", "last_name");
+            placeOrder();
         }
     }
 
+    public void placeOrder() {
 
-    public void placeOrder(final String order_type, final String country, final String phone, final String first_name, final String last_name){
-
-        Config.showToastType1(getActivity(), "Sending order to server");
-        /*
-        if(!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+        if (!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
@@ -103,65 +100,43 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
             });
         }
 
-        loginResponse = "";
+        serverResponse = "";
 
-        Log.e("SIGN-IN-NETWORK", "country: " + country);
-        Log.e("SIGN-IN-NETWORK", "phone: " + phone);
-        Log.e("SIGN-IN-NETWORK", "first_name: " + first_name);
-        Log.e("SIGN-IN-NETWORK", "last_name: " + last_name);
-        Log.e("SIGN-IN-NETWORK", "app_version_code: " + String.valueOf(Config.getAppVersionCode(getActivity().getApplicationContext())));
 
-        AndroidNetworking.post(Config.LINK_LOGIN)
-                .addBodyParameter("user_country", country)
-                .addBodyParameter("user_phone", phone)
-                .addBodyParameter("user_first_name", first_name)
-                .addBodyParameter("user_last_name", last_name)
+        AndroidNetworking.post(Config.LINK_COLLECTION_REQUEST_ORDER)
+                .addHeaders("Accept", "application/json")
+                .addHeaders("Authorization", "Bearer " + Config.getSharedPreferenceString(getActivity(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN))
                 .addBodyParameter("app_type", "ANDROID")
                 .addBodyParameter("app_version_code", String.valueOf(Config.getAppVersionCode(getActivity().getApplicationContext())))
-                .setTag("login_activity_login")
-                .setPriority(Priority.MEDIUM)
+                .setTag("get_suggestion")
+                .setPriority(Priority.HIGH)
                 .build().getAsString(new StringRequestListener() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("SIGN-IN-NETWORK", "response: " + response.toString());
-
-                        if(!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+                        if (!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+                            Log.e("SERVER-REQUEST", "response: " + response.toString());
                             try {
-                                Log.e("PSignup", response);
                                 JSONObject main_response = new JSONObject(response);
                                 String myStatus = main_response.getString("status");
                                 final String myStatusMessage = main_response.getString("message");
-                                JSONObject user_data_response = new JSONObject(response).getJSONObject("user");
 
                                 if (myStatus.equalsIgnoreCase("success")) {
-
-                                    //STORING THE USER DATA
-                                    Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT, user_data_response.getString("user_id"));
-                                    Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_LONG, user_data_response.getString("user_sys_id"));
-                                    Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FIRST_NAME, user_data_response.getString("user_first_name"));
-                                    Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_LAST_NAME, user_data_response.getString("user_last_name"));
-                                    Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PHONE, user_data_response.getString("user_phone"));
-                                    Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN, main_response.getString("access_token"));
-
-                                    Config.openActivity(getActivity(), MainActivity.class, 1, 2, 0, "", "");
+                                    mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                    mGoodOrderCardView.setVisibility(View.VISIBLE);
+                                    mFastOrderCardView.setVisibility(View.VISIBLE);
+                                    Config.showDialogType1(getActivity(), "", "We will call you back shortly to take your order information. Thank you.", "show-positive-image", null, false,  "Ok","");
                                     return;
 
                                 } else {
-                                    if(MyLifecycleHandler.isApplicationInForeground()){
-                                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Config.showDialogType1(getActivity(), "1", myStatusMessage, "", null, true, "", "");
-
-                                                mGoodOrderCardView.setVisibility(View.VISIBLE);
-                                                mFastOrderCardView.setVisibility(View.VISIBLE);
-                                                mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
-
-                                            }
-                                        });
-                                    } else {
-                                        loginResponse = myStatusMessage;
-                                    }
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Config.showToastType1(getActivity(), myStatusMessage);
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            mGoodOrderCardView.setVisibility(View.VISIBLE);
+                                            mFastOrderCardView.setVisibility(View.VISIBLE);
+                                        }
+                                    });
                                 }
 
 
@@ -171,10 +146,9 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
                                     @Override
                                     public void run() {
                                         Config.showDialogType1(getActivity(), getString(R.string.error), getString(R.string.an_unexpected_error_occured), "", null, false, "", "");
+                                        mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                         mGoodOrderCardView.setVisibility(View.VISIBLE);
                                         mFastOrderCardView.setVisibility(View.VISIBLE);
-                                        mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
-
                                     }
                                 });
                             }
@@ -183,22 +157,21 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.e("SIGN-IN-NETWORK", "anError: " + anError.toString());
-                        if(!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+                        Log.e("SERVER-REQUEST", "anError: " + anError.toString());
+                        if (!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
                             new Handler(Looper.getMainLooper()).post(new Runnable() {
                                 @Override
                                 public void run() {
                                     Config.showToastType1(getActivity(), getResources().getString(R.string.check_your_internet_connection_and_try_again));
+                                    mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                     mGoodOrderCardView.setVisibility(View.VISIBLE);
                                     mFastOrderCardView.setVisibility(View.VISIBLE);
-                                    mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
 
                                 }
                             });
                         }
                     }
                 });
-         */
-    }
 
+    }
 }
