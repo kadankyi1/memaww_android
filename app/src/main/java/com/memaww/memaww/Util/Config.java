@@ -50,7 +50,7 @@ public class Config {
     public static final String LINK_COLLECTION_REQUEST_ORDER = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/request-collection-callback";
 
     // SERVER-SIDE API FOR PLACING CALLBACK REQUEST FOR COLLECTION ORDER
-    public static final String LINK_GET_MY_ORDERS = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/request-collection-callback";
+    public static final String LINK_GET_MY_ORDERS = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/get-my-orders";
 
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT = "USER_ID";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_LONG = "USER_ID_LONG";

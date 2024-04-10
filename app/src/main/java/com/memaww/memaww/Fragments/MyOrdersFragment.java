@@ -1,8 +1,10 @@
 package com.memaww.memaww.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -33,8 +34,7 @@ import org.json.JSONObject;
 
 public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
-    private ImageView mBackImageView;
-    private RecyclerView mOrdersListRecyclerView;
+    //private RecyclerView mOrdersListRecyclerView;
     private RecyclerView mRecyclerview;
     private LinearLayoutManager mLinearlayoutmanager;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
@@ -72,9 +72,9 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_orders, container, false);
 
-        mBackImageView = view.findViewById(R.id.fragment_myorders_menuholder_back_imageview);
-        mOrdersListRecyclerView = view.findViewById(R.id.fragment_myorders_orderslist_recyclerview);
-        mLoadingContentLoadingProgressBar = view.findViewById(R.id.fragment_myorders_orderslist_recyclerview);
+
+        mRecyclerview = view.findViewById(R.id.fragment_myorders_orderslist_recyclerview);
+        mLoadingContentLoadingProgressBar = view.findViewById(R.id.fragment_myorders_loader);
 
 
         //ONE-TIME ACTIONS
@@ -85,18 +85,37 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mRecyclerview.setLayoutManager(mLinearlayoutmanager);
         mRecyclerview.setAdapter(new RecyclerViewAdapter());
-        getMyOrders()
+        getMyOrders();
 
         return view;
     }
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == mBackImageView.getId()){
-            getActivity().onBackPressed();
-        }
+
     }
 
+
+
+    private void allOnClickHandlers(View v, int position){
+        /*
+        if(v.getId() == R.id.article_parent
+                || v.getId() == R.id.fragment_today_heraldofglorytitle_textview
+                || v.getId() == R.id.fragment_today_heraldofglorybody_textview
+                || v.getId() == R.id.tag_holder
+                || v.getId() == R.id.fragment_today_heraldofgloryimage_roundedcornerimageview
+                || v.getId() == R.id.fragment_today_heraldofglorylabel_textview){
+            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_ARTICLE_ID, String.valueOf(ArticleListDataGenerator.getAllData().get(position).getArticle_id()));
+            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_IMG_URL, String.valueOf(ArticleListDataGenerator.getAllData().get(position).getArticle_image()));
+            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_TAG_TEXT, ArticleListDataGenerator.getAllData().get(position).getArticle_type());
+            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_UPLOAD_TIME, ArticleListDataGenerator.getAllData().get(position).getCreated_at());
+            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_ARTICLE_TITLE, ArticleListDataGenerator.getAllData().get(position).getArticle_title());
+            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_ARTICLE_BODY, ArticleListDataGenerator.getAllData().get(position).getArticle_body());
+            Intent intent = new Intent(getActivity().getApplicationContext(), ImageArticleActivity.class);
+            startActivity(intent);
+        }
+         */
+    }
 
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter {
@@ -113,17 +132,17 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             RecyclerView.ViewHolder vh;
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_read, parent, false);
-            vh = new ArticleViewHolder(v);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_order, parent, false);
+            vh = new OrderViewHolder(v);
 
             return vh;
         }
 
 
-        public class ArticleViewHolder extends RecyclerView.ViewHolder  {
-            private ConstraintLayout m_parent_holder_constraintlayout, m_tag_holder_constraintlayout;
-            private ImageView m_audio_image;
-            private TextView m_title_textview, m_body_textview, m_tag_textview;
+        public class OrderViewHolder extends RecyclerView.ViewHolder  {
+            private ConstraintLayout mTagHolderConstraintlayout;
+            private ImageView mInfoTextView;
+            private TextView mOrderIdTextview, mItemsCountTextview, mPriceTextview, mStatusTextView, mDateTextView, mLocationTextView;
 
             private View.OnClickListener innerClickListener = new View.OnClickListener() {
                 @Override
@@ -132,67 +151,63 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                 }
             };
 
-            public ArticleViewHolder(View v) {
+            public OrderViewHolder(View v) {
                 super(v);
-                m_parent_holder_constraintlayout = v.findViewById(R.id.article_parent);
-                m_title_textview = v.findViewById(R.id.fragment_today_heraldofglorytitle_textview);
-                m_body_textview = v.findViewById(R.id.fragment_today_heraldofglorybody_textview);
-                m_tag_holder_constraintlayout = v.findViewById(R.id.tag_holder);
-                m_audio_image = v.findViewById(R.id.fragment_today_heraldofgloryimage_roundedcornerimageview);
-                m_tag_textview = v.findViewById(R.id.fragment_today_heraldofglorylabel_textview);
+                mTagHolderConstraintlayout = v.findViewById(R.id.tag_holder);
+                mInfoTextView = v.findViewById(R.id.list_item_order_image_roundedcornerimageview);
+                mOrderIdTextview = v.findViewById(R.id.list_item_order_title_textview);
+                mItemsCountTextview = v.findViewById(R.id.list_item_order_body_textview);
+                mPriceTextview = v.findViewById(R.id.list_item_order_orderamount_textview);
+                mStatusTextView = v.findViewById(R.id.list_item_order_label_textview);
+                mDateTextView = v.findViewById(R.id.list_item_order_orderdate_textview);
+                mLocationTextView = v.findViewById(R.id.list_item_order_loc_textview);
 
-                m_parent_holder_constraintlayout.setOnClickListener(innerClickListener);
-                m_title_textview.setOnClickListener(innerClickListener);
-                m_body_textview.setOnClickListener(innerClickListener);
-                m_tag_holder_constraintlayout.setOnClickListener(innerClickListener);
-                m_audio_image.setOnClickListener(innerClickListener);
-                m_tag_textview.setOnClickListener(innerClickListener);
+                mTagHolderConstraintlayout.setOnClickListener(innerClickListener);
+                mInfoTextView.setOnClickListener(innerClickListener);
+                mOrderIdTextview.setOnClickListener(innerClickListener);
+                mItemsCountTextview.setOnClickListener(innerClickListener);
+                mPriceTextview.setOnClickListener(innerClickListener);
+                mStatusTextView.setOnClickListener(innerClickListener);
+                mDateTextView.setOnClickListener(innerClickListener);
+                mLocationTextView.setOnClickListener(innerClickListener);
             }
         }
 
         @Override
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
 
-            if(
-                    !getActivity().isFinishing()
-                            && !ArticleListDataGenerator.getAllData().get(position).getArticle_image().equalsIgnoreCase("")
-            ){
+            ((OrderViewHolder) holder).mDateTextView.setText(String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).getCreatedAtShortDate()));
+            ((OrderViewHolder) holder).mOrderIdTextview.setText("#" + String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).getOrderId()));
+            ((OrderViewHolder) holder).mItemsCountTextview.setText(" x " + String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).getOrderAllItemsQuantity()));
+            ((OrderViewHolder) holder).mPriceTextview.setText("$ ??"); // + String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).get()));
 
-                loadImageView(getActivity().getApplicationContext(), ArticleListDataGenerator.getAllData().get(position).getArticle_image().trim(), ((ArticleViewHolder) holder).m_audio_image, null);
-
-            } else {
-                ((ArticleViewHolder) holder).m_audio_image.setImageResource(R.drawable.testimg);
-            }
-
-            if(ArticleListDataGenerator.getAllData().get(position).getArticle_title().length() > 20){
-                ((ArticleViewHolder) holder).m_title_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_title().substring(0, 19).trim() + "...");
-            } else {
-                ((ArticleViewHolder) holder).m_title_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_title());
-            }
+            ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_blue_light));
+            /*
 
             if(ArticleListDataGenerator.getAllData().get(position).getArticle_body().length() > 200){
-                ((ArticleViewHolder) holder).m_body_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_body().substring(0, 199).trim() + "...");
+                ((OrderViewHolder) holder).m_body_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_body().substring(0, 199).trim() + "...");
             } else {
-                ((ArticleViewHolder) holder).m_body_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_body());
+                ((OrderViewHolder) holder).m_body_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_body());
             }
 
-            ((ArticleViewHolder) holder).m_tag_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_type());
+            ((OrderViewHolder) holder).m_tag_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_type());
 
             if(ArticleListDataGenerator.getAllData().get(position).getArticle_type().equalsIgnoreCase("HERALD OF GLORY")){
-                //((ArticleViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.curved_bottom_left_corners_gold, null));
+                //((OrderViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.curved_bottom_left_corners_gold, null));
             } else if(ArticleListDataGenerator.getAllData().get(position).getArticle_type().equalsIgnoreCase("SPECIAL ARTICLE")){
-                //((ArticleViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.rounded_corners_specialarticle, null));
+                //((OrderViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.rounded_corners_specialarticle, null));
             } else if(ArticleListDataGenerator.getAllData().get(position).getArticle_type().equalsIgnoreCase("GLORY NEWS")){
-                //((ArticleViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.rounded_corners_glorynews, null));
+                //((OrderViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.rounded_corners_glorynews, null));
             } else if(ArticleListDataGenerator.getAllData().get(position).getArticle_type().equalsIgnoreCase("BIBLE READING PLAN")){
-                //((ArticleViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.rounded_corners_bible_reading, null));
+                //((OrderViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.rounded_corners_bible_reading, null));
             }
+             */
 
         }
 
         @Override
         public int getItemCount() {
-            return ArticleListDataGenerator.getAllData().size();
+            return MyOrdersListDataGenerator.getAllData().size();
         }
 
     }
@@ -209,7 +224,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
             });
         }
 
-        AndroidNetworking.post(Config.LINK_COLLECTION_REQUEST_ORDER)
+        AndroidNetworking.post(Config.LINK_GET_MY_ORDERS)
                 .addHeaders("Accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + Config.getSharedPreferenceString(getActivity(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN))
                 .addBodyParameter("app_type", "ANDROID")
@@ -256,12 +271,14 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                         thisOrder.setOrderLightweightitemsWashAndIronQuantity(k.getInt("order_lightweightitems_wash_and_iron_quantity"));
                                         thisOrder.setOrderBulkyitemsJustWashQuantity(k.getInt("order_bulkyitems_just_wash_quantity"));
                                         thisOrder.setOrderBulkyitemsWashAndIronQuantity(k.getInt("order_bulkyitems_wash_and_iron_quantity"));
+                                        thisOrder.setOrderAllItemsQuantity(k.getInt("all_items"));
                                         thisOrder.setOrderBeingWorkedOnStatus(k.getInt("order_being_worked_on_status"));
                                         thisOrder.setOrderPaymentStatus(k.getInt("order_payment_status"));
                                         thisOrder.setOrderPaymentDetails(k.getString("order_payment_details"));
-                                        thisOrder.setOrderFlagged(k.getBoolean("order_flagged"));
+                                        thisOrder.setOrderFlagged(k.getInt("order_flagged"));
                                         thisOrder.setOrderFlaggedReason(k.getString("order_flagged_reason"));
                                         thisOrder.setCreatedAt(k.getString("created_at"));
+                                        thisOrder.setCreatedAtShortDate(k.getString("order_date"));
                                         thisOrder.setUpdatedAt(k.getString("updated_at"));
                                         MyOrdersListDataGenerator.addOneData(thisOrder);
                                     }

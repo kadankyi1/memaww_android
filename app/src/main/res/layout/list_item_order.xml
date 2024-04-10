@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/list_item_order_image_roundedcornerimageview"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:scaleType="centerCrop"
             android:src="@drawable/info"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -39,6 +39,7 @@
             android:id="@+id/list_item_order_items_imageview"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginTop="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/shirt"
             app:layout_constraintBottom_toTopOf="@+id/tag_holder"
@@ -68,8 +69,9 @@
             android:id="@+id/list_item_order_pickuploc_imageview"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginTop="5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/shirt"
+            android:src="@drawable/location"
             app:layout_constraintBottom_toTopOf="@+id/tag_holder"
             app:layout_constraintEnd_toStartOf="@+id/list_item_order_loc_textview"
             app:layout_constraintHorizontal_bias="0.0"
@@ -82,8 +84,7 @@
             android:id="@+id/list_item_order_loc_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text=" x 10"
+            android:text="Adenta"
             android:textColor="@color/color_gray"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/tag_holder"
@@ -92,18 +93,20 @@
             app:layout_constraintStart_toEndOf="@+id/list_item_order_pickuploc_imageview"
             app:layout_constraintTop_toBottomOf="@+id/list_item_order_title_textview" />
 
+
         <TextView
             android:id="@+id/list_item_order_title_textview"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="#19317"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/list_item_order_orderamount_textview"
+            app:layout_constraintEnd_toStartOf="@+id/list_item_order_v_guideline1"
             app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/list_item_order_image_roundedcornerimageview"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -118,8 +121,8 @@
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/list_item_order_title_textview"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/list_item_order_v_guideline1"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -132,7 +135,7 @@
             android:background="@drawable/badge_background_with_only_border_line"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/list_item_order_v_guideline1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/list_item_order_items_imageview"
             app:layout_constraintTop_toBottomOf="@+id/list_item_order_body_textview"
@@ -159,15 +162,15 @@
             android:id="@+id/list_item_order_orderdate_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
             android:text="Apr 4"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/list_item_order_title_textview"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/list_item_order_v_guideline1"
             app:layout_constraintTop_toBottomOf="@+id/list_item_order_body_textview"
             app:layout_constraintVertical_bias="1.0" />
 

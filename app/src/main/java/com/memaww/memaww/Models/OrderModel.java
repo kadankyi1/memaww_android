@@ -21,12 +21,14 @@ public class OrderModel {
     private int orderLightweightitemsWashAndIronQuantity;
     private int orderBulkyitemsJustWashQuantity;
     private int orderBulkyitemsWashAndIronQuantity;
+    private int orderAllItemsQuantity;
     private int orderBeingWorkedOnStatus;
     private int orderPaymentStatus;
     private String orderPaymentDetails;
-    private Boolean orderFlagged;
+    private int orderFlagged;
     private String orderFlaggedReason;
     private String createdAt;
+    private String createdAtShortDate;
     private String updatedAt;
 
     public long getOrderId() {
@@ -190,6 +192,14 @@ public class OrderModel {
         this.orderBulkyitemsWashAndIronQuantity = orderBulkyitemsWashAndIronQuantity;
     }
 
+    public int getOrderAllItemsQuantity() {
+        return orderAllItemsQuantity;
+    }
+
+    public void setOrderAllItemsQuantity(int orderAllItemsQuantity) {
+        this.orderAllItemsQuantity = orderAllItemsQuantity;
+    }
+
     public int getOrderBeingWorkedOnStatus() {
         return orderBeingWorkedOnStatus;
     }
@@ -198,11 +208,11 @@ public class OrderModel {
         this.orderBeingWorkedOnStatus = orderBeingWorkedOnStatus;
     }
 
-    public Boolean getOrderFlagged() {
+    public int getOrderFlagged() {
         return orderFlagged;
     }
 
-    public void setOrderFlagged(Boolean orderFlagged) {
+    public void setOrderFlagged(int orderFlagged) {
         this.orderFlagged = orderFlagged;
     }
 
@@ -220,6 +230,14 @@ public class OrderModel {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCreatedAtShortDate() {
+        return createdAtShortDate;
+    }
+
+    public void setCreatedAtShortDate(String createdAtShortDate) {
+        this.createdAtShortDate = createdAtShortDate;
     }
 
     public String getUpdatedAt() {
