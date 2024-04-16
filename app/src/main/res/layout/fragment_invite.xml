@@ -1,15 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.InviteFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="InviteFragment"
-        android:gravity="center"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fragment_invitefragment_h_guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fragment_invitefragment_h_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fragment_invitefragment_h_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fragment_invitefragment_v_guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fragment_invitefragment_v_guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_invitefragment_topbackground_constraintlayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_memaww_blue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_invitefragment_h_guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_invitefragment_bottombackground_constraintlayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_memaww_blue_dark"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_invitefragment_h_guideline1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/fragment_invitefragment_elevatedbackground_cardview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="20dp"
+        android:background="@color/color_memaww_blue"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_invitefragment_v_guideline5"
+        app:layout_constraintStart_toEndOf="@+id/fragment_invitefragment_v_guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_invitefragment_h_guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_invitefragment_h_guideline3">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/fragment_invitefragment_h_guideline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <TextView
+                android:id="@+id/fragment_invitefragment_title_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invite A Friend"
+                android:layout_marginTop="30dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/fragment_invitefragment_subtitle_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:text="Send the code below to a friend and when they make their first order, you get 50% off"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_invitefragment_title_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/fragment_invitefragment_image_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/gift"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_invitefragment_subtitle_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_invitefragment_codeholder_constraintlayout"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@color/color_blue_light"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_invitefragment_h_guideline6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/fragment_invitefragment_code_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:text="SD802JKH3"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_invitefragment_sendinvite_button"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:background="@drawable/button_rounded_green_pressed_white"
+                android:text="Send Invite"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_invitefragment_codeholder_constraintlayout"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

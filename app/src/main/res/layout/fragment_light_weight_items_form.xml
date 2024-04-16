@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="15dp"
+    android:paddingBottom="15dp"
     android:background="@drawable/top_rounded_corner_gray_background"
     tools:context=".Fragments.LightWeightItemsFormFragment">
 
@@ -143,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Just Wash"
+                android:hint="Wash &amp; Fold"
                 android:maxLength="40"
                 android:inputType="text"
                 android:labelFor="@id/fragment_collectionform_pickuplocation_edittext"
@@ -164,13 +165,13 @@
             app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_pickuplocation_edittext_layout_holder">
 
             <EditText
-                android:id="@+id/fragment_collectionform_pickupdatetime_edittext"
+                android:id="@+id/fragment_collectionform_pickupdatetime_timepicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Wash &amp; Iron"
                 android:inputType="datetime"
-                android:labelFor="@id/fragment_collectionform_pickupdatetime_edittext"
+                android:labelFor="@id/fragment_collectionform_pickupdatetime_timepicker"
                 android:maxLength="20"
                 android:textColor="@drawable/login_activity_input_text_color" />
 
@@ -179,11 +180,12 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_collectionform_contactpersonphone_layout_holder"
+            android:id="@+id/fragment_collectionform_justiron_layout_holder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:theme="@style/loginActivityHintStyle"
             app:layout_constraintEnd_toStartOf="@+id/fragment_collectionform_guideline_v2"
             app:layout_constraintStart_toStartOf="@+id/fragment_collectionform_guideline_v1"
@@ -191,15 +193,15 @@
             app:layout_constraintVertical_bias="0.0">
 
             <EditText
-                android:id="@+id/fragment_collectionform_contactpersonphone_edittext"
+                android:id="@+id/fragment_collectionform_justiron_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:digits="0123456789"
                 android:maxLength="10"
-                android:hint="Contact Phone Number"
-                android:inputType="phone"
-                android:labelFor="@id/fragment_collectionform_pickupdatetime_edittext"
+                android:hint="Just Iron"
+                android:inputType="number"
+                android:labelFor="@id/fragment_collectionform_justiron_layout_holder"
                 android:textColor="@drawable/login_activity_input_text_color" />
 
 
@@ -216,7 +218,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/fragment_collectionform_guideline_v2"
             app:layout_constraintStart_toStartOf="@+id/fragment_collectionform_guideline_v1"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_contactpersonphone_layout_holder"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_justiron_layout_holder"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

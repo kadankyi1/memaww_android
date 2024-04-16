@@ -6,81 +6,81 @@
     android:layout_height="match_parent"
     android:background="@color/color_gray_light_v2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Activities.BookingActivity">
+    tools:context=".Activities.OrderCollectionActivity">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_book_v_guideline1"
+        android:id="@+id/activity_ordercollection_v_guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.03" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_book_v_guideline2"
+        android:id="@+id/activity_ordercollection_v_guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.97" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_book_v_guideline3"
+        android:id="@+id/activity_ordercollection_v_guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_book_v_guideline5"
+        android:id="@+id/activity_ordercollection_v_guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.065" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_book_v_guideline7"
+        android:id="@+id/activity_ordercollection_v_guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_begin="219dp" />
 
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_book_menuholder_constraintlayout"
+        android:id="@+id/activity_ordercollection_menuholder_constraintlayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/color_memaww_blue_dark"
-        app:layout_constraintBottom_toTopOf="@+id/activity_book_v_guideline5"
+        app:layout_constraintBottom_toTopOf="@+id/activity_ordercollection_v_guideline5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_book_menuholder_v_guideline6"
+            android:id="@+id/activity_ordercollection_menuholder_v_guideline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.15" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/activity_book_menuholder_v_guideline7"
+            android:id="@+id/activity_ordercollection_menuholder_v_guideline7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.85" />
 
         <ImageView
-            android:id="@+id/activity_book_menuholder_back_imageview"
+            android:id="@+id/activity_ordercollection_menuholder_back_imageview"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/back_arrow"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_menuholder_v_guideline6"
+            app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_menuholder_v_guideline6"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/activity_book_menuholder_title_textview"
+            android:id="@+id/activity_ordercollection_menuholder_title_textview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="Order Collection"
@@ -88,8 +88,8 @@
             android:textSize="18sp"
             android:textColor="@color/white"
             android:gravity="center"
-            app:layout_constraintStart_toEndOf="@+id/activity_book_menuholder_v_guideline6"
-            app:layout_constraintEnd_toStartOf="@+id/activity_book_menuholder_v_guideline7"
+            app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_menuholder_v_guideline6"
+            app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_menuholder_v_guideline7"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
@@ -97,14 +97,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
-        android:id="@+id/activity_book_formitemsholder_scrollview"
+        android:id="@+id/activity_ordercollection_formitemsholder_scrollview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="none"
-        app:layout_constraintTop_toBottomOf="@+id/activity_book_menuholder_constraintlayout"
-        app:layout_constraintBottom_toTopOf="@+id/activity_book_proceedholder_constraintlayout"
-        app:layout_constraintStart_toEndOf="@+id/activity_book_v_guideline1"
-        app:layout_constraintEnd_toStartOf="@+id/activity_book_v_guideline2">
+        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_menuholder_constraintlayout"
+        app:layout_constraintBottom_toTopOf="@+id/activity_ordercollection_proceedholder_constraintlayout"
+        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_v_guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_v_guideline2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -113,21 +113,21 @@
 
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/activity_book_formitemsholderscrollview_v_guideline3"
+                android:id="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.01" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/activity_book_formitemsholderscrollview_v_guideline4"
+                android:id="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.99" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/activity_book_formitemsholderscrollview_pickup_constraintlayout"
+                android:id="@+id/activity_ordercollection_formitemsholderscrollview_pickup_constraintlayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -135,15 +135,15 @@
                 android:elevation="10dp"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/activity_book_formitemsholderscrollview_v_guideline4"
-                app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_v_guideline3">
+                app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline4"
+                app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline3">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/activity_book_formitemsholderscrollview_pickupiconholder_constraintlayout"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_pickupiconholder_constraintlayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -164,7 +164,7 @@
 
 
                     <TextView
-                        android:id="@+id/activity_book_formitemsholderscrollview_pickupcollectionlabel_textview"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_pickupcollectionlabel_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
@@ -175,12 +175,12 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_pickupiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_pickupiconholder_constraintlayout"
                         app:layout_constraintTop_toTopOf="parent" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_dateicon_imageview"
+                        android:id="@+id/activity_ordercollection_dateicon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/location"
@@ -188,52 +188,52 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_pickupiconholder_constraintlayout"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_pickupcollectionlabel_textview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_pickupiconholder_constraintlayout"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_pickupcollectionlabel_textview" />
 
                     <TextView
-                        android:id="@+id/activity_book_date_textview"
+                        android:id="@+id/activity_ordercollection_date_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="Adenta, Accra"
+                        android:text="Not Set"
                         android:textColor="@color/color_gray"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_dateicon_imageview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_pickupcollectionlabel_textview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_dateicon_imageview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_pickupcollectionlabel_textview" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_timeicon_imageview"
+                        android:id="@+id/activity_ordercollection_timeicon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
                         android:src="@drawable/time_clock"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_date_textview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_pickupcollectionlabel_textview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_date_textview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_pickupcollectionlabel_textview" />
 
 
                     <TextView
-                        android:id="@+id/activity_book_time_textview"
+                        android:id="@+id/activity_ordercollection_time_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="Mon, 8 Apr"
+                        android:text="Not Set"
                         android:textColor="@color/color_gray"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_timeicon_imageview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_pickupcollectionlabel_textview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_timeicon_imageview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_pickupcollectionlabel_textview" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_pickuppersonicon_imageview"
+                        android:id="@+id/activity_ordercollection_pickuppersonicon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginTop="10dp"
@@ -241,27 +241,27 @@
                         android:layout_marginBottom="10dp"
                         android:src="@drawable/person_pin"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_pickupiconholder_constraintlayout"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_dateicon_imageview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_pickupiconholder_constraintlayout"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_dateicon_imageview" />
 
 
                     <TextView
-                        android:id="@+id/activity_book_collectperson_textview"
+                        android:id="@+id/activity_ordercollection_collectperson_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="0244778999"
+                        android:text="Not set"
                         android:textColor="@color/color_gray"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_pickuppersonicon_imageview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_dateicon_imageview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_pickuppersonicon_imageview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_dateicon_imageview" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_editicon_imageview"
+                        android:id="@+id/activity_ordercollection_editicon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="15dp"
@@ -270,8 +270,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.95"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_collectperson_textview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_time_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_collectperson_textview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_time_textview"
                         app:layout_constraintVertical_bias="0.59000003" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -280,7 +280,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/activity_book_formitemsholderscrollview_delivery_constraintlayout"
+                android:id="@+id/activity_ordercollection_formitemsholderscrollview_delivery_constraintlayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -288,16 +288,16 @@
                 android:visibility="gone"
                 android:elevation="10dp"
                 app:cardCornerRadius="15dp"
-                app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_pickup_constraintlayout"
-                app:layout_constraintEnd_toStartOf="@+id/activity_book_formitemsholderscrollview_v_guideline4"
-                app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_v_guideline3">
+                app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_pickup_constraintlayout"
+                app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline4"
+                app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline3">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/activity_book_formitemsholderscrollview_deliveryiconholder_constraintlayout"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_deliveryiconholder_constraintlayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -318,7 +318,7 @@
 
 
                     <TextView
-                        android:id="@+id/activity_book_formitemsholderscrollview_deliverycollectionlabel_textview"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_deliverycollectionlabel_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
@@ -329,12 +329,12 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_deliveryiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_deliveryiconholder_constraintlayout"
                         app:layout_constraintTop_toTopOf="parent" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_deliverydateicon_imageview"
+                        android:id="@+id/activity_ordercollection_deliverydateicon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/calender"
@@ -342,11 +342,11 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_deliveryiconholder_constraintlayout"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_deliverycollectionlabel_textview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_deliveryiconholder_constraintlayout"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_deliverycollectionlabel_textview" />
 
                     <TextView
-                        android:id="@+id/activity_book_deliverydate_textview"
+                        android:id="@+id/activity_ordercollection_deliverydate_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -356,23 +356,23 @@
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_deliverydateicon_imageview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_deliverycollectionlabel_textview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_deliverydateicon_imageview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_deliverycollectionlabel_textview" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_deliverytimeicon_imageview"
+                        android:id="@+id/activity_ordercollection_deliverytimeicon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
                         android:src="@drawable/time_clock"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_deliverydate_textview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_deliverycollectionlabel_textview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_deliverydate_textview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_deliverycollectionlabel_textview" />
 
 
                     <TextView
-                        android:id="@+id/activity_book_deliverytime_textview"
+                        android:id="@+id/activity_ordercollection_deliverytime_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -382,12 +382,12 @@
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_deliverytimeicon_imageview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_deliverycollectionlabel_textview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_deliverytimeicon_imageview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_deliverycollectionlabel_textview" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_deliverypersonicon_imageview"
+                        android:id="@+id/activity_ordercollection_deliverypersonicon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginBottom="10dp"
@@ -395,12 +395,12 @@
                         android:layout_marginTop="10dp"
                         android:src="@drawable/person_pin"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_deliveryiconholder_constraintlayout"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_deliverytimeicon_imageview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_deliveryiconholder_constraintlayout"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_deliverytimeicon_imageview" />
 
 
                     <TextView
-                        android:id="@+id/activity_book_deliveryperson_textview"
+                        android:id="@+id/activity_ordercollection_deliveryperson_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -410,12 +410,12 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_deliverypersonicon_imageview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_deliverytimeicon_imageview" />
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_deliverypersonicon_imageview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_deliverytimeicon_imageview" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_deliveryediticon_imageview"
+                        android:id="@+id/activity_ordercollection_deliveryediticon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="15dp"
@@ -424,8 +424,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.95"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_deliveryperson_textview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_deliverytime_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_deliveryperson_textview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_deliverytime_textview"
                         app:layout_constraintVertical_bias="0.59000003" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -433,24 +433,23 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/activity_book_formitemsholderscrollview_justwash_constraintlayout"
+                android:id="@+id/activity_ordercollection_formitemsholderscrollview_justwash_constraintlayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:elevation="10dp"
                 app:cardCornerRadius="15dp"
-                app:layout_constraintBottom_toTopOf="@+id/activity_book_formitemsholderscrollview_washandiron_constraintlayout"
-                app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_delivery_constraintlayout"
-                app:layout_constraintEnd_toStartOf="@+id/activity_book_formitemsholderscrollview_v_guideline4"
-                app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_v_guideline3">
+                app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_delivery_constraintlayout"
+                app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline4"
+                app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline3">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/activity_book_formitemsholderscrollview_justwashiconholder_constraintlayout"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_justwashiconholder_constraintlayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -471,7 +470,7 @@
 
 
                     <TextView
-                        android:id="@+id/activity_book_formitemsholderscrollview_justwashcollectionlabel_textview"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_justwashcollectionlabel_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
@@ -482,11 +481,11 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_justwashiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashiconholder_constraintlayout"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/activity_book_justwashdate_textview"
+                        android:id="@+id/activity_ordercollection_justwashdate_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Shirts | Trousers | Napkins | Anything small"
@@ -494,37 +493,37 @@
                         android:textSize="12sp"
                         android:layout_marginStart="20dp"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_justwashiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashiconholder_constraintlayout"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_justwashcollectionlabel_textview" />
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashcollectionlabel_textview" />
 
 
                     <TextView
-                        android:id="@+id/activity_book_justwashquantity_textview"
+                        android:id="@+id/activity_ordercollection_justwashquantity_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="10 items"
+                        android:text="0 items"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_justwashiconholder_constraintlayout"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_justwashdate_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashiconholder_constraintlayout"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_justwashdate_textview"
                         app:layout_constraintVertical_bias="0.0" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_justwashediticon_imageview"
+                        android:id="@+id/activity_ordercollection_justwashediticon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/edit_pencil"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.95"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_justwashquantity_textview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_justwashquantity_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_justwashquantity_textview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_justwashquantity_textview"
                         app:layout_constraintVertical_bias="0.59000003" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -533,7 +532,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/activity_book_formitemsholderscrollview_washandiron_constraintlayout"
+                android:id="@+id/activity_ordercollection_formitemsholderscrollview_washandiron_constraintlayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -541,17 +540,17 @@
                 android:elevation="10dp"
                 android:visibility="gone"
                 app:cardCornerRadius="15dp"
-                app:layout_constraintBottom_toTopOf="@+id/activity_book_formitemsholderscrollview_justwashnonwearables_constraintlayout"
-                app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_justwash_constraintlayout"
-                app:layout_constraintEnd_toStartOf="@+id/activity_book_formitemsholderscrollview_v_guideline4"
-                app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_v_guideline3">
+                app:layout_constraintBottom_toTopOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashnonwearables_constraintlayout"
+                app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_justwash_constraintlayout"
+                app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline4"
+                app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline3">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/activity_book_formitemsholderscrollview_washandironiconholder_constraintlayout"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_washandironiconholder_constraintlayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -572,7 +571,7 @@
 
 
                     <TextView
-                        android:id="@+id/activity_book_formitemsholderscrollview_washandironcollectionlabel_textview"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_washandironcollectionlabel_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
@@ -583,11 +582,11 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_washandironiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_washandironiconholder_constraintlayout"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/activity_book_washandirondate_textview"
+                        android:id="@+id/activity_ordercollection_washandirondate_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Wash | Dry | Deliver In Plastic Bag"
@@ -595,13 +594,13 @@
                         android:textSize="12sp"
                         android:layout_marginStart="20dp"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_washandironiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_washandironiconholder_constraintlayout"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_washandironcollectionlabel_textview" />
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_washandironcollectionlabel_textview" />
 
 
                     <TextView
-                        android:id="@+id/activity_book_washandironquantity_textview"
+                        android:id="@+id/activity_ordercollection_washandironquantity_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -611,21 +610,21 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_washandironiconholder_constraintlayout"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_washandirondate_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_washandironiconholder_constraintlayout"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_washandirondate_textview"
                         app:layout_constraintVertical_bias="0.0" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_washandironediticon_imageview"
+                        android:id="@+id/activity_ordercollection_washandironediticon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/edit_pencil"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.95"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_washandironquantity_textview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_washandironquantity_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_washandironquantity_textview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_washandironquantity_textview"
                         app:layout_constraintVertical_bias="0.59000003" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -634,24 +633,23 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/activity_book_formitemsholderscrollview_justwashnonwearables_constraintlayout"
+                android:id="@+id/activity_ordercollection_formitemsholderscrollview_justwashnonwearables_constraintlayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:elevation="10dp"
                 app:cardCornerRadius="15dp"
-                app:layout_constraintBottom_toTopOf="@+id/activity_book_formitemsholderscrollview_washandironnonwearables_constraintlayout"
-                app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_washandiron_constraintlayout"
-                app:layout_constraintEnd_toStartOf="@+id/activity_book_formitemsholderscrollview_v_guideline4"
-                app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_v_guideline3">
+                app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_washandiron_constraintlayout"
+                app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline4"
+                app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline3">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/activity_book_formitemsholderscrollview_justwashnonwearablesiconholder_constraintlayout"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_justwashnonwearablesiconholder_constraintlayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -672,7 +670,7 @@
 
 
                     <TextView
-                        android:id="@+id/activity_book_formitemsholderscrollview_justwashnonwearablescollectionlabel_textview"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_justwashnonwearablescollectionlabel_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
@@ -683,11 +681,11 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_justwashnonwearablesiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashnonwearablesiconholder_constraintlayout"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/activity_book_justwashnonwearablesdate_textview"
+                        android:id="@+id/activity_ordercollection_justwashnonwearablesdate_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Duvets | Bedsheets | Blankets | Anything Big"
@@ -695,37 +693,37 @@
                         android:textSize="12sp"
                         android:layout_marginStart="20dp"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_justwashnonwearablesiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashnonwearablesiconholder_constraintlayout"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_justwashnonwearablescollectionlabel_textview" />
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashnonwearablescollectionlabel_textview" />
 
 
                     <TextView
-                        android:id="@+id/activity_book_justwashnonwearablesquantity_textview"
+                        android:id="@+id/activity_ordercollection_justwashnonwearablesquantity_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="10 items"
+                        android:text="0 items"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_justwashnonwearablesiconholder_constraintlayout"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_justwashnonwearablesdate_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashnonwearablesiconholder_constraintlayout"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_justwashnonwearablesdate_textview"
                         app:layout_constraintVertical_bias="0.0" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_justwashnonwearablesediticon_imageview"
+                        android:id="@+id/activity_ordercollection_justwashnonwearablesediticon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/edit_pencil"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.95"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_justwashnonwearablesquantity_textview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_justwashnonwearablesquantity_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_justwashnonwearablesquantity_textview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_justwashnonwearablesquantity_textview"
                         app:layout_constraintVertical_bias="0.59000003" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -734,26 +732,25 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/activity_book_formitemsholderscrollview_washandironnonwearables_constraintlayout"
+                android:id="@+id/activity_ordercollection_formitemsholderscrollview_discount_constraintlayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:elevation="10dp"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_washandiron_constraintlayout"
-                app:layout_constraintEnd_toStartOf="@+id/activity_book_formitemsholderscrollview_v_guideline4"
-                app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_v_guideline3">
+                app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_specialnote_constraintlayout"
+                app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline4"
+                app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline3">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/activity_book_formitemsholderscrollview_washandironnonwearablesiconholder_constraintlayout"
-                        tEnd_toEndOf="parent"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_discounticonholder_constraintlayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -774,60 +771,161 @@
 
 
                     <TextView
-                        android:id="@+id/activity_book_formitemsholderscrollview_washandironnonwearablescollectionlabel_textview"
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_discountcollectionlabel_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
-                        android:text="Bulky Items - Wash &amp; Iron"
+                        android:text="Add Discount Code?"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_washandironnonwearablesiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_discounticonholder_constraintlayout"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/activity_book_washandironnonwearablesdate_textview"
+                        android:id="@+id/activity_ordercollection_discountdate_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wash | Dry | Deliver In Plastic Bag"
+                        android:text="Use a discount code to save on this order"
                         android:textColor="@color/color_gray"
                         android:textSize="12sp"
                         android:layout_marginStart="20dp"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_washandironnonwearablesiconholder_constraintlayout"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_discounticonholder_constraintlayout"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_formitemsholderscrollview_washandironnonwearablescollectionlabel_textview" />
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_discountcollectionlabel_textview" />
 
 
                     <TextView
-                        android:id="@+id/activity_book_washandironnonwearablesquantity_textview"
+                        android:id="@+id/activity_ordercollection_discountquantity_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="10 items"
+                        android:text="No discount applied"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_formitemsholderscrollview_washandironnonwearablesiconholder_constraintlayout"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_washandironnonwearablesdate_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_discounticonholder_constraintlayout"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_discountdate_textview"
                         app:layout_constraintVertical_bias="0.0" />
 
 
                     <ImageView
-                        android:id="@+id/activity_book_washandironnonwearablesediticon_imageview"
+                        android:id="@+id/activity_ordercollection_discountediticon_imageview"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/edit_pencil"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.95"
-                        app:layout_constraintStart_toEndOf="@+id/activity_book_washandironnonwearablesquantity_textview"
-                        app:layout_constraintTop_toBottomOf="@+id/activity_book_washandironnonwearablesquantity_textview"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_discountquantity_textview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_discountquantity_textview"
+                        app:layout_constraintVertical_bias="0.59000003" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/activity_ordercollection_formitemsholderscrollview_specialnote_constraintlayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_justwashnonwearables_constraintlayout"
+                app:layout_constraintEnd_toStartOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline4"
+                app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_v_guideline3">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_specialnotesiconholder_constraintlayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:backgroundTint="@color/color_blue_light"
+                        app:cardCornerRadius="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.13">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="15dp"
+                            android:src="@drawable/justwash" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <TextView
+                        android:id="@+id/activity_ordercollection_formitemsholderscrollview_specialnotescollectionlabel_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="20dp"
+                        android:text="Special Notes"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_specialnotesiconholder_constraintlayout"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/activity_ordercollection_specialnotesdate_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Let us know if you have special instructions"
+                        android:textColor="@color/color_gray"
+                        android:textSize="12sp"
+                        android:layout_marginStart="20dp"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_specialnotesiconholder_constraintlayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_formitemsholderscrollview_specialnotescollectionlabel_textview" />
+
+
+                    <TextView
+                        android:id="@+id/activity_ordercollection_specialnotesquantity_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="No instructions given"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_formitemsholderscrollview_specialnotesiconholder_constraintlayout"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_specialnotesdate_textview"
+                        app:layout_constraintVertical_bias="0.0" />
+
+
+                    <ImageView
+                        android:id="@+id/activity_ordercollection_specialnotesediticon_imageview"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/edit_pencil"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.95"
+                        app:layout_constraintStart_toEndOf="@+id/activity_ordercollection_specialnotesquantity_textview"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_specialnotesquantity_textview"
                         app:layout_constraintVertical_bias="0.59000003" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -841,7 +939,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_book_proceedholder_constraintlayout"
+        android:id="@+id/activity_ordercollection_proceedholder_constraintlayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:padding="5dp"
@@ -852,34 +950,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/activity_book_proceedholder_button"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/button_rounded_green_pressed_white"
-                android:text="Proceed | $25"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/activity_ordercollection_proceedholder_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/button_rounded_green_pressed_white"
+            android:text="Get Price"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     <FrameLayout
-        android:id="@+id/activity_book_formholder_fragment"
+        android:id="@+id/activity_ordercollection_formholder_fragment"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:elevation="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/activity_book_v_guideline7"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/activity_ordercollection_v_guideline7"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/activity_booking_loader"
@@ -895,4 +993,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

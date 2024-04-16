@@ -9,19 +9,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.memaww.memaww.R;
 
 public class LightWeightItemsFormFragment extends Fragment {
 
-    private EditText mJustWashEditText, mWashAndIronEditText;
+    private EditText mJustWashEditText, mWashAndIronEditText, mJustIronEditText;
     private AppCompatButton mDoneButton;
-    private String lightWeightJustWashQuantity = "0", lightWeightWashAndIronQuantity = "0";
+    private String lightWeightJustWashQuantity = "0", lightWeightWashAndIronQuantity = "0", lightWeightJustIronQuantity = "0";
 
     public interface onLightWeightItemsFormDoneButtonClickedEventListener {
-        public void lightWeightItemsFormDoneButtonClicked(String justWashItemsQuantity, String washAndIronItemsQuantity);
+        public void lightWeightItemsFormDoneButtonClicked(String justWashItemsQuantity, String washAndIronItemsQuantity, String justIronItemsQuantity);
     }
 
     onLightWeightItemsFormDoneButtonClickedEventListener lightWeightItemsFormDoneButtonClickedListener;
@@ -69,7 +68,8 @@ public class LightWeightItemsFormFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_light_weight_items_form, container, false);
         mJustWashEditText = view.findViewById(R.id.fragment_collectionform_pickuplocation_edittext);
-        mWashAndIronEditText = view.findViewById(R.id.fragment_collectionform_pickupdatetime_edittext);
+        mWashAndIronEditText = view.findViewById(R.id.fragment_collectionform_pickupdatetime_timepicker);
+        mJustIronEditText = view.findViewById(R.id.fragment_collectionform_justiron_edittext);
         mDoneButton = view.findViewById(R.id.fragment_collectionform_done_button);
 
         mDoneButton.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +81,10 @@ public class LightWeightItemsFormFragment extends Fragment {
                 if(!mWashAndIronEditText.getText().toString().trim().equalsIgnoreCase("")){
                     lightWeightWashAndIronQuantity = mWashAndIronEditText.getText().toString().trim();
                 }
-                lightWeightItemsFormDoneButtonClickedListener.lightWeightItemsFormDoneButtonClicked(lightWeightJustWashQuantity, lightWeightWashAndIronQuantity);
+                if(!mJustIronEditText.getText().toString().trim().equalsIgnoreCase("")){
+                    lightWeightJustIronQuantity = mJustIronEditText.getText().toString().trim();
+                }
+                lightWeightItemsFormDoneButtonClickedListener.lightWeightItemsFormDoneButtonClicked(lightWeightJustWashQuantity, lightWeightWashAndIronQuantity, lightWeightJustIronQuantity);
                 getActivity().onBackPressed();
             }
         });

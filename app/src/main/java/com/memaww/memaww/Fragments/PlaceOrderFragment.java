@@ -17,17 +17,14 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
-import com.memaww.memaww.Activities.BookingActivity;
-import com.memaww.memaww.Activities.LoginActivity;
-import com.memaww.memaww.Activities.MainActivity;
+import com.memaww.memaww.Activities.OrderCollectionActivity;
 import com.memaww.memaww.R;
 import com.memaww.memaww.Util.Config;
-import com.memaww.memaww.Util.MyLifecycleHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class StartOrderFragment extends Fragment implements View.OnClickListener {
+public class PlaceOrderFragment extends Fragment implements View.OnClickListener {
 
     private CardView mGoodOrderCardView, mFastOrderCardView;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
@@ -40,12 +37,12 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
     private String mParam1;
     private String mParam2;
 
-    public StartOrderFragment() {
+    public PlaceOrderFragment() {
         // Required empty public constructor
     }
 
-    public static StartOrderFragment newInstance(String param1, String param2) {
-        StartOrderFragment fragment = new StartOrderFragment();
+    public static PlaceOrderFragment newInstance(String param1, String param2) {
+        PlaceOrderFragment fragment = new PlaceOrderFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,11 +62,11 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_start_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_place_order, container, false);
 
-        mGoodOrderCardView = view.findViewById(R.id.fragment_start_goodorderholder_constraintlayout);
-        mFastOrderCardView = view.findViewById(R.id.fragment_start_fastorderholder_constraintlayout);
-        mLoadingContentLoadingProgressBar = view.findViewById(R.id.fragment_start_loading_contentloadingprogressbar);
+        mGoodOrderCardView = view.findViewById(R.id.fragment_placeorder_goodorderholder_constraintlayout);
+        mFastOrderCardView = view.findViewById(R.id.fragment_placeorder_fastorderholder_constraintlayout);
+        mLoadingContentLoadingProgressBar = view.findViewById(R.id.fragment_placeorder_loading_contentloadingprogressbar);
 
 
         mGoodOrderCardView.setOnClickListener(this);
@@ -81,7 +78,7 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if(view.getId() == mGoodOrderCardView.getId()){
-            Config.openActivity(getActivity(), BookingActivity.class, 0, 0, 0, "", "");
+            Config.openActivity(getActivity(), OrderCollectionActivity.class, 0, 0, 0, "", "");
         } else if(view.getId() == mFastOrderCardView.getId()){
             placeOrder();
         }
@@ -103,7 +100,7 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
         serverResponse = "";
 
 
-        AndroidNetworking.post(Config.LINK_COLLECTION_REQUEST_ORDER)
+        AndroidNetworking.post(Config.LINK_COLLECTION_CALLBACK_REQUEST_ORDER)
                 .addHeaders("Accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + Config.getSharedPreferenceString(getActivity(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN))
                 .addBodyParameter("app_type", "ANDROID")
@@ -124,7 +121,7 @@ public class StartOrderFragment extends Fragment implements View.OnClickListener
                                     mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                     mGoodOrderCardView.setVisibility(View.VISIBLE);
                                     mFastOrderCardView.setVisibility(View.VISIBLE);
-                                    Config.showDialogType1(getActivity(), "", "We will call you back shortly to take your order information. Thank you.", "show-positive-image", null, false,  "Ok","");
+                                    Config.showDialogType1(getActivity(), "", myStatusMessage, "show-positive-image", null, false,  "Ok","");
                                     return;
 
                                 } else {

@@ -9,6 +9,7 @@ import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -35,7 +36,10 @@ import org.json.JSONObject;
 public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
     //private RecyclerView mOrdersListRecyclerView;
+    private SwipeRefreshLayout mMainParentSwipeRefreshLayout;
     private RecyclerView mRecyclerview;
+    private ImageView mBackgroundImageImageView;
+    private TextView mBackgroundTextTextView;
     private LinearLayoutManager mLinearlayoutmanager;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
 
@@ -72,9 +76,11 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_orders, container, false);
 
-
+        mMainParentSwipeRefreshLayout = view.findViewById(R.id.fragment_myorders_mainparent_swiperefreshlayout);
         mRecyclerview = view.findViewById(R.id.fragment_myorders_orderslist_recyclerview);
         mLoadingContentLoadingProgressBar = view.findViewById(R.id.fragment_myorders_loader);
+        mBackgroundImageImageView = view.findViewById(R.id.fragment_myorders_noordersimage_imageview);
+        mBackgroundTextTextView = view.findViewById(R.id.fragment_myorders_noorderstext_textview);
 
 
         //ONE-TIME ACTIONS
@@ -86,6 +92,13 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         mRecyclerview.setLayoutManager(mLinearlayoutmanager);
         mRecyclerview.setAdapter(new RecyclerViewAdapter());
         getMyOrders();
+
+        mMainParentSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMyOrders();
+            }
+        });
 
         return view;
     }
@@ -219,6 +232,8 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void run() {
                     mRecyclerview.setVisibility(View.INVISIBLE);
+                    mBackgroundImageImageView.setVisibility(View.INVISIBLE);
+                    mBackgroundTextTextView.setVisibility(View.INVISIBLE);
                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                 }
             });
@@ -272,7 +287,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                         thisOrder.setOrderBulkyitemsJustWashQuantity(k.getInt("order_bulkyitems_just_wash_quantity"));
                                         thisOrder.setOrderBulkyitemsWashAndIronQuantity(k.getInt("order_bulkyitems_wash_and_iron_quantity"));
                                         thisOrder.setOrderAllItemsQuantity(k.getInt("all_items"));
-                                        thisOrder.setOrderBeingWorkedOnStatus(k.getInt("order_being_worked_on_status"));
+                                        thisOrder.setOrderBeingWorkedOnStatus(k.getInt("order_status"));
                                         thisOrder.setOrderPaymentStatus(k.getInt("order_payment_status"));
                                         thisOrder.setOrderPaymentDetails(k.getString("order_payment_details"));
                                         thisOrder.setOrderFlagged(k.getInt("order_flagged"));
@@ -289,7 +304,10 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                             if (!getActivity().isFinishing()) {
                                                 mRecyclerview.getAdapter().notifyItemInserted(MyOrdersListDataGenerator.getAllData().size());
                                                 mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                                mBackgroundImageImageView.setVisibility(View.INVISIBLE);
+                                                mBackgroundTextTextView.setVisibility(View.INVISIBLE);
                                                 mRecyclerview.setVisibility(View.VISIBLE);
+                                                mMainParentSwipeRefreshLayout.setRefreshing(false);
                                             }
                                         }
                                     });
@@ -298,9 +316,13 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            mBackgroundImageImageView.setVisibility(View.VISIBLE);
+                                            mBackgroundTextTextView.setVisibility(View.VISIBLE);
+                                            mBackgroundTextTextView.setText("No Orders found");
                                             mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                             mRecyclerview.setVisibility(View.VISIBLE);
-                                            Config.showToastType1(getActivity(), "No Orders found");
+                                            mMainParentSwipeRefreshLayout.setRefreshing(false);
+                                            //Config.showToastType1(getActivity(), "No Orders found");
                                         }
                                     });
                                 }
@@ -314,6 +336,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                         Config.showToastType1(getActivity(), getString(R.string.an_unexpected_error_occured));
                                         mRecyclerview.setVisibility(View.INVISIBLE);
                                         mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
+                                        mMainParentSwipeRefreshLayout.setRefreshing(false);
                                     }
                                 });
                             }
@@ -330,6 +353,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                     Config.showToastType1(getActivity(), getResources().getString(R.string.check_your_internet_connection_and_try_again));
                                     mRecyclerview.setVisibility(View.INVISIBLE);
                                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
+                                    mMainParentSwipeRefreshLayout.setRefreshing(false);
                                 }
                             });
                         }

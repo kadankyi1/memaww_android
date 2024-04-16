@@ -137,7 +137,7 @@
         <TextView
             android:id="@+id/activity_login_country_textview"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="60dp"
             android:text="Choose Country"
             android:textAlignment="center"
             android:background="@drawable/login_country_textview_background"
@@ -147,10 +147,7 @@
             app:layout_constraintBottom_toTopOf="@+id/activity_login_guideline_h3"
             app:layout_constraintLeft_toRightOf="@+id/activity_login_guideline_v1"
             app:layout_constraintRight_toLeftOf="@+id/activity_login_guideline_v2"
-            app:layout_constraintTop_toBottomOf="@+id/activity_login_guideline_h2" />
-
-
-
+            app:layout_constraintTop_toBottomOf="@+id/activity_login_cover_image" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/activity_login_phone_edit_text_layout_holder"
@@ -160,7 +157,7 @@
             app:layout_constraintBottom_toTopOf="@+id/activity_login_guideline_h4"
             app:layout_constraintLeft_toRightOf="@+id/activity_login_guideline_v1"
             app:layout_constraintRight_toLeftOf="@+id/activity_login_guideline_v2"
-            app:layout_constraintTop_toBottomOf="@+id/activity_login_guideline_h3">
+            app:layout_constraintTop_toBottomOf="@+id/activity_login_country_textview">
 
                 <EditText
                     android:id="@+id/activity_login_phone_edit_text"
@@ -185,7 +182,7 @@
             app:layout_constraintBottom_toTopOf="@+id/activity_login_guideline_h5"
             app:layout_constraintStart_toEndOf="@+id/activity_login_guideline_v1"
             app:layout_constraintEnd_toStartOf="@+id/activity_login_lastname_layout_holder"
-            app:layout_constraintTop_toBottomOf="@+id/activity_login_guideline_h4">
+            app:layout_constraintTop_toBottomOf="@+id/activity_login_phone_edit_text_layout_holder">
 
                 <EditText
                     android:id="@+id/activity_login_firstname"
@@ -197,8 +194,6 @@
                     android:inputType="textPersonName"
                     android:labelFor="@id/activity_login_firstname"
                     android:textColor="@drawable/login_activity_input_text_color" />
-
-
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -211,7 +206,7 @@
             app:layout_constraintBottom_toTopOf="@+id/activity_login_guideline_h5"
             app:layout_constraintStart_toEndOf="@+id/activity_login_firstname_layout_holder"
             app:layout_constraintEnd_toStartOf="@+id/activity_login_guideline_v2"
-            app:layout_constraintTop_toBottomOf="@+id/activity_login_guideline_h4">
+            app:layout_constraintTop_toBottomOf="@+id/activity_login_phone_edit_text_layout_holder">
 
                 <EditText
                     android:id="@+id/activity_login_lastname"
@@ -227,6 +222,31 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_login_invitecode_edit_text_layout_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/loginActivityHintStyle"
+            app:layout_constraintLeft_toRightOf="@+id/activity_login_guideline_v1"
+            app:layout_constraintRight_toLeftOf="@+id/activity_login_guideline_v2"
+            app:layout_constraintTop_toBottomOf="@+id/activity_login_lastname_layout_holder">
+
+                <EditText
+                    android:id="@+id/activity_login_invitecode_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10"
+                    android:ems="10"
+                    android:hint="Invite Code (Optional)"
+                    android:digits="0123456789"
+                    android:inputType="phone"
+                    android:labelFor="@id/activity_login_invitecode_edit_text"
+                    android:textColor="@drawable/login_activity_input_text_color" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/activity_login_login_button"
             android:layout_width="0dp"
@@ -237,7 +257,7 @@
             app:layout_constraintBottom_toTopOf="@+id/activity_login_guideline_h11"
             app:layout_constraintEnd_toStartOf="@+id/activity_login_guideline_v2"
             app:layout_constraintStart_toStartOf="@+id/activity_login_guideline_v1"
-            app:layout_constraintTop_toTopOf="@+id/activity_login_guideline_h5" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_login_invitecode_edit_text_layout_holder" />
 
 
         <androidx.core.widget.ContentLoadingProgressBar

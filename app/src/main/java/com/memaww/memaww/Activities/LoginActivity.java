@@ -31,9 +31,7 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mCountryTextView;
-    private EditText mPhoneNumberEditText;
-    private EditText mFirstNameEditText;
-    private EditText mLastNameEditText;
+    private EditText mPhoneNumberEditText, mFirstNameEditText, mLastNameEditText, mInviteCodeEditText;
     private AppCompatButton mLoginAppCompatButton;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
 
@@ -50,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mPhoneNumberEditText = findViewById(R.id.activity_login_phone_edit_text);
         mFirstNameEditText = findViewById(R.id.activity_login_firstname);
         mLastNameEditText = findViewById(R.id.activity_login_lastname);
+        mInviteCodeEditText = findViewById(R.id.activity_login_invitecode_edit_text);
         mLoginAppCompatButton = findViewById(R.id.activity_login_login_button);
         mLoadingContentLoadingProgressBar = findViewById(R.id.activity_login_loader);
 
@@ -90,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             && !country.trim().equalsIgnoreCase("")
                             && defaultCountry > 0
             ){
-                loginAndGetUserCredentials(country, mPhoneNumberEditText.getText().toString(), mFirstNameEditText.getText().toString(), mLastNameEditText.getText().toString());
+                loginAndGetUserCredentials(country, mPhoneNumberEditText.getText().toString().trim(), mFirstNameEditText.getText().toString().trim(), mLastNameEditText.getText().toString().trim(), mInviteCodeEditText.getText().toString().trim());
                 //Toast.makeText(getApplicationContext(), "READY FOR LOGIN", Toast.LENGTH_LONG).show();
             }
         }
@@ -98,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public void loginAndGetUserCredentials(final String country, final String phone, final String first_name, final String last_name){
+    public void loginAndGetUserCredentials(final String country, final String phone, final String first_name, final String last_name, final String invite_code){
 
         if(!this.isFinishing() && getApplicationContext() != null) {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -127,6 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addBodyParameter("user_phone", phone)
                 .addBodyParameter("user_first_name", first_name)
                 .addBodyParameter("user_last_name", last_name)
+                .addBodyParameter("invite_code", invite_code)
                 .addBodyParameter("app_type", "ANDROID")
                 .addBodyParameter("app_version_code", String.valueOf(Config.getAppVersionCode(getApplicationContext())))
                 .setTag("login_activity_login")
@@ -152,6 +152,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FIRST_NAME, user_data_response.getString("user_first_name"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_LAST_NAME, user_data_response.getString("user_last_name"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PHONE, user_data_response.getString("user_phone"));
+                                    Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_INVITE_CODE, user_data_response.getString("user_referral_code"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN, main_response.getString("access_token"));
 
                                     Config.openActivity(LoginActivity.this, MainActivity.class, 1, 2, 0, "", "");

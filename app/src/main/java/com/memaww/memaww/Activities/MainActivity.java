@@ -17,7 +17,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.memaww.memaww.Fragments.InviteFragment;
 import com.memaww.memaww.Fragments.MyOrdersFragment;
 import com.memaww.memaww.Fragments.ProfileFragment;
-import com.memaww.memaww.Fragments.StartOrderFragment;
+import com.memaww.memaww.Fragments.PlaceOrderFragment;
 import com.memaww.memaww.Fragments.SupportFragment;
 import com.memaww.memaww.R;
 import com.memaww.memaww.Util.Config;
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fList.add(MyOrdersFragment.newInstance("", ""));
         fList.add(InviteFragment.newInstance("", ""));
-        fList.add(StartOrderFragment.newInstance("", ""));
+        fList.add(PlaceOrderFragment.newInstance("", ""));
         fList.add(SupportFragment.newInstance("", ""));
         fList.add(ProfileFragment.newInstance("", ""));
         return fList;

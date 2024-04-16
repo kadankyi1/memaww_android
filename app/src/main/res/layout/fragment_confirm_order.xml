@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="15dp"
+    android:paddingBottom="15dp"
+    android:background="@drawable/top_rounded_corner_gray_background"
+    tools:context=".Fragments.ConfirmOrderFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.61" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.71" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.86" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_h7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_v1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_v2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_v3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.70" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_guideline_v4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.30" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_v_guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmorder_v_guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
+
+
+        <TextView
+            android:id="@+id/fragment_confirmorder_subtotallabel_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Subtotal"
+            android:textColor="@color/color_gray"
+            android:textSize="15sp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_confirmorder_subtotalvalue_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmorder_guideline_h1" />
+
+        <TextView
+            android:id="@+id/fragment_confirmorder_subtotalvalue_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="$13"
+            android:textColor="@color/color_gray"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/fragment_confirmorder_subtotallabel_textview"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmorder_guideline_h1" />
+
+
+        <TextView
+            android:id="@+id/fragment_confirmorder_discounttotallabel_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:text="Discount"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/color_gray"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_confirmorder_discounttotalvalue_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmorder_subtotallabel_textview" />
+
+        <TextView
+            android:id="@+id/fragment_confirmorder_discounttotalvalue_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="20dp"
+            android:text="$13"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/color_gray"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/fragment_confirmorder_discounttotallabel_textview"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmorder_subtotalvalue_textview" />
+
+
+        <TextView
+            android:id="@+id/fragment_confirmorder_finaltotallabel_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:text="Final"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/color_gray"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_confirmorder_finaltotalvalue_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmorder_discounttotalvalue_textview" />
+
+        <TextView
+            android:id="@+id/fragment_confirmorder_finaltotalvalue_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="20dp"
+            android:text="$13"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/color_gray"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/fragment_confirmorder_finaltotallabel_textview"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmorder_discounttotalvalue_textview" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fragment_confirmorder_payonline_button"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/button_rounded_green_pressed_white"
+            android:text="Pay Online"
+            android:textColor="@color/white"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_confirmorder_guideline_v2"
+            app:layout_constraintStart_toStartOf="@+id/fragment_confirmorder_guideline_v1"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmorder_finaltotallabel_textview"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fragment_confirmorder_payonpickup_button"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/button_rounded_dull_pressed_white"
+            android:text="Pay-On-Pickup"
+            android:textColor="@color/black"
+            android:layout_marginTop="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_confirmorder_guideline_v2"
+            app:layout_constraintStart_toStartOf="@+id/fragment_confirmorder_guideline_v1"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmorder_payonline_button"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

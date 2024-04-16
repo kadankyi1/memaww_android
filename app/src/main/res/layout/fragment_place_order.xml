@@ -8,42 +8,42 @@
     tools:context=".Fragments.InviteFragment">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fragment_start_h_guideline1"
+        android:id="@+id/fragment_placeorder_h_guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fragment_start_h_guideline2"
+        android:id="@+id/fragment_placeorder_h_guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fragment_start_h_guideline3"
+        android:id="@+id/fragment_placeorder_h_guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fragment_start_h_guideline6"
+        android:id="@+id/fragment_placeorder_h_guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fragment_start_h_guideline5"
+        android:id="@+id/fragment_placeorder_h_guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fragment_start_v_guideline4"
+        android:id="@+id/fragment_placeorder_v_guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -51,7 +51,7 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fragment_start_v_guideline5"
+        android:id="@+id/fragment_placeorder_v_guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -59,16 +59,16 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/fragment_start_goodorderholder_constraintlayout"
+        android:id="@+id/fragment_placeorder_goodorderholder_constraintlayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardCornerRadius="20dp"
         android:elevation="20dp"
         android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_start_h_guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_start_h_guideline1"
-        app:layout_constraintStart_toEndOf="@+id/fragment_start_v_guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_start_v_guideline5"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_h_guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_h_guideline1"
+        app:layout_constraintStart_toEndOf="@+id/fragment_placeorder_v_guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_placeorder_v_guideline5"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,18 +76,18 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/fragment_start_goodordericon_imageview"
+                android:id="@+id/fragment_placeorder_goodordericon_imageview"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/justwash"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_start_goodordertitle_textview"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_goodordertitle_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
-                android:id="@+id/fragment_start_goodordertitle_textview"
+                android:id="@+id/fragment_placeorder_goodordertitle_textview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -96,13 +96,13 @@
                 android:layout_marginEnd="15dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_start_goodorderinfodesc_textview"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_goodorderinfodesc_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_start_goodordericon_imageview" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_goodordericon_imageview" />
 
             <TextView
-                android:id="@+id/fragment_start_goodorderinfodesc_textview"
+                android:id="@+id/fragment_placeorder_goodorderinfodesc_textview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -113,14 +113,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_start_goodordertitle_textview" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_goodordertitle_textview" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
 
     <androidx.core.widget.ContentLoadingProgressBar
-        android:id="@+id/fragment_start_loading_contentloadingprogressbar"
+        android:id="@+id/fragment_placeorder_loading_contentloadingprogressbar"
         style="@style/ProgressBarBlue"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -133,27 +133,27 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/fragment_start_fastorderholder_constraintlayout"
+        android:id="@+id/fragment_placeorder_fastorderholder_constraintlayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardCornerRadius="20dp"
         android:elevation="20dp"
         android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_start_h_guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_start_h_guideline5"
-        app:layout_constraintStart_toEndOf="@+id/fragment_start_v_guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_start_v_guideline5">
+        app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_h_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_h_guideline5"
+        app:layout_constraintStart_toEndOf="@+id/fragment_placeorder_v_guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_placeorder_v_guideline5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/fragment_start_fastordericon_imageview"
+                android:id="@+id/fragment_placeorder_fastordericon_imageview"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/justwash"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_start_fastordertitle_textview"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_fastordertitle_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -161,7 +161,7 @@
 
 
             <TextView
-                android:id="@+id/fragment_start_fastordertitle_textview"
+                android:id="@+id/fragment_placeorder_fastordertitle_textview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -170,13 +170,13 @@
                 android:text="Fast Order"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_start_fastorderinfodesc_textview"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_fastorderinfodesc_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_start_fastordericon_imageview" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_fastordericon_imageview" />
 
             <TextView
-                android:id="@+id/fragment_start_fastorderinfodesc_textview"
+                android:id="@+id/fragment_placeorder_fastorderinfodesc_textview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -187,7 +187,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_start_fastordertitle_textview" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_fastordertitle_textview" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
