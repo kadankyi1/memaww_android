@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -23,6 +24,8 @@ import com.memaww.memaww.Util.Config;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import gh.com.payswitch.thetellerandroid.thetellerManager;
 
 public class PlaceOrderFragment extends Fragment implements View.OnClickListener {
 

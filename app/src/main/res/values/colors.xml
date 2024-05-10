@@ -20,6 +20,9 @@
     <color name="color_green_light">#8BC34A</color>
     <color name="color_green_light_v1">#3C8BC34A</color>
     <color name="color_green_dark">#457A07</color>
+    <color name="color_red_light_v1">#3CC34A4A</color>
+    <color name="color_yellow_light_v1">#3CFFF203</color>
+    <color name="color_orange_light_v1">#5BFF9800</color>
 
 
 </resources>

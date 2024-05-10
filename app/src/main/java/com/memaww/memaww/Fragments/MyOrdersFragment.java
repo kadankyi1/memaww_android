@@ -1,6 +1,5 @@
 package com.memaww.memaww.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +23,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.memaww.memaww.Activities.OrderCollectionActivity;
 import com.memaww.memaww.ListDataGenerators.MyOrdersListDataGenerator;
 import com.memaww.memaww.Models.OrderModel;
 import com.memaww.memaww.R;
@@ -96,6 +96,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         mMainParentSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                MyOrdersListDataGenerator.getAllData().clear();
                 getMyOrders();
             }
         });
@@ -111,23 +112,10 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
 
     private void allOnClickHandlers(View v, int position){
-        /*
-        if(v.getId() == R.id.article_parent
-                || v.getId() == R.id.fragment_today_heraldofglorytitle_textview
-                || v.getId() == R.id.fragment_today_heraldofglorybody_textview
-                || v.getId() == R.id.tag_holder
-                || v.getId() == R.id.fragment_today_heraldofgloryimage_roundedcornerimageview
-                || v.getId() == R.id.fragment_today_heraldofglorylabel_textview){
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_ARTICLE_ID, String.valueOf(ArticleListDataGenerator.getAllData().get(position).getArticle_id()));
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_IMG_URL, String.valueOf(ArticleListDataGenerator.getAllData().get(position).getArticle_image()));
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_TAG_TEXT, ArticleListDataGenerator.getAllData().get(position).getArticle_type());
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_UPLOAD_TIME, ArticleListDataGenerator.getAllData().get(position).getCreated_at());
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_ARTICLE_TITLE, ArticleListDataGenerator.getAllData().get(position).getArticle_title());
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_ARTICLE_BODY, ArticleListDataGenerator.getAllData().get(position).getArticle_body());
-            Intent intent = new Intent(getActivity().getApplicationContext(), ImageArticleActivity.class);
-            startActivity(intent);
+        if(v.getId() == R.id.list_item_order_image_roundedcornerimageview){
+            Config.showDialogType1(getActivity(), "1", "Price: " + MyOrdersListDataGenerator.getAllData().get(position).getOrderPriceCurrency() + " "  + MyOrdersListDataGenerator.getAllData().get(position).getOrderFinalPrice(), "", null, false, "", "");
         }
-         */
+
     }
 
 
@@ -154,7 +142,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
         public class OrderViewHolder extends RecyclerView.ViewHolder  {
             private ConstraintLayout mTagHolderConstraintlayout;
-            private ImageView mInfoTextView;
+            private ImageView mInfoImageView;
             private TextView mOrderIdTextview, mItemsCountTextview, mPriceTextview, mStatusTextView, mDateTextView, mLocationTextView;
 
             private View.OnClickListener innerClickListener = new View.OnClickListener() {
@@ -167,7 +155,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
             public OrderViewHolder(View v) {
                 super(v);
                 mTagHolderConstraintlayout = v.findViewById(R.id.tag_holder);
-                mInfoTextView = v.findViewById(R.id.list_item_order_image_roundedcornerimageview);
+                mInfoImageView = v.findViewById(R.id.list_item_order_image_roundedcornerimageview);
                 mOrderIdTextview = v.findViewById(R.id.list_item_order_title_textview);
                 mItemsCountTextview = v.findViewById(R.id.list_item_order_body_textview);
                 mPriceTextview = v.findViewById(R.id.list_item_order_orderamount_textview);
@@ -176,7 +164,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                 mLocationTextView = v.findViewById(R.id.list_item_order_loc_textview);
 
                 mTagHolderConstraintlayout.setOnClickListener(innerClickListener);
-                mInfoTextView.setOnClickListener(innerClickListener);
+                mInfoImageView.setOnClickListener(innerClickListener);
                 mOrderIdTextview.setOnClickListener(innerClickListener);
                 mItemsCountTextview.setOnClickListener(innerClickListener);
                 mPriceTextview.setOnClickListener(innerClickListener);
@@ -191,10 +179,27 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
             ((OrderViewHolder) holder).mDateTextView.setText(String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).getCreatedAtShortDate()));
             ((OrderViewHolder) holder).mOrderIdTextview.setText("#" + String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).getOrderId()));
-            ((OrderViewHolder) holder).mItemsCountTextview.setText(" x " + String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).getOrderAllItemsQuantity()));
-            ((OrderViewHolder) holder).mPriceTextview.setText("$ ??"); // + String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).get()));
+            ((OrderViewHolder) holder).mItemsCountTextview.setText(" x " + MyOrdersListDataGenerator.getAllData().get(position).getOrderAllItemsQuantity());
+            ((OrderViewHolder) holder).mPriceTextview.setText(MyOrdersListDataGenerator.getAllData().get(position).getOrderPriceCurrency() + MyOrdersListDataGenerator.getAllData().get(position).getOrderFinalPrice()); // + String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).get()));
 
-            ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_blue_light));
+            ((OrderViewHolder) holder).mLocationTextView.setText(MyOrdersListDataGenerator.getAllData().get(position).getOrderCollectionLocationRaw());
+            ((OrderViewHolder) holder).mStatusTextView.setText(MyOrdersListDataGenerator.getAllData().get(position).getOrderPaymentStatusMessage());
+
+            if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 0){
+                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_gray_light_v2));
+            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 2){
+                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_blue_light));
+            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 3){
+                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_orange_light_v1));
+            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 4){
+                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_yellow_light_v1));
+            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 5){
+                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_orange_light_v1));
+            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 6){
+                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_green_light_v1));
+            } else {
+                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_red_light_v1));
+            }
             /*
 
             if(ArticleListDataGenerator.getAllData().get(position).getArticle_body().length() > 200){
@@ -286,10 +291,13 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                         thisOrder.setOrderLightweightitemsWashAndIronQuantity(k.getInt("order_lightweightitems_wash_and_iron_quantity"));
                                         thisOrder.setOrderBulkyitemsJustWashQuantity(k.getInt("order_bulkyitems_just_wash_quantity"));
                                         thisOrder.setOrderBulkyitemsWashAndIronQuantity(k.getInt("order_bulkyitems_wash_and_iron_quantity"));
-                                        thisOrder.setOrderAllItemsQuantity(k.getInt("all_items"));
+                                        thisOrder.setOrderAllItemsQuantity(k.getString("all_items"));
                                         thisOrder.setOrderBeingWorkedOnStatus(k.getInt("order_status"));
+                                        thisOrder.setOrderPaymentStatusMessage(k.getString("order_status_message"));
                                         thisOrder.setOrderPaymentStatus(k.getInt("order_payment_status"));
                                         thisOrder.setOrderPaymentDetails(k.getString("order_payment_details"));
+                                        thisOrder.setOrderFinalPrice(k.getString("order_final_price_in_user_countrys_currency"));
+                                        thisOrder.setOrderPriceCurrency(k.getString("order_user_countrys_currency"));
                                         thisOrder.setOrderFlagged(k.getInt("order_flagged"));
                                         thisOrder.setOrderFlaggedReason(k.getString("order_flagged_reason"));
                                         thisOrder.setCreatedAt(k.getString("created_at"));

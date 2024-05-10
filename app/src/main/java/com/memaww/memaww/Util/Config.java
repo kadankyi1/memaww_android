@@ -40,13 +40,16 @@ public class Config {
 
     // LIVE OR TEST ENVIRONMENT
     public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "10.0.2.2/memaww/public"; // TEST
-    //public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "app.memaww.com"; // LIVE
+    //public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "memaww.com"; // LIVE
 
     // SERVER-SIDE API FOR LOGIN
     public static final String LINK_LOGIN = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/sign-in";
 
     // SERVER-SIDE API FOR PLACING COLLECTION ORDER
     public static final String LINK_COLLECTION_ORDER = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/request-collection";
+
+    // SERVER-SIDE API FOR PLACING COLLECTION ORDER
+    public static final String LINK_UPDATE_ORDER_PAYMENT_STATUS = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/update-order-payment";
 
     // SERVER-SIDE API FOR PLACING CALLBACK REQUEST FOR COLLECTION ORDER
     public static final String LINK_COLLECTION_CALLBACK_REQUEST_ORDER = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/request-collection-callback";

@@ -21,10 +21,13 @@ public class OrderModel {
     private int orderLightweightitemsWashAndIronQuantity;
     private int orderBulkyitemsJustWashQuantity;
     private int orderBulkyitemsWashAndIronQuantity;
-    private int orderAllItemsQuantity;
+    private String orderAllItemsQuantity;
     private int orderBeingWorkedOnStatus;
     private int orderPaymentStatus;
+    private String orderPaymentStatusMessage;
     private String orderPaymentDetails;
+    private String orderFinalPrice;
+    private String orderPriceCurrency;
     private int orderFlagged;
     private String orderFlaggedReason;
     private String createdAt;
@@ -192,14 +195,6 @@ public class OrderModel {
         this.orderBulkyitemsWashAndIronQuantity = orderBulkyitemsWashAndIronQuantity;
     }
 
-    public int getOrderAllItemsQuantity() {
-        return orderAllItemsQuantity;
-    }
-
-    public void setOrderAllItemsQuantity(int orderAllItemsQuantity) {
-        this.orderAllItemsQuantity = orderAllItemsQuantity;
-    }
-
     public int getOrderBeingWorkedOnStatus() {
         return orderBeingWorkedOnStatus;
     }
@@ -246,5 +241,37 @@ public class OrderModel {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getOrderAllItemsQuantity() {
+        return orderAllItemsQuantity;
+    }
+
+    public void setOrderAllItemsQuantity(String orderAllItemsQuantity) {
+        this.orderAllItemsQuantity = orderAllItemsQuantity;
+    }
+
+    public String getOrderPaymentStatusMessage() {
+        return orderPaymentStatusMessage;
+    }
+
+    public void setOrderPaymentStatusMessage(String orderPaymentStatusMessage) {
+        this.orderPaymentStatusMessage = orderPaymentStatusMessage;
+    }
+
+    public String getOrderFinalPrice() {
+        return orderFinalPrice;
+    }
+
+    public void setOrderFinalPrice(String orderFinalPrice) {
+        this.orderFinalPrice = orderFinalPrice;
+    }
+
+    public String getOrderPriceCurrency() {
+        return orderPriceCurrency;
+    }
+
+    public void setOrderPriceCurrency(String orderPriceCurrenty) {
+        this.orderPriceCurrency = orderPriceCurrenty;
     }
 }

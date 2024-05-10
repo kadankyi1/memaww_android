@@ -1,5 +1,6 @@
 package com.memaww.memaww.Fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,7 @@ public class SupportFragment extends Fragment {
     private ConstraintLayout mSendMessageConstraintLayout;
     private EditText mMessageBoxEditText;
     private LinearLayoutManager mLinearlayoutmanager;
+    private Dialog.OnCancelListener cancelListenerActive1;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
 
     private static final String ARG_PARAM1 = "param1";

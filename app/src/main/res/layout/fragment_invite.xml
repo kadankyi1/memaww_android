@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:text="Send the code below to a friend and when they make their first order, you get 50% off"
+                android:text="Send the code below to a friend and when they make their first order, you both get up to a 100% off."
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_invitefragment_title_textview"
@@ -141,13 +141,13 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     android:text="SD802JKH3"
+                    android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

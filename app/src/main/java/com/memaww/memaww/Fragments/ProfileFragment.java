@@ -79,7 +79,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view.getId() == mServicePolicyConstraintLayout.getId()){
-            Config.openActivity(getActivity(), ReaderWebViewActivity.class, 0, 0, 1, Config.WEBVIEW_KEY_URL, "https://youtube.com");
+            Config.openActivity(getActivity(), ReaderWebViewActivity.class, 0, 0, 1, Config.WEBVIEW_KEY_URL, "https://memaww.com/service-policy");
         }
     }
 }

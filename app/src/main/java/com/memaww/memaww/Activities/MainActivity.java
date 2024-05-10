@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if(view.getId() == mInfoIconImageView.getId()){
+            view.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.main_activity_onclick_icon_anim));
             Config.openActivity(MainActivity.this, ReaderWebViewActivity.class, 1, 0, 1, Config.WEBVIEW_KEY_URL, "https://memaww.com");
         }
     }

@@ -200,7 +200,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.e("SIGN-IN-NETWORK", "anError: " + anError.toString());
+                        Log.e("SIGN-IN-NETWORK", "anError: " + anError.getErrorDetail());
+                        Log.e("SIGN-IN-NETWORK", "anError: " + anError.getErrorBody());
+                        Log.e("SIGN-IN-NETWORK", "anError: " + anError.getMessage());
                         if(!LoginActivity.this.isFinishing() && getApplicationContext() != null) {
                             new Handler(Looper.getMainLooper()).post(new Runnable() {
                                 @Override
