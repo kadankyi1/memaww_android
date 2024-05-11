@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fList.add(MyOrdersFragment.newInstance("", ""));
         fList.add(InviteFragment.newInstance("", ""));
-        fList.add(PlaceOrderFragment.newInstance("", ""));
+        fList.add(PlaceOrderFragment.newInstance());
         fList.add(SupportFragment.newInstance("", ""));
         fList.add(ProfileFragment.newInstance("", ""));
         return fList;

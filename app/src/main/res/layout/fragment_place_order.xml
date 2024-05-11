@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_gray_light_v2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.InviteFragment">
 
@@ -77,8 +78,8 @@
 
             <ImageView
                 android:id="@+id/fragment_placeorder_goodordericon_imageview"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/distribution"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_goodordertitle_textview"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -151,9 +152,10 @@
 
             <ImageView
                 android:id="@+id/fragment_placeorder_fastordericon_imageview"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:src="@drawable/callback"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/smartphone"
+                android:layout_marginStart="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_fastordertitle_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

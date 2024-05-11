@@ -42,12 +42,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
     private TextView mBackgroundTextTextView;
     private LinearLayoutManager mLinearlayoutmanager;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+    private Thread backgroundThread = null;
 
     public MyOrdersFragment() {
         // Required empty public constructor
@@ -55,20 +50,12 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
     public static MyOrdersFragment newInstance(String param1, String param2) {
         MyOrdersFragment fragment = new MyOrdersFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -91,13 +78,26 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mRecyclerview.setLayoutManager(mLinearlayoutmanager);
         mRecyclerview.setAdapter(new RecyclerViewAdapter());
-        getMyOrders();
+
+        backgroundThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getMyOrders();
+            }
+        });
+        backgroundThread.start();
 
         mMainParentSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                MyOrdersListDataGenerator.getAllData().clear();
-                getMyOrders();
+                backgroundThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MyOrdersListDataGenerator.getAllData().clear();
+                        getMyOrders();
+                    }
+                });
+                backgroundThread.start();
             }
         });
 
@@ -309,7 +309,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if (!getActivity().isFinishing()) {
+                                            if (!getActivity().isFinishing()  && getActivity().getApplicationContext() != null) {
                                                 mRecyclerview.getAdapter().notifyItemInserted(MyOrdersListDataGenerator.getAllData().size());
                                                 mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                                 mBackgroundImageImageView.setVisibility(View.INVISIBLE);

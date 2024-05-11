@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.memaww.memaww.Activities.MainActivity;
 import com.memaww.memaww.ListDataGenerators.MyMessagesListDataGenerator;
 import com.memaww.memaww.Models.MessageModel;
 import com.memaww.memaww.R;
@@ -113,6 +115,7 @@ public class SupportFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(!mMessageBoxEditText.getText().toString().trim().equalsIgnoreCase("")){
+                    view.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.main_activity_onclick_icon_anim));
                     sendMessage(mMessageBoxEditText.getText().toString().trim());
                     mMessageBoxEditText.getText().clear();
                 }

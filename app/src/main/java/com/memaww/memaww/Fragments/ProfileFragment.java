@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.memaww.memaww.Activities.MainActivity;
@@ -79,6 +80,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view.getId() == mServicePolicyConstraintLayout.getId()){
+            view.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.main_activity_onclick_icon_anim));
             Config.openActivity(getActivity(), ReaderWebViewActivity.class, 0, 0, 1, Config.WEBVIEW_KEY_URL, "https://memaww.com/service-policy");
         }
     }

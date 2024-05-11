@@ -24,7 +24,6 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
     private SliderAdapter sliderAdapter;
     private TextView[] mDots;
     private int mCurrenPage;
-
     private Button mNextBtn;
     private Button mBackBtn;
 

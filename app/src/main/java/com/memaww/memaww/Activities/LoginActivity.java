@@ -34,10 +34,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText mPhoneNumberEditText, mFirstNameEditText, mLastNameEditText, mInviteCodeEditText;
     private AppCompatButton mLoginAppCompatButton;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
-
     private NumberPicker.OnValueChangeListener mCountrySetNumberListener;
-    private String country = "", countryCode = "", loginResponse = "";
+    private String country = "", loginResponse = "", phone = "", firstName = "", lastName = "", inviteCode = "";
     private int defaultCountry = 0;
+    private Thread backgroundThread1 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 defaultCountry = newVal;
                 country = countriesStringArrayList.get(newVal);
                 mCountryTextView.setText(countriesStringArrayList.get(newVal));
-                countryCode = countriesCodesStringArrayList.get(newVal);
             }
         };
     }
@@ -89,8 +88,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             && !country.trim().equalsIgnoreCase("")
                             && defaultCountry > 0
             ){
-                loginAndGetUserCredentials(country, mPhoneNumberEditText.getText().toString().trim(), mFirstNameEditText.getText().toString().trim(), mLastNameEditText.getText().toString().trim(), mInviteCodeEditText.getText().toString().trim());
-                //Toast.makeText(getApplicationContext(), "READY FOR LOGIN", Toast.LENGTH_LONG).show();
+
+                phone = mPhoneNumberEditText.getText().toString().trim();
+                firstName = mFirstNameEditText.getText().toString().trim();
+                lastName = mLastNameEditText.getText().toString().trim();
+                inviteCode = mInviteCodeEditText.getText().toString().trim();
+
+                backgroundThread1 = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginAndGetUserCredentials(country, phone.trim(), firstName.trim(), lastName.trim(), inviteCode.trim());
+                    }
+                });
+                backgroundThread1.start();
             }
         }
 
@@ -159,7 +169,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     return;
 
                                 } else {
-                                    if(MyLifecycleHandler.isApplicationInForeground()){
                                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                                             @Override
                                             public void run() {
@@ -173,9 +182,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                             }
                                         });
-                                    } else {
-                                        loginResponse = myStatusMessage;
-                                    }
                                 }
 
 

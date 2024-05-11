@@ -31,35 +31,20 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
 
     private CardView mGoodOrderCardView, mFastOrderCardView;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
-    private String loginResponse, serverResponse = "";
-
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+    private Thread backgroundThread1 = null;
 
     public PlaceOrderFragment() {
         // Required empty public constructor
     }
 
-    public static PlaceOrderFragment newInstance(String param1, String param2) {
+    public static PlaceOrderFragment newInstance() {
         PlaceOrderFragment fragment = new PlaceOrderFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -83,7 +68,13 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
         if(view.getId() == mGoodOrderCardView.getId()){
             Config.openActivity(getActivity(), OrderCollectionActivity.class, 0, 0, 0, "", "");
         } else if(view.getId() == mFastOrderCardView.getId()){
-            placeOrder();
+            backgroundThread1 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    placeOrder();
+                }
+            });
+            backgroundThread1.start();
         }
     }
 
@@ -99,8 +90,6 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                 }
             });
         }
-
-        serverResponse = "";
 
 
         AndroidNetworking.post(Config.LINK_COLLECTION_CALLBACK_REQUEST_ORDER)
@@ -121,11 +110,17 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                                 final String myStatusMessage = main_response.getString("message");
 
                                 if (myStatus.equalsIgnoreCase("success")) {
-                                    mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
-                                    mGoodOrderCardView.setVisibility(View.VISIBLE);
-                                    mFastOrderCardView.setVisibility(View.VISIBLE);
-                                    Config.showDialogType1(getActivity(), "", myStatusMessage, "show-positive-image", null, false,  "Ok","");
-                                    return;
+
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            mGoodOrderCardView.setVisibility(View.VISIBLE);
+                                            mFastOrderCardView.setVisibility(View.VISIBLE);
+                                            Config.showDialogType1(getActivity(), "", myStatusMessage, "show-positive-image", null, false,  "Ok","");
+                                            return;
+                                        }
+                                    });
 
                                 } else {
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
