@@ -103,6 +103,17 @@
                 app:srcCompat="@drawable/bell"
                 app:tint="@color/white" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_main_constraintlayout_notificationiconholder_constraintlayout"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:elevation="3dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/circle_shape_red_background"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

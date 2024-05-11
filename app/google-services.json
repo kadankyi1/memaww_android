@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "586174678164",
+    "project_id": "memaww-d3160",
+    "storage_bucket": "memaww-d3160.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586174678164:android:51b3bfbeb0adb5d45da081",
+        "android_client_info": {
+          "package_name": "com.memaww.memaww"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJYa4G5Nsb-bXRslY_7A3ceeE_rZGO7Ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,12 +2,14 @@ package com.memaww.memaww.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -32,20 +34,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private BottomNavigationView mMainMenuBottomNavigationView;
     private ViewPager mFragmentsHolderViewPager;
     private ImageView mInfoIconImageView;
+    private ConstraintLayout mNewNotificationIconHolderConstraintLayout, mNotificationIconHolderConstraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mMainMenuBottomNavigationView = findViewById(R.id.activity_main_bottomnavigationview);
         mFragmentsHolderViewPager = findViewById(R.id.activity_main_fragmentsholder_viewpager);
         mInfoIconImageView = findViewById(R.id.activity_main_constraintlayout2_infoicon_imageview);
+        mNewNotificationIconHolderConstraintLayout = findViewById(R.id.activity_main_constraintlayout_notificationiconholder_constraintlayout);
+        mNotificationIconHolderConstraintLayout = findViewById(R.id.activity_main_constraintlayout2_profileicon_holder_constraintlayout);
 
         // SETTING LISTENERS
         mMainMenuBottomNavigationView.setOnItemSelectedListener(this);
         mFragmentsHolderViewPager.addOnPageChangeListener(viewListener);
         mInfoIconImageView.setOnClickListener(this);
+        mNotificationIconHolderConstraintLayout.setOnClickListener(this);
+
+        Log.e("FIREBASE-MSG", "SHARED_PREF_KEY_USER_CREDENTIALS_USER_HAS_NEW_NOTIFICATION: " + String.valueOf(Config.getSharedPreferenceBoolean(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_HAS_NEW_NOTIFICATION)));
+        if(Config.getSharedPreferenceBoolean(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_HAS_NEW_NOTIFICATION)){
+            mNewNotificationIconHolderConstraintLayout.setVisibility(View.VISIBLE);
+        } else {
+            mNewNotificationIconHolderConstraintLayout.setVisibility(View.GONE);
+        }
 
         // TEMPORARY NEEDED ACTIONS
         mMainMenuBottomNavigationView.setSelectedItemId(R.id.start_order);
@@ -62,9 +74,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view.getId() == mInfoIconImageView.getId()){
             view.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.main_activity_onclick_icon_anim));
             Config.openActivity(MainActivity.this, ReaderWebViewActivity.class, 1, 0, 1, Config.WEBVIEW_KEY_URL, "https://memaww.com");
+        } else if(view.getId() == mNotificationIconHolderConstraintLayout.getId()){
+            mNewNotificationIconHolderConstraintLayout.setVisibility(View.GONE);
+            Config.openActivity(MainActivity.this, NotificationsActivity.class, 0, 0, 0, "", "");
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Config.getSharedPreferenceBoolean(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_HAS_NEW_NOTIFICATION)){
+            mNewNotificationIconHolderConstraintLayout.setVisibility(View.VISIBLE);
+        } else {
+            mNewNotificationIconHolderConstraintLayout.setVisibility(View.GONE);
+        }
+    }
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener(){
 
@@ -98,11 +122,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Fragment> getFragments(){
         List<Fragment> fList = new ArrayList<Fragment>();
 
-        fList.add(MyOrdersFragment.newInstance("", ""));
-        fList.add(InviteFragment.newInstance("", ""));
+        fList.add(MyOrdersFragment.newInstance());
+        fList.add(InviteFragment.newInstance());
         fList.add(PlaceOrderFragment.newInstance());
-        fList.add(SupportFragment.newInstance("", ""));
-        fList.add(ProfileFragment.newInstance("", ""));
+        fList.add(SupportFragment.newInstance());
+        fList.add(ProfileFragment.newInstance());
         return fList;
     }
 

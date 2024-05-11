@@ -42,13 +42,13 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
     private TextView mBackgroundTextTextView;
     private LinearLayoutManager mLinearlayoutmanager;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
-    private Thread backgroundThread = null;
+    private Thread backgroundThread1 = null;
 
     public MyOrdersFragment() {
         // Required empty public constructor
     }
 
-    public static MyOrdersFragment newInstance(String param1, String param2) {
+    public static MyOrdersFragment newInstance() {
         MyOrdersFragment fragment = new MyOrdersFragment();
         return fragment;
     }
@@ -79,25 +79,25 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         mRecyclerview.setLayoutManager(mLinearlayoutmanager);
         mRecyclerview.setAdapter(new RecyclerViewAdapter());
 
-        backgroundThread = new Thread(new Runnable() {
+        backgroundThread1 = new Thread(new Runnable() {
             @Override
             public void run() {
                 getMyOrders();
             }
         });
-        backgroundThread.start();
+        backgroundThread1.start();
 
         mMainParentSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                backgroundThread = new Thread(new Runnable() {
+                backgroundThread1 = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         MyOrdersListDataGenerator.getAllData().clear();
                         getMyOrders();
                     }
                 });
-                backgroundThread.start();
+                backgroundThread1.start();
             }
         });
 
@@ -306,19 +306,19 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                         MyOrdersListDataGenerator.addOneData(thisOrder);
                                     }
 
+                                    if (!getActivity().isFinishing()  && getActivity().getApplicationContext() != null) {
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if (!getActivity().isFinishing()  && getActivity().getApplicationContext() != null) {
                                                 mRecyclerview.getAdapter().notifyItemInserted(MyOrdersListDataGenerator.getAllData().size());
                                                 mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                                 mBackgroundImageImageView.setVisibility(View.INVISIBLE);
                                                 mBackgroundTextTextView.setVisibility(View.INVISIBLE);
                                                 mRecyclerview.setVisibility(View.VISIBLE);
                                                 mMainParentSwipeRefreshLayout.setRefreshing(false);
-                                            }
                                         }
                                     });
+                                    }
                                 } else {
 
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {

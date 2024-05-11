@@ -51,33 +51,20 @@ public class SupportFragment extends Fragment {
     private LinearLayoutManager mLinearlayoutmanager;
     private Dialog.OnCancelListener cancelListenerActive1;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+    private Thread backgroundThread1 = null;
 
     public SupportFragment() {
         // Required empty public constructor
     }
 
-    public static SupportFragment newInstance(String param1, String param2) {
+    public static SupportFragment newInstance() {
         SupportFragment fragment = new SupportFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -102,12 +89,24 @@ public class SupportFragment extends Fragment {
         mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mRecyclerview.setLayoutManager(mLinearlayoutmanager);
         mRecyclerview.setAdapter(new RecyclerViewAdapter());
-        getMyOrders();
+        backgroundThread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getMyOrders();
+            }
+        });
+        backgroundThread1.start();
 
         mMainParentSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getMyOrders();
+                backgroundThread1 = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getMyOrders();
+                    }
+                });
+                backgroundThread1.start();
             }
         });
 
@@ -130,23 +129,7 @@ public class SupportFragment extends Fragment {
 
 
     private void allOnClickHandlers(View v, int position){
-        /*
-        if(v.getId() == R.id.article_parent
-                || v.getId() == R.id.fragment_today_heraldofglorytitle_textview
-                || v.getId() == R.id.fragment_today_heraldofglorybody_textview
-                || v.getId() == R.id.tag_holder
-                || v.getId() == R.id.fragment_today_heraldofgloryimage_roundedcornerimageview
-                || v.getId() == R.id.fragment_today_heraldofglorylabel_textview){
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_ARTICLE_ID, String.valueOf(ArticleListDataGenerator.getAllData().get(position).getArticle_id()));
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_IMG_URL, String.valueOf(ArticleListDataGenerator.getAllData().get(position).getArticle_image()));
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_TAG_TEXT, ArticleListDataGenerator.getAllData().get(position).getArticle_type());
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_UPLOAD_TIME, ArticleListDataGenerator.getAllData().get(position).getCreated_at());
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_ARTICLE_TITLE, ArticleListDataGenerator.getAllData().get(position).getArticle_title());
-            setSharedPreferenceString(getActivity().getApplicationContext(), SHARED_PREF_KEY_IMAGE_ARTICLE_ARTICLE_BODY, ArticleListDataGenerator.getAllData().get(position).getArticle_body());
-            Intent intent = new Intent(getActivity().getApplicationContext(), ImageArticleActivity.class);
-            startActivity(intent);
-        }
-         */
+
     }
 
 
@@ -290,10 +273,10 @@ public class SupportFragment extends Fragment {
                                         MyMessagesListDataGenerator.addOneData(thisMessage);
                                     }
 
+                                    if (!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if (!getActivity().isFinishing()) {
                                                 mRecyclerview.getAdapter().notifyItemInserted(MyMessagesListDataGenerator.getAllData().size());
                                                 mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                                 mBackgroundImageImageView.setVisibility(View.INVISIBLE);
@@ -301,9 +284,9 @@ public class SupportFragment extends Fragment {
                                                 mRecyclerview.setVisibility(View.VISIBLE);
                                                 mRecyclerview.scrollToPosition(MyMessagesListDataGenerator.getAllData().size()-1);
                                                 mMainParentSwipeRefreshLayout.setRefreshing(false);
-                                            }
                                         }
                                     });
+                                    }
                                 } else {
 
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -319,8 +302,6 @@ public class SupportFragment extends Fragment {
                                         }
                                     });
                                 }
-
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -358,12 +339,11 @@ public class SupportFragment extends Fragment {
 
     public void sendMessage(String message) {
         if (!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM d");
+            String currentDateandTime = sdf.format(new Date());
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    SimpleDateFormat sdf = new SimpleDateFormat("MMM d");
-                    String currentDateandTime = sdf.format(new Date());
-
                     MessageModel thisMessage = new MessageModel();
                     //thisMessage.setMessageId(k.getLong(""));
                     thisMessage.setMessageText(message);
