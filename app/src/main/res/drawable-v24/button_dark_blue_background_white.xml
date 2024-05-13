@@ -4,14 +4,14 @@
         <shape android:shape="rectangle"  >
             <corners android:radius="6dip" />
             <stroke android:width="1dip" android:color="@color/color_memaww_blue_dark" />
-            <solid android:color="@color/white"/>
+            <solid android:color="@color/color_memaww_blue"/>
         </shape>
     </item>
     <item android:state_focused="true">
         <shape android:shape="rectangle"  >
             <corners android:radius="6dip" />
             <stroke android:width="1dip" android:color="@color/color_memaww_blue_dark" />
-            <solid android:color="@color/white"/>
+            <solid android:color="@color/color_memaww_blue"/>
         </shape>
     </item>
     <item >

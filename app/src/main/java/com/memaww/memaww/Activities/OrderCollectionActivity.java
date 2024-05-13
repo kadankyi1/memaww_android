@@ -158,7 +158,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
             JSONObject payment_response = new JSONObject(theteller_results);
             updateOrderPayment(payment_response.getString("transaction_id"), payment_response.getString("status"), payment_response.getString("reason"), "PaySwitch", "1");
             if(payment_response.getString("status").trim().equalsIgnoreCase("approved")){
-                cancelListenerActive1 = Config.showDialogType1(OrderCollectionActivity.this, "Order Successful", "Pick will be on their way. Check order progress in the Order Tab", "show-positive-image", cancelListenerActive1, false,  "Finish","");
+                cancelListenerActive1 = Config.showDialogType1(OrderCollectionActivity.this, "Order Successful", "We will be on our way. Check progress in the Order Tab", "show-positive-image", cancelListenerActive1, false,  "Finish","");
             } else {
                 Config.showToastType1(OrderCollectionActivity.this, payment_response.getString("reason"));
                 popFragment();
@@ -178,7 +178,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         if(collectionLocationGPS.equalsIgnoreCase("0")){
             if(!collectionLocation.equalsIgnoreCase("Not Set")  &&  !collectionLocation.trim().equalsIgnoreCase("")){
                 collectionAndDropOffLocation = collectionLocation;
-                mCollectionAndDropOffLocationTextView.setText(collectionAndDropOffLocation);
+                mCollectionAndDropOffLocationTextView.setText((collectionAndDropOffLocation.length() > 15) ? collectionAndDropOffLocation.substring(0, 13)+"..." : collectionAndDropOffLocation);
             }
         } else {
             collectionAndDropOffLocationGPS = collectionLocationGPS;
@@ -237,8 +237,9 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     }
 
     @Override
-    public void confirmOrderDoneButtonClicked(String discount) {
-
+    public void confirmOrderDoneButtonClicked(String transactionId, String action) {
+        updateOrderPayment(transactionId, "pay_on_pickup", "User will pay on pickup", "PAY-ON-PICKUP", "1");
+        cancelListenerActive1 = Config.showDialogType1(OrderCollectionActivity.this, "Order Successful", "We will be on our way. Check progress in the Order Tab", "show-positive-image", cancelListenerActive1, false, "Finish", "");
     }
 
     public void popFragment(){
@@ -255,6 +256,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
         fragmentOpenStatus = 0;
         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
         mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
@@ -435,7 +437,6 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                     if (fragmentOpenStatus == 0) {
                                         fragmentOpenStatus = 1;
                                         Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, ConfirmOrderFragment.newInstance(originalPrice, discountAmount, priceFinal, payOnline, payOnPickup, priceFinalNoCurrency, txnNarration, txnReference, merchantId, merchantApiUser, merchantApiKey, returnUrl, userEmail), "ConfirmOrderFragment", 3);
-
                                     }
 
                                 } else {

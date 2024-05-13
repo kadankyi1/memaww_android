@@ -55,7 +55,13 @@ public class Config {
     public static final String LINK_COLLECTION_CALLBACK_REQUEST_ORDER = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/request-collection-callback";
 
     // SERVER-SIDE API FOR PLACING CALLBACK REQUEST FOR COLLECTION ORDER
+    public static final String LINK_COLLECTION_UPDATE_USER_INFO = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/update-user-info";
+
+    // SERVER-SIDE API FOR PLACING CALLBACK REQUEST FOR COLLECTION ORDER
     public static final String LINK_GET_MY_ORDERS = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/get-my-orders";
+
+    // SERVER-SIDE API FOR PLACING CALLBACK REQUEST FOR COLLECTION ORDER
+    public static final String LINK_GET_MY_NOTIFICATIONS = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/get-my-notifications";
 
     // SERVER-SIDE API FOR PLACING CALLBACK REQUEST FOR COLLECTION ORDER
     public static final String LINK_SEND_MESSAGE = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/send-message";
@@ -73,6 +79,7 @@ public class Config {
         public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_INVITE_CODE = "USER_INVITE_CODE";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN = "USER_PASSWORD";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_HAS_NEW_NOTIFICATION = "USER_HAS_NEW_NOTIFICATION";
+    public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_FCM_TOKEN = "USER_FCM_TOKEN";
 
 
     public static final String SHARED_PREF_KEY_LAST_ORDER_LOCATION = "LAST_ORDER_LOCATION";
@@ -467,6 +474,17 @@ public class Config {
     // REPLACE WWW. AND HTTP IN URL
     public static String removeWwwAndHttpFromUrl(String url){
         return url.replaceFirst("^(http[s]?://www\\.|http[s]?://|www\\.)","");
+    }
+
+
+    // THIS METHOD CLOSES THE BACKGROUND THREAD TO PREVENT MEMORY LEAKS.
+    public static Thread closeBackgroundThread2(Thread backgroundThread) {
+        if (backgroundThread != null) {
+            backgroundThread.interrupt();
+            backgroundThread = null;
+        }
+
+        return backgroundThread;
     }
 
 }

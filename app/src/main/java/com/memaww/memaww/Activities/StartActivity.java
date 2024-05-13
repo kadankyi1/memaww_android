@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -26,6 +28,14 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancelAll();
+
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String token) {
+                Log.e("FIREBASE-MSG", "FIREBASE TOKEN 1: " + token);
+                Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FCM_TOKEN, token);
+            }
+        });
 
         FirebaseMessaging.getInstance().subscribeToTopic("ANDROID_USERS").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

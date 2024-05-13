@@ -5,6 +5,7 @@ public class NotificationModel {
     private String notificationUserId;
     private String notificationTitle;
     private String notificationBody;
+    private String notificationDate;
 
     public String getNotificationUserId() {
         return notificationUserId;
@@ -28,5 +29,13 @@ public class NotificationModel {
 
     public void setNotificationBody(String notificationBody) {
         this.notificationBody = notificationBody;
+    }
+
+    public String getNotificationDate() {
+        return notificationDate;
+    }
+
+    public void setNotificationDate(String notificationDate) {
+        this.notificationDate = notificationDate;
     }
 }

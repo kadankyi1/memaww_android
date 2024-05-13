@@ -23,6 +23,7 @@ import com.memaww.memaww.Fragments.ProfileFragment;
 import com.memaww.memaww.Fragments.PlaceOrderFragment;
 import com.memaww.memaww.Fragments.SupportFragment;
 import com.memaww.memaww.R;
+import com.memaww.memaww.Services.BackgroundService;
 import com.memaww.memaww.Util.Config;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewPager mFragmentsHolderViewPager;
     private ImageView mInfoIconImageView;
     private ConstraintLayout mNewNotificationIconHolderConstraintLayout, mNotificationIconHolderConstraintLayout;
+    private Thread generalBackgroundThread = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragmentsList);
         mFragmentsHolderViewPager.setAdapter(pageAdapter);
         mFragmentsHolderViewPager.setCurrentItem(2);
+
+
+        generalBackgroundThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BackgroundService.updateUserInfo(getApplicationContext(), Config.getSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FCM_TOKEN));
+            }
+        });
+        generalBackgroundThread.start();
 
     }
 
@@ -118,6 +129,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
+    @Override
+    public void onBackPressed() {
+
+        if(mFragmentsHolderViewPager.getCurrentItem() != 2){
+            mFragmentsHolderViewPager.setCurrentItem(2);
+        }  else {
+            super.onBackPressed();
+        }
+    }
 
     private List<Fragment> getFragments(){
         List<Fragment> fList = new ArrayList<Fragment>();

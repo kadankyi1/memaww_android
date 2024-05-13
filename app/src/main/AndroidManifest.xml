@@ -31,6 +31,10 @@
         </activity>
 
         <service
+            android:name=".Services.BackgroundService"
+            android:exported="false" />
+
+        <service
             android:name=".Services.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>

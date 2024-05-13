@@ -127,7 +127,7 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
 
 
         public class OrderViewHolder extends RecyclerView.ViewHolder  {
-            private TextView mMessageTitleTextView, mMessageBodyTextView;
+            private TextView mMessageTitleTextView, mMessageBodyTextView, mMessageDateTextView;
 
             private View.OnClickListener innerClickListener = new View.OnClickListener() {
                 @Override
@@ -140,9 +140,11 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
                 super(v);
                 mMessageTitleTextView = v.findViewById(R.id.list_item_notification_title_textview);
                 mMessageBodyTextView = v.findViewById(R.id.list_item_notification_notificationdate_textview);
+                mMessageDateTextView = v.findViewById(R.id.list_item_notifications_date_textview);
 
                 mMessageTitleTextView.setOnClickListener(innerClickListener);
                 mMessageBodyTextView.setOnClickListener(innerClickListener);
+                mMessageDateTextView.setOnClickListener(innerClickListener);
             }
         }
 
@@ -150,6 +152,7 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
             ((RecyclerViewAdapter.OrderViewHolder) holder).mMessageTitleTextView.setText(MyNotificationsListDataGenerator.getAllData().get(position).getNotificationTitle());
             ((RecyclerViewAdapter.OrderViewHolder) holder).mMessageBodyTextView.setText(MyNotificationsListDataGenerator.getAllData().get(position).getNotificationBody());
+            ((RecyclerViewAdapter.OrderViewHolder) holder).mMessageDateTextView.setText(MyNotificationsListDataGenerator.getAllData().get(position).getNotificationDate());
         }
 
         @Override
@@ -173,7 +176,7 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
             });
         }
 
-        AndroidNetworking.post(Config.LINK_GET_MY_ORDERS)
+        AndroidNetworking.post(Config.LINK_GET_MY_NOTIFICATIONS)
                 .addHeaders("Accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + Config.getSharedPreferenceString(NotificationsActivity.this, Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN))
                 .addBodyParameter("app_type", "ANDROID")
@@ -202,8 +205,9 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
                                     for (int i = 0; i < myOrdersArray.length(); i++) {
                                         NotificationModel thisNotification = new NotificationModel();
                                         final JSONObject k = myOrdersArray.getJSONObject(i);
-                                        thisNotification.setNotificationTitle(k.getString("order_collection_location_raw"));
-                                        thisNotification.setNotificationBody(k.getString("order_status_message"));
+                                        thisNotification.setNotificationTitle(k.getString("notification_title"));
+                                        thisNotification.setNotificationBody(k.getString("notification_body"));
+                                        thisNotification.setNotificationDate(k.getString("notification_date"));
                                         MyNotificationsListDataGenerator.addOneData(thisNotification);
                                     }
 

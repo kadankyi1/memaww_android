@@ -38,7 +38,7 @@ public class ConfirmOrderFragment extends Fragment {
     private static final String ARG_PARAM13 = "param13";
 
     public interface onConfirmOrderDoneButtonClickedEventListener {
-        public void confirmOrderDoneButtonClicked(String discount);
+        public void confirmOrderDoneButtonClicked(String transactionId, String action);
     }
 
     onConfirmOrderDoneButtonClickedEventListener confirmOrderDoneButtonClickedListener;
@@ -159,7 +159,9 @@ public class ConfirmOrderFragment extends Fragment {
         mPayOnPickUpAppCompatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Config.showToastType1(getActivity(), "Update on server and mark order for assigned for pickup");
+                //Config.showToastType1(getActivity(), "Update on server and mark order for assigned for pickup");
+                confirmOrderDoneButtonClickedListener.confirmOrderDoneButtonClicked(txnReference, "pay_on_pickup");
+                getActivity().onBackPressed();
             }
         });
 
@@ -170,5 +172,17 @@ public class ConfirmOrderFragment extends Fragment {
             mPayOnPickUpAppCompatButton.setVisibility(View.GONE);
         }
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("CONFIRM-ORDER", "This is being onDestroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e("CONFIRM-ORDER", "This is being onDetach");
     }
 }
