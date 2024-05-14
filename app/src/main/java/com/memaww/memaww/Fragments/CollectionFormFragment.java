@@ -160,7 +160,7 @@ public class CollectionFormFragment extends Fragment {
                         } else {
                             if(useCurrentLocation){
                                 collectionLocGPS = location.getLatitude() + "," + location.getLongitude() + "";
-                                mLocationEditText.setText("Set To Your Current Location");
+                                mLocationEditText.setText("Current Location");
                             }
                             //Config.showToastType1(getActivity(), location.getLatitude() + " " + location.getLongitude() + "");
                         }

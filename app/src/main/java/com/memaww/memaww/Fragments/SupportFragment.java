@@ -52,6 +52,7 @@ public class SupportFragment extends Fragment {
     private Dialog.OnCancelListener cancelListenerActive1;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
     private Thread backgroundThread1 = null;
+    private String currentMessage = "";
 
     public SupportFragment() {
         // Required empty public constructor
@@ -115,7 +116,14 @@ public class SupportFragment extends Fragment {
             public void onClick(View view) {
                 if(!mMessageBoxEditText.getText().toString().trim().equalsIgnoreCase("")){
                     view.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.main_activity_onclick_icon_anim));
-                    sendMessage(mMessageBoxEditText.getText().toString().trim());
+                    currentMessage = mMessageBoxEditText.getText().toString().trim();
+                    backgroundThread1 = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            sendMessage(currentMessage);
+                        }
+                    });
+                    backgroundThread1.start();
                     mMessageBoxEditText.getText().clear();
                 }
             }
@@ -341,16 +349,16 @@ public class SupportFragment extends Fragment {
         if (!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("MMM d");
             String currentDateandTime = sdf.format(new Date());
+            MessageModel thisMessage = new MessageModel();
+            //thisMessage.setMessageId(k.getLong(""));
+            thisMessage.setMessageText(message);
+            thisMessage.setSenderUserId(Integer.valueOf(Config.getSharedPreferenceString(getActivity(),Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT)));
+            thisMessage.setReceiverUserId(1);
+            thisMessage.setMessageDate(currentDateandTime);
+            MyMessagesListDataGenerator.addOneData(thisMessage);
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    MessageModel thisMessage = new MessageModel();
-                    //thisMessage.setMessageId(k.getLong(""));
-                    thisMessage.setMessageText(message);
-                    thisMessage.setSenderUserId(Integer.valueOf(Config.getSharedPreferenceString(getActivity(),Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT)));
-                    thisMessage.setReceiverUserId(1);
-                    thisMessage.setMessageDate(currentDateandTime);
-                    MyMessagesListDataGenerator.addOneData(thisMessage);
                     mRecyclerview.getAdapter().notifyItemInserted(MyMessagesListDataGenerator.getAllData().size()-1);
                     mRecyclerview.scrollToPosition(MyMessagesListDataGenerator.getAllData().size()-1);
                 }
@@ -374,6 +382,17 @@ public class SupportFragment extends Fragment {
                                 JSONObject main_response = new JSONObject(response);
                                 String myStatus = main_response.getString("status");
                                 final String myStatusMessage = main_response.getString("message");
+
+                                if(!myStatus.trim().equalsIgnoreCase("success")){
+                                    MyMessagesListDataGenerator.getAllData().remove(MyMessagesListDataGenerator.getAllData().size()-1);
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Config.showToastType1(getActivity(), myStatusMessage);
+                                            mRecyclerview.getAdapter().notifyItemRemoved(MyMessagesListDataGenerator.getAllData().size());
+                                        }
+                                    });
+                                }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

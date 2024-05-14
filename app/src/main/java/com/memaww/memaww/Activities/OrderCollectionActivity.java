@@ -110,30 +110,35 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         } else if (view.getId() == mCollectionAndDropOffInfoCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
+                mProceedButton.setVisibility(View.INVISIBLE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, CollectionFormFragment.newInstance("", ""), "CollectionFormFragment", 3);
 
             }
         } else if (view.getId() == mLightweighItemsInfoCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
+                mProceedButton.setVisibility(View.INVISIBLE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, LightWeightItemsFormFragment.newInstance("", ""), "LightWeightItemsFormFragment", 3);
 
             }
         } else if (view.getId() == mBulkyItemsInfoCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
+                mProceedButton.setVisibility(View.INVISIBLE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, BulkyItemsFormFragment.newInstance("", ""), "BulkyItemsFormFragment", 3);
 
             }
         } else if (view.getId() == mSpecialInstructionsCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
+                mProceedButton.setVisibility(View.INVISIBLE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, SpecialNotesFormFragment.newInstance("", ""), "SpecialNotesFormFragment", 3);
 
             }
         } else if (view.getId() == mDiscountCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
+                mProceedButton.setVisibility(View.INVISIBLE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, DiscountFormFragment.newInstance("", ""), "DiscountFormFragment", 3);
             }
         } else if (view.getId() == mProceedButton.getId()) {
@@ -175,6 +180,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     public void collectionFormDoneButtonClicked(String collectionLocation, String collectionLocationGPS, String collectionDateTime, String collectionContactPhone) {
         Log.e("collectionFormDone", collectionLocation + ", " + collectionLocationGPS + ", " + collectionDateTime + ", " + collectionContactPhone);
         fragmentOpenStatus = 0;
+        mProceedButton.setVisibility(View.VISIBLE);
         if(collectionLocationGPS.equalsIgnoreCase("0")){
             if(!collectionLocation.equalsIgnoreCase("Not Set")  &&  !collectionLocation.trim().equalsIgnoreCase("")){
                 collectionAndDropOffLocation = collectionLocation;
@@ -203,6 +209,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     public void lightWeightItemsFormDoneButtonClicked(String justWashItemsQuantity, String washAndIronItemsQuantity, String justIronItemsQuantity) {
         //Config.showToastType1(OrderCollectionActivity.this, justWashItemsQuantity + ", " + washAndIronItemsQuantity);
         fragmentOpenStatus = 0;
+        mProceedButton.setVisibility(View.VISIBLE);
         lightWeightItemsJustWash = justWashItemsQuantity;
         lightWeightItemsWashAndIron = washAndIronItemsQuantity;
         lightWeightItemsJustIron = justIronItemsQuantity;
@@ -215,6 +222,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     public void bulkyItemsFormDoneButtonClicked(String justWashItemsQuantity, String washAndIronItemsQuantity) {
         //Config.showToastType1(OrderCollectionActivity.this, justWashItemsQuantity + ", " + washAndIronItemsQuantity);
         fragmentOpenStatus = 0;
+        mProceedButton.setVisibility(View.VISIBLE);
         bulkyItemsJustWash = justWashItemsQuantity;
         bulkyItemsWashAndIron = washAndIronItemsQuantity;
 
@@ -244,6 +252,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
 
     public void popFragment(){
         fragmentOpenStatus = 0;
+        mProceedButton.setVisibility(View.VISIBLE);
         getSupportFragmentManager().popBackStack();
         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
         mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
@@ -258,6 +267,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         super.onBackPressed();
 
         fragmentOpenStatus = 0;
+        mProceedButton.setVisibility(View.VISIBLE);
         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
         mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
         mBulkyItemsInfoCardView.setVisibility(View.VISIBLE);
@@ -416,24 +426,23 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                             try {
                                 JSONObject main_response = new JSONObject(response);
                                 String myStatus = main_response.getString("status");
-                                String discountPercentage = main_response.getString("discount_percentage");
-
-                                String payOnline = main_response.getString("pay_online");
-                                String payOnPickup = main_response.getString("pay_on_pickup");
-                                String originalPrice = main_response.getString("original_price");
-                                String discountAmount = main_response.getString("discount_amount");
-                                String priceFinal = main_response.getString("price_final");
-                                String priceFinalNoCurrency = main_response.getString("price_final_no_currency");
-                                String txnNarration = main_response.getString("txn_narration");
-                                String txnReference = main_response.getString("txn_reference");
-                                String merchantId = main_response.getString("merchant_id");
-                                String merchantApiUser = main_response.getString("merchant_api_user");
-                                String merchantApiKey = main_response.getString("merchant_api_key");
-                                String returnUrl = main_response.getString("return_url");
-                                String userEmail = main_response.getString("user_email");
-
                                 final String myStatusMessage = main_response.getString("message");
+
                                 if (myStatus.equalsIgnoreCase("success")) {
+                                    String discountPercentage = main_response.getString("discount_percentage");
+                                    String payOnline = main_response.getString("pay_online");
+                                    String payOnPickup = main_response.getString("pay_on_pickup");
+                                    String originalPrice = main_response.getString("original_price");
+                                    String discountAmount = main_response.getString("discount_amount");
+                                    String priceFinal = main_response.getString("price_final");
+                                    String priceFinalNoCurrency = main_response.getString("price_final_no_currency");
+                                    String txnNarration = main_response.getString("txn_narration");
+                                    String txnReference = main_response.getString("txn_reference");
+                                    String merchantId = main_response.getString("merchant_id");
+                                    String merchantApiUser = main_response.getString("merchant_api_user");
+                                    String merchantApiKey = main_response.getString("merchant_api_key");
+                                    String returnUrl = main_response.getString("return_url");
+                                    String userEmail = main_response.getString("user_email");
                                     if (fragmentOpenStatus == 0) {
                                         fragmentOpenStatus = 1;
                                         Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, ConfirmOrderFragment.newInstance(originalPrice, discountAmount, priceFinal, payOnline, payOnPickup, priceFinalNoCurrency, txnNarration, txnReference, merchantId, merchantApiUser, merchantApiKey, returnUrl, userEmail), "ConfirmOrderFragment", 3);
