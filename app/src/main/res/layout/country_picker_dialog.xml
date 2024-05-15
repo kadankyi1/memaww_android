@@ -39,8 +39,8 @@
 
         <Button
             android:id="@+id/fragment_signup_stage2_dialog_button"
-            android:layout_width="78dp"
-            android:layout_height="33dp"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
             android:layout_below="@+id/fragment_signup_stage2_numberpicker"
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="8dp"

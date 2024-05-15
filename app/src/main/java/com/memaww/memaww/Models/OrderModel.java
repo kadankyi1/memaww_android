@@ -33,6 +33,9 @@ public class OrderModel {
     private String createdAt;
     private String createdAtShortDate;
     private String updatedAt;
+    private String orderIdLong;
+    private String orderDeliveryDate;
+    private int orderStatusNumberForProgressBar;
 
     public long getOrderId() {
         return orderId;
@@ -273,5 +276,29 @@ public class OrderModel {
 
     public void setOrderPriceCurrency(String orderPriceCurrenty) {
         this.orderPriceCurrency = orderPriceCurrenty;
+    }
+
+    public String getOrderIdLong() {
+        return orderIdLong;
+    }
+
+    public void setOrderIdLong(String orderIdLong) {
+        this.orderIdLong = orderIdLong;
+    }
+
+    public String getOrderDeliveryDate() {
+        return orderDeliveryDate;
+    }
+
+    public void setOrderDeliveryDate(String orderDeliveryDate) {
+        this.orderDeliveryDate = orderDeliveryDate;
+    }
+
+    public int getOrderStatusNumberForProgressBar() {
+        return orderStatusNumberForProgressBar;
+    }
+
+    public void setOrderStatusNumberForProgressBar(int orderStatusNumberForProgressBar) {
+        this.orderStatusNumberForProgressBar = orderStatusNumberForProgressBar;
     }
 }

@@ -168,8 +168,8 @@ public class CollectionFormFragment extends Fragment {
                 });
             } else {
                 Config.showToastType1(getActivity(), "Please turn on your location...");
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
+                //Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                //startActivity(intent);
             }
         } else {
             // if permissions aren't available,

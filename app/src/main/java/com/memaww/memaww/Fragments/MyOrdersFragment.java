@@ -23,6 +23,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.memaww.memaww.Activities.OrderCollectionActivity;
 import com.memaww.memaww.ListDataGenerators.MyOrdersListDataGenerator;
 import com.memaww.memaww.Models.OrderModel;
@@ -43,6 +44,8 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
     private LinearLayoutManager mLinearlayoutmanager;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
     private Thread backgroundThread1 = null;
+    private String[] descriptionData = {"Pending", "Picked", "Washing", "Delivered"};
+
 
     public MyOrdersFragment() {
         // Required empty public constructor
@@ -141,9 +144,9 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
 
         public class OrderViewHolder extends RecyclerView.ViewHolder  {
-            private ConstraintLayout mTagHolderConstraintlayout;
             private ImageView mInfoImageView;
-            private TextView mOrderIdTextview, mItemsCountTextview, mPriceTextview, mStatusTextView, mDateTextView, mLocationTextView;
+            private TextView mOrderIdTextview, mItemsCountTextview, mDeliveryTextview, mStatusTextView, mDateTextView, mLocationTextView;
+            private StateProgressBar mStateProgressBar;
 
             private View.OnClickListener innerClickListener = new View.OnClickListener() {
                 @Override
@@ -154,72 +157,39 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
             public OrderViewHolder(View v) {
                 super(v);
-                mTagHolderConstraintlayout = v.findViewById(R.id.tag_holder);
                 mInfoImageView = v.findViewById(R.id.list_item_order_image_roundedcornerimageview);
-                mOrderIdTextview = v.findViewById(R.id.list_item_order_title_textview);
-                mItemsCountTextview = v.findViewById(R.id.list_item_order_body_textview);
-                mPriceTextview = v.findViewById(R.id.list_item_order_orderamount_textview);
-                mStatusTextView = v.findViewById(R.id.list_item_order_label_textview);
-                mDateTextView = v.findViewById(R.id.list_item_order_orderdate_textview);
-                mLocationTextView = v.findViewById(R.id.list_item_order_loc_textview);
+                mOrderIdTextview = v.findViewById(R.id.list_item_order_statusshort_textview);
+                mItemsCountTextview = v.findViewById(R.id.list_item_order_orderitemsvalue_textview);
+                mDeliveryTextview = v.findViewById(R.id.list_item_order_orderdeliveryvalue_textview);
+                mStatusTextView = v.findViewById(R.id.list_item_order_statuslong_textview);
+                mDateTextView = v.findViewById(R.id.list_item_order_orderdatevalue_textview);
+                mStateProgressBar = v.findViewById(R.id.your_state_progress_bar_id);
+                //mLocationTextView = v.findViewById(R.id.list_item_order_loc_textview);
 
-                mTagHolderConstraintlayout.setOnClickListener(innerClickListener);
                 mInfoImageView.setOnClickListener(innerClickListener);
-                mOrderIdTextview.setOnClickListener(innerClickListener);
-                mItemsCountTextview.setOnClickListener(innerClickListener);
-                mPriceTextview.setOnClickListener(innerClickListener);
-                mStatusTextView.setOnClickListener(innerClickListener);
-                mDateTextView.setOnClickListener(innerClickListener);
-                mLocationTextView.setOnClickListener(innerClickListener);
+
             }
         }
 
         @Override
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
 
-            ((OrderViewHolder) holder).mDateTextView.setText(String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).getCreatedAtShortDate()));
-            ((OrderViewHolder) holder).mOrderIdTextview.setText("#" + String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).getOrderId()));
+            if(MyOrdersListDataGenerator.getAllData().get(position).getOrderStatusNumberForProgressBar() == 2){
+                ((OrderViewHolder) holder).mStateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
+            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderStatusNumberForProgressBar() == 3){
+                ((OrderViewHolder) holder).mStateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
+            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderStatusNumberForProgressBar() == 4){
+                ((OrderViewHolder) holder).mStateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR);
+            } else {
+                ((OrderViewHolder) holder).mStateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.ONE);
+            }
+                ((OrderViewHolder) holder).mDateTextView.setText(String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).getCreatedAtShortDate()));
+            ((OrderViewHolder) holder).mOrderIdTextview.setText(MyOrdersListDataGenerator.getAllData().get(position).getOrderIdLong());
             ((OrderViewHolder) holder).mItemsCountTextview.setText(" x " + MyOrdersListDataGenerator.getAllData().get(position).getOrderAllItemsQuantity());
-            ((OrderViewHolder) holder).mPriceTextview.setText(MyOrdersListDataGenerator.getAllData().get(position).getOrderPriceCurrency() + MyOrdersListDataGenerator.getAllData().get(position).getOrderFinalPrice()); // + String.valueOf(MyOrdersListDataGenerator.getAllData().get(position).get()));
-
-            ((OrderViewHolder) holder).mLocationTextView.setText(MyOrdersListDataGenerator.getAllData().get(position).getOrderCollectionLocationRaw());
+            ((OrderViewHolder) holder).mDeliveryTextview.setText(MyOrdersListDataGenerator.getAllData().get(position).getOrderDeliveryDate());
+            //((OrderViewHolder) holder).mLocationTextView.setText(MyOrdersListDataGenerator.getAllData().get(position).getOrderCollectionLocationRaw());
             ((OrderViewHolder) holder).mStatusTextView.setText(MyOrdersListDataGenerator.getAllData().get(position).getOrderPaymentStatusMessage());
 
-            if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 0){
-                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_gray_light_v2));
-            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 2){
-                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_blue_light));
-            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 3){
-                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_orange_light_v1));
-            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 4){
-                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_yellow_light_v1));
-            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 5){
-                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_orange_light_v1));
-            } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderBeingWorkedOnStatus() == 6){
-                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_green_light_v1));
-            } else {
-                ((OrderViewHolder) holder).mTagHolderConstraintlayout.setBackgroundColor(getResources().getColor(R.color.color_red_light_v1));
-            }
-            /*
-
-            if(ArticleListDataGenerator.getAllData().get(position).getArticle_body().length() > 200){
-                ((OrderViewHolder) holder).m_body_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_body().substring(0, 199).trim() + "...");
-            } else {
-                ((OrderViewHolder) holder).m_body_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_body());
-            }
-
-            ((OrderViewHolder) holder).m_tag_textview.setText(ArticleListDataGenerator.getAllData().get(position).getArticle_type());
-
-            if(ArticleListDataGenerator.getAllData().get(position).getArticle_type().equalsIgnoreCase("HERALD OF GLORY")){
-                //((OrderViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.curved_bottom_left_corners_gold, null));
-            } else if(ArticleListDataGenerator.getAllData().get(position).getArticle_type().equalsIgnoreCase("SPECIAL ARTICLE")){
-                //((OrderViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.rounded_corners_specialarticle, null));
-            } else if(ArticleListDataGenerator.getAllData().get(position).getArticle_type().equalsIgnoreCase("GLORY NEWS")){
-                //((OrderViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.rounded_corners_glorynews, null));
-            } else if(ArticleListDataGenerator.getAllData().get(position).getArticle_type().equalsIgnoreCase("BIBLE READING PLAN")){
-                //((OrderViewHolder) holder).m_tag_holder_constraintlayout.setBackground(getActivity().getResources().getDrawable(R.drawable.rounded_corners_bible_reading, null));
-            }
-             */
 
         }
 
@@ -303,6 +273,9 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                         thisOrder.setCreatedAt(k.getString("created_at"));
                                         thisOrder.setCreatedAtShortDate(k.getString("order_date"));
                                         thisOrder.setUpdatedAt(k.getString("updated_at"));
+                                        thisOrder.setOrderIdLong(k.getString("order_id_long"));
+                                        thisOrder.setOrderDeliveryDate(k.getString("order_delivery_date"));
+                                        thisOrder.setOrderStatusNumberForProgressBar(k.getInt("order_delivery_status_number"));
                                         MyOrdersListDataGenerator.addOneData(thisOrder);
                                     }
 

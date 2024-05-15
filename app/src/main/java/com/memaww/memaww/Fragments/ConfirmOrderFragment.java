@@ -149,9 +149,9 @@ public class ConfirmOrderFragment extends Fragment {
                         .setApiKey(merchantApiKey)
                         .setTxRef(txnReference)
                         .set3dUrl(returnUrl)
-                        .acceptCardPayments(true)
                         .acceptGHMobileMoneyPayments(true)
-                        .onStagingEnv(true)
+                        .acceptCardPayments(true)
+                        .onStagingEnv(false)
                         .initialize();
             }
         });

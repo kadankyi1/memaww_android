@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/color_memaww_blue</item>
         <item name="colorPrimaryVariant">@color/color_memaww_blue_dark</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
