@@ -445,7 +445,13 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                     String userEmail = main_response.getString("user_email");
                                     if (fragmentOpenStatus == 0) {
                                         fragmentOpenStatus = 1;
-                                        Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, ConfirmOrderFragment.newInstance(originalPrice, discountAmount, priceFinal, payOnline, payOnPickup, priceFinalNoCurrency, txnNarration, txnReference, merchantId, merchantApiUser, merchantApiKey, returnUrl, userEmail), "ConfirmOrderFragment", 3);
+                                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, ConfirmOrderFragment.newInstance(originalPrice, discountAmount, priceFinal, payOnline, payOnPickup, priceFinalNoCurrency, txnNarration, txnReference, merchantId, merchantApiUser, merchantApiKey, returnUrl, userEmail), "ConfirmOrderFragment", 3);
+                                                mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            }
+                                        });
                                     }
 
                                 } else {

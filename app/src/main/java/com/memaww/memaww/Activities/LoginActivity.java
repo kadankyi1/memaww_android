@@ -152,9 +152,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 JSONObject main_response = new JSONObject(response);
                                 String myStatus = main_response.getString("status");
                                 final String myStatusMessage = main_response.getString("message");
-                                JSONObject user_data_response = new JSONObject(response).getJSONObject("user");
 
                                 if (myStatus.equalsIgnoreCase("success")) {
+                                    JSONObject user_data_response = new JSONObject(response).getJSONObject("user");
 
                                     //STORING THE USER DATA
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT, user_data_response.getString("user_id"));

@@ -35,12 +35,12 @@ import java.util.Set;
 public class Config {
 
     // CURRENT HTTP
-    //public static final String CURRENT_HTTP_IN_USE = "http://";
-    public static final String CURRENT_HTTP_IN_USE = "https://";
+    public static final String CURRENT_HTTP_IN_USE = "http://";
+    //public static final String CURRENT_HTTP_IN_USE = "https://";
 
     // LIVE OR TEST ENVIRONMENT
-    //public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "10.0.2.2/memaww/public"; // TEST
-    public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "memaww.com"; // LIVE
+    public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "10.0.2.2/memaww/public"; // TEST
+    //public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "memaww.com"; // LIVE
 
     // SERVER-SIDE API FOR LOGIN
     public static final String LINK_LOGIN = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/sign-in";
@@ -80,6 +80,7 @@ public class Config {
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN = "USER_PASSWORD";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_HAS_NEW_NOTIFICATION = "USER_HAS_NEW_NOTIFICATION";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_FCM_TOKEN = "USER_FCM_TOKEN";
+    public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE = "APP_MINIMUM_VERSION_CODE";
 
 
     public static final String SHARED_PREF_KEY_LAST_ORDER_LOCATION = "LAST_ORDER_LOCATION";

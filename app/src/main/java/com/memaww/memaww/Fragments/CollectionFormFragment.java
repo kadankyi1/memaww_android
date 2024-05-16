@@ -20,7 +20,9 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -31,6 +33,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.memaww.memaww.Activities.MainActivity;
 import com.memaww.memaww.R;
 import com.memaww.memaww.Util.Config;
 
@@ -42,7 +45,7 @@ public class CollectionFormFragment extends Fragment {
     FusedLocationProviderClient mFusedLocationClient;
     int PERMISSION_ID = 44;
     private EditText mLocationEditText, ContactPersonPhoneEditText;
-    private TextView mGetMyLocationTextView;
+    private ImageView mGetMyLocationTextView;
     private AppCompatButton mDoneButton;
     private Boolean useCurrentLocation = false;
     private String collectionLoc = "Not set", collectionDate = "Not Set", collectionPhone = "Not Set", collectionLocGPS = "0";
@@ -99,7 +102,7 @@ public class CollectionFormFragment extends Fragment {
         mDateTimeTimePicker = view.findViewById(R.id.fragment_collectionform_pickupdatetime_timepicker);
         ContactPersonPhoneEditText = view.findViewById(R.id.fragment_collectionform_contactpersonphone_edittext);
         mDoneButton = view.findViewById(R.id.fragment_collectionform_done_button);
-        mGetMyLocationTextView = view.findViewById(R.id.fragment_collectionform_usegps_textview);
+        mGetMyLocationTextView = view.findViewById(R.id.list_item_order_image_roundedcornerimageview);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -112,6 +115,7 @@ public class CollectionFormFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // method to get the location
+                view.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.main_activity_onclick_icon_anim));
                 useCurrentLocation = true;
                 getLastLocation();
             }
@@ -160,7 +164,9 @@ public class CollectionFormFragment extends Fragment {
                         } else {
                             if(useCurrentLocation){
                                 collectionLocGPS = location.getLatitude() + "," + location.getLongitude() + "";
-                                mLocationEditText.setText("Current Location");
+                                mLocationEditText.setText("My Current Location");
+                                mLocationEditText.setEnabled(false);
+                                mLocationEditText.setFocusable(false);
                             }
                             //Config.showToastType1(getActivity(), location.getLatitude() + " " + location.getLongitude() + "");
                         }

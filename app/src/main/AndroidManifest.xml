@@ -23,6 +23,13 @@
         android:theme="@style/Theme.MeMaww"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.UpdateActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Activities.NotificationsActivity"
             android:exported="false">
             <meta-data
@@ -33,7 +40,6 @@
         <service
             android:name=".Services.BackgroundService"
             android:exported="false" />
-
         <service
             android:name=".Services.MyFirebaseMessagingService"
             android:exported="false">

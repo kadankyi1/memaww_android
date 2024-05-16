@@ -77,6 +77,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         generalBackgroundThread.start();
 
+
+        Log.e("VERSION-CODE", "SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE: " + Config.getSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE));
+        Log.e("VERSION-CODE", "SUCCESS: " + Config.getAppVersionCode(getApplicationContext()));
+        if(!Config.getSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE).trim().equalsIgnoreCase("")){
+            if(Integer.valueOf(Config.getSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE)) > Integer.valueOf(Config.getAppVersionCode(getApplicationContext()))){
+                Config.openActivity(MainActivity.this, UpdateActivity.class, 1, 2, 0, "", "");
+                return;
+            }
+        }
     }
 
 

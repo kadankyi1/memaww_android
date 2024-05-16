@@ -174,6 +174,8 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
 
+            ((OrderViewHolder) holder).mStateProgressBar.setStateDescriptionData(descriptionData);
+
             if(MyOrdersListDataGenerator.getAllData().get(position).getOrderStatusNumberForProgressBar() == 2){
                 ((OrderViewHolder) holder).mStateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
             } else if(MyOrdersListDataGenerator.getAllData().get(position).getOrderStatusNumberForProgressBar() == 3){
