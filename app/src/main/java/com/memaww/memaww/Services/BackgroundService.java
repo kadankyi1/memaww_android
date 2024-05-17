@@ -114,9 +114,10 @@ public class BackgroundService extends Service {
                             JSONObject main_response = new JSONObject(response);
                             String myStatus = main_response.getString("status");
                             String myStatusMessage = main_response.getString("message");
-                            String minVersionCode = main_response.getString("min_vc");
-
-                            Config.setSharedPreferenceString(context, Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE, minVersionCode);
+                            if(myStatus.trim().equalsIgnoreCase("success")){
+                                String minVersionCode = main_response.getString("min_vc");
+                                Config.setSharedPreferenceString(context, Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE, minVersionCode);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

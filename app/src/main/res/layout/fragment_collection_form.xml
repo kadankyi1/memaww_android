@@ -142,12 +142,14 @@
 
             <TextView
                 android:id="@+id/fragment_collectionform_timeinfo_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="end"
+                android:gravity="center"
+                android:textStyle="bold"
                 android:text="Set Pickup Time"
-                android:textColor="@color/color_gray"
+                android:textColor="@color/black"
                 android:textSize="16sp"/>
 
             <TimePicker

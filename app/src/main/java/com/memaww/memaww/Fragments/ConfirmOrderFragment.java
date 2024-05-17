@@ -150,7 +150,7 @@ public class ConfirmOrderFragment extends Fragment {
                         .setTxRef(txnReference)
                         .set3dUrl(returnUrl)
                         .acceptGHMobileMoneyPayments(true)
-                        .acceptCardPayments(true)
+                        .acceptCardPayments(false)
                         .onStagingEnv(false)
                         .initialize();
             }
