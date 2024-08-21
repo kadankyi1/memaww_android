@@ -12,6 +12,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -19,6 +21,7 @@ import com.memaww.memaww.Activities.MainActivity;
 import com.memaww.memaww.Activities.NotificationsActivity;
 import com.memaww.memaww.R;
 import com.memaww.memaww.Util.Config;
+import com.memaww.memaww.Util.MyLifecycleHandler;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -31,20 +34,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FCM_TOKEN, token);
     }
 
-    @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
-        // TODO(developer): Handle FCM messages here.
 
-        if (remoteMessage.getNotification()!=null){
+    @Override
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        // TODO(developer): Handle FCM messages here.
             // Show the notification
             Log.e("FIREBASE-MSG", "FIREBASE NOTIFICATION RECEIVED 1: " + remoteMessage.getNotification().getTitle());
             Config.setSharedPreferenceBoolean(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_HAS_NEW_NOTIFICATION, true);
             String notificationBody = remoteMessage.getNotification().getBody();
             String notificationTitle = remoteMessage.getNotification().getTitle();
 
-            sendNotification (notificationTitle, notificationBody);
-
-        }
+            Notification.getInstance().addOrder(remoteMessage.getData().get("id"));
+            //&& notificationTitle.equalsIgnoreCase("New Message - MeMaww")
+            if(MyLifecycleHandler.isApplicationInForeground()){
+                Log.e("FIREBASE-MSG", "FORE-GROUND MESSAGE NOTIFICATION" );
+            } else {
+                Log.e("FIREBASE-MSG", "BACK-GROUND MESSAGE NOTIFICATION" );
+                sendNotification (notificationTitle, notificationBody);
+            }
     }
 
     public void handleIntent(Intent intent) {
@@ -84,12 +91,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);
 
-        Intent notificationIntent = new Intent(this, NotificationsActivity.class);
-        PendingIntent conPendingIntent = PendingIntent.getActivity(this,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationBuilder.setContentIntent(conPendingIntent);
+        if(title.equalsIgnoreCase("New Message - MeMaww")){
+            Intent notificationIntent = new Intent(this, MainActivity.class);
+            notificationIntent.putExtra("goto", 3);
+            PendingIntent conPendingIntent = PendingIntent.getActivity(this,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationBuilder.setContentIntent(conPendingIntent);
+        } else {
+            Intent notificationIntent = new Intent(this, NotificationsActivity.class);
+            PendingIntent conPendingIntent = PendingIntent.getActivity(this,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationBuilder.setContentIntent(conPendingIntent);
+        }
+
+
 
         // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -101,6 +116,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
+    public static class Notification {
+        private static Notification instance;
+        private MutableLiveData<String> newOrder;
+
+        private Notification() {
+            newOrder = new MutableLiveData<>();
+        }
+
+        public static Notification getInstance() {
+            if(instance == null){
+                instance = new Notification();
+            }
+            return instance;
+        }
+
+        public LiveData<String> getNewOrder() {
+            return newOrder;
+        }
+
+        public void addOrder(String orderID){
+            newOrder.postValue(orderID);
+        }
+    }
 }
 
 

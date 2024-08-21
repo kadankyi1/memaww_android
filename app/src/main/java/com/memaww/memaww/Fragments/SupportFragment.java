@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -31,6 +32,7 @@ import com.memaww.memaww.Activities.MainActivity;
 import com.memaww.memaww.ListDataGenerators.MyMessagesListDataGenerator;
 import com.memaww.memaww.Models.MessageModel;
 import com.memaww.memaww.R;
+import com.memaww.memaww.Services.MyFirebaseMessagingService;
 import com.memaww.memaww.Util.Config;
 
 import org.json.JSONArray;
@@ -93,7 +95,7 @@ public class SupportFragment extends Fragment {
         backgroundThread1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                getMyOrders();
+                getMyMessages(true);
             }
         });
         backgroundThread1.start();
@@ -104,7 +106,7 @@ public class SupportFragment extends Fragment {
                 backgroundThread1 = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        getMyOrders();
+                        getMyMessages(true);
                     }
                 });
                 backgroundThread1.start();
@@ -129,6 +131,18 @@ public class SupportFragment extends Fragment {
             }
         });
 
+        MyFirebaseMessagingService.
+                Notification.
+                getInstance().
+                getNewOrder().
+                observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        //TODO: update your ui here...
+                        Log.e("FIREBASE-MSG", "NEW MESSAGE FOR UI");
+                        getMyMessages(false);
+                    }
+                });
 
 
         return view;
@@ -230,16 +244,18 @@ public class SupportFragment extends Fragment {
 
     }
 
-    public void getMyOrders() {
+    public void getMyMessages(boolean firstCall) {
 
         if (!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    mRecyclerview.setVisibility(View.INVISIBLE);
-                    mBackgroundImageImageView.setVisibility(View.INVISIBLE);
-                    mBackgroundTextTextView.setVisibility(View.INVISIBLE);
-                    mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
+                    if(firstCall){
+                        mRecyclerview.setVisibility(View.INVISIBLE);
+                        mBackgroundImageImageView.setVisibility(View.INVISIBLE);
+                        mBackgroundTextTextView.setVisibility(View.INVISIBLE);
+                        mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }
@@ -255,7 +271,7 @@ public class SupportFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         if (!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
-                            Log.e("SERVER-REQUEST", "response: " + response.toString());
+                            //Log.e("SERVER-REQUEST", "response: " + response.toString());
                             try {
                                 JSONObject main_response = new JSONObject(response);
                                 String myStatus = main_response.getString("status");
@@ -270,7 +286,7 @@ public class SupportFragment extends Fragment {
                                             mRecyclerview.getAdapter().notifyDataSetChanged();
                                         }
                                     });
-                                    for (int i = 0; i < myMessagesArray.length(); i++) {
+                                    for (int i = myMessagesArray.length()-1; i > -1; i--) {
                                         MessageModel thisMessage = new MessageModel();
                                         final JSONObject k = myMessagesArray.getJSONObject(i);
                                         thisMessage.setMessageId(k.getLong("message_id"));
@@ -286,12 +302,15 @@ public class SupportFragment extends Fragment {
                                         @Override
                                         public void run() {
                                                 mRecyclerview.getAdapter().notifyItemInserted(MyMessagesListDataGenerator.getAllData().size());
+
+                                            if(firstCall){
                                                 mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                                 mBackgroundImageImageView.setVisibility(View.INVISIBLE);
                                                 mBackgroundTextTextView.setVisibility(View.INVISIBLE);
                                                 mRecyclerview.setVisibility(View.VISIBLE);
-                                                mRecyclerview.scrollToPosition(MyMessagesListDataGenerator.getAllData().size()-1);
                                                 mMainParentSwipeRefreshLayout.setRefreshing(false);
+                                            }
+                                                mRecyclerview.scrollToPosition(MyMessagesListDataGenerator.getAllData().size()-1);
                                         }
                                     });
                                     }
@@ -300,13 +319,16 @@ public class SupportFragment extends Fragment {
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            mBackgroundImageImageView.setVisibility(View.VISIBLE);
-                                            mBackgroundTextTextView.setVisibility(View.VISIBLE);
-                                            mBackgroundTextTextView.setText("No Messages found");
-                                            mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
-                                            mRecyclerview.setVisibility(View.VISIBLE);
-                                            mMainParentSwipeRefreshLayout.setRefreshing(false);
-                                            //Config.showToastType1(getActivity(), "No Orders found");
+
+                                            if(firstCall) {
+                                                mBackgroundImageImageView.setVisibility(View.VISIBLE);
+                                                mBackgroundTextTextView.setVisibility(View.VISIBLE);
+                                                mBackgroundTextTextView.setText("No Messages found");
+                                                mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                                mRecyclerview.setVisibility(View.VISIBLE);
+                                                mMainParentSwipeRefreshLayout.setRefreshing(false);
+                                                Config.showToastType1(getActivity(), "No Messages found");
+                                            }
                                         }
                                     });
                                 }
@@ -316,9 +338,11 @@ public class SupportFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         Config.showToastType1(getActivity(), getString(R.string.an_unexpected_error_occured));
-                                        mRecyclerview.setVisibility(View.INVISIBLE);
-                                        mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
-                                        mMainParentSwipeRefreshLayout.setRefreshing(false);
+                                        if(firstCall) {
+                                            mRecyclerview.setVisibility(View.INVISIBLE);
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
+                                            mMainParentSwipeRefreshLayout.setRefreshing(false);
+                                        }
                                     }
                                 });
                             }

@@ -39,9 +39,10 @@ import com.memaww.memaww.Util.Config;
 
 import java.util.Calendar;
 
-public class CollectionFormFragment extends Fragment {
+public class CollectionFormFragment extends Fragment implements View.OnClickListener {
 
-    private TimePicker mDateTimeTimePicker;
+    private TextView m7amPickupTimeTextView, m12pmPickupTimeTextView, m4pmPickupTimeTextView;
+    private String pickupTimeString = "", pickupTimeNiceFormatString = "";
     FusedLocationProviderClient mFusedLocationClient;
     int PERMISSION_ID = 44;
     private EditText mLocationEditText, ContactPersonPhoneEditText;
@@ -50,8 +51,9 @@ public class CollectionFormFragment extends Fragment {
     private Boolean useCurrentLocation = false;
     private String collectionLoc = "Not set", collectionDate = "Not Set", collectionPhone = "Not Set", collectionLocGPS = "0";
 
+
     public interface onCollectionFormDoneButtonClickedEventListener {
-        public void collectionFormDoneButtonClicked(String collectionLocation, String collectionLocationGPS, String collectionDateTime, String collectionContactPhone);
+        public void collectionFormDoneButtonClicked(String collectionLocation, String collectionLocationGPS, String collectionDateTime, String collectionContactPhone, String collectionNiceTimeFormat);
     }
 
     onCollectionFormDoneButtonClickedEventListener collectionFormDoneButtonClickedListener;
@@ -99,16 +101,14 @@ public class CollectionFormFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_collection_form, container, false);
         mLocationEditText = view.findViewById(R.id.fragment_collectionform_pickuplocation_edittext);
-        mDateTimeTimePicker = view.findViewById(R.id.fragment_collectionform_pickupdatetime_timepicker);
+        m7amPickupTimeTextView = view.findViewById(R.id.fragment_collectionform_timeinfo_7am_textview);
+        m12pmPickupTimeTextView = view.findViewById(R.id.fragment_collectionform_timeinfo_12pm_textview);
+        m4pmPickupTimeTextView = view.findViewById(R.id.fragment_collectionform_timeinfo_4pm_textview);
         ContactPersonPhoneEditText = view.findViewById(R.id.fragment_collectionform_contactpersonphone_edittext);
         mDoneButton = view.findViewById(R.id.fragment_collectionform_done_button);
         mGetMyLocationTextView = view.findViewById(R.id.list_item_order_image_roundedcornerimageview);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-
-
-        //mDateTimeTimePicker.setIs24HourView(true);//set Timer to 24 hours Format
-        mDateTimeTimePicker.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 
 
         mGetMyLocationTextView.setOnClickListener(new View.OnClickListener() {
@@ -128,20 +128,47 @@ public class CollectionFormFragment extends Fragment {
                 if(!mLocationEditText.getText().toString().trim().equalsIgnoreCase("")){
                     collectionLoc = mLocationEditText.getText().toString().trim();
                 }
-                //if(!mDateTimeTimePicker.getText().toString().trim().equalsIgnoreCase("")){
-                    collectionDate = String.valueOf(mDateTimeTimePicker.getHour()) + " : " + String.valueOf(mDateTimeTimePicker.getMinute());
-                //}
+                if(!pickupTimeString.equalsIgnoreCase("")){
+                    collectionDate = pickupTimeString;
+                }
                 if(!ContactPersonPhoneEditText.getText().toString().trim().equalsIgnoreCase("")){
                     collectionPhone = ContactPersonPhoneEditText.getText().toString().trim();
                 }
 
-                collectionFormDoneButtonClickedListener.collectionFormDoneButtonClicked(collectionLoc, collectionLocGPS, collectionDate, collectionPhone);
+                collectionFormDoneButtonClickedListener.collectionFormDoneButtonClicked(collectionLoc, collectionLocGPS, collectionDate, collectionPhone, pickupTimeNiceFormatString);
                 getActivity().onBackPressed();
             }
         });
+
+        m7amPickupTimeTextView.setOnClickListener(this);
+        m12pmPickupTimeTextView.setOnClickListener(this);
+        m4pmPickupTimeTextView.setOnClickListener(this);
         return view;
     }
 
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == m7amPickupTimeTextView.getId()){
+            pickupTimeString = "07:00";
+            pickupTimeNiceFormatString = "7am-8am";
+            m7amPickupTimeTextView.setBackground(getResources().getDrawable(R.drawable.background_light_blue_pressed_lighter_blue_rounded_all_corners, getContext().getTheme()));
+            m12pmPickupTimeTextView.setBackground(getResources().getDrawable(R.drawable.background_white_border_blue_pressed_lighter_blue_rounded_all_corners, getContext().getTheme()));
+            m4pmPickupTimeTextView.setBackground(getResources().getDrawable(R.drawable.background_white_border_blue_pressed_lighter_blue_rounded_all_corners, getContext().getTheme()));
+        } else if(view.getId() == m12pmPickupTimeTextView.getId()){
+            pickupTimeString = "12:00";
+            pickupTimeNiceFormatString = "12pm-1pm";
+            m7amPickupTimeTextView.setBackground(getResources().getDrawable(R.drawable.background_white_border_blue_pressed_lighter_blue_rounded_all_corners, getContext().getTheme()));
+            m12pmPickupTimeTextView.setBackground(getResources().getDrawable(R.drawable.background_light_blue_pressed_lighter_blue_rounded_all_corners, getContext().getTheme()));
+            m4pmPickupTimeTextView.setBackground(getResources().getDrawable(R.drawable.background_white_border_blue_pressed_lighter_blue_rounded_all_corners, getContext().getTheme()));
+        } else if(view.getId() == m4pmPickupTimeTextView.getId()){
+            pickupTimeString = "16:00";
+            pickupTimeNiceFormatString = "4pm-5pm";
+            m7amPickupTimeTextView.setBackground(getResources().getDrawable(R.drawable.background_white_border_blue_pressed_lighter_blue_rounded_all_corners, getContext().getTheme()));
+            m12pmPickupTimeTextView.setBackground(getResources().getDrawable(R.drawable.background_white_border_blue_pressed_lighter_blue_rounded_all_corners, getContext().getTheme()));
+            m4pmPickupTimeTextView.setBackground(getResources().getDrawable(R.drawable.background_light_blue_pressed_lighter_blue_rounded_all_corners, getContext().getTheme()));
+        }
+    }
 
     @SuppressLint("MissingPermission")
     private void getLastLocation() {

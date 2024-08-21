@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- MY COLORS -->
+    <color name="color_memaww_blue_lighter">#5EA9E4</color>
     <color name="color_memaww_blue">#2196F3</color>
     <color name="color_memaww_blue_dark">#0A68B3</color>
     <color name="color_dot_inactive">#ada996</color>

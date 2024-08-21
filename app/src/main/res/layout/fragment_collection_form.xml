@@ -129,6 +129,86 @@
             app:layout_constraintGuide_percent="0.55" />
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_collectionform_pickuplocdatetime_layout_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:theme="@style/loginActivityHintStyle"
+            app:layout_constraintLeft_toRightOf="@+id/fragment_collectionform_guideline_v1"
+            app:layout_constraintRight_toLeftOf="@+id/fragment_collectionform_guideline_v2"
+            app:layout_constraintTop_toTopOf="@+id/fragment_collectionform_guideline_h1">
+
+
+            <TextView
+                android:id="@+id/fragment_collectionform_timeinfo_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:text="Set Pickup Time"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fragment_collectionform_timeinfo_7am_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_white_background_pressed_gray"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="7am - 8am"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/fragment_collectionform_timeinfo_12pm_textview"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_timeinfo_textview" />
+
+
+            <TextView
+                android:id="@+id/fragment_collectionform_timeinfo_12pm_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_white_background_pressed_gray"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="12pm - 1pm"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/fragment_collectionform_timeinfo_4pm_textview"
+                app:layout_constraintStart_toEndOf="@+id/fragment_collectionform_timeinfo_7am_textview"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_timeinfo_textview" />
+
+
+            <TextView
+                android:id="@+id/fragment_collectionform_timeinfo_4pm_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_white_background_pressed_gray"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="4pm - 5pm"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/fragment_collectionform_timeinfo_12pm_textview"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_timeinfo_textview" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_collectionform_pickuplocdatetime_layout_holder"
             android:layout_width="0dp"
@@ -166,6 +246,7 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>
+        -->
 
         <ImageView
             android:id="@+id/list_item_order_image_roundedcornerimageview"
@@ -186,6 +267,7 @@
             android:id="@+id/fragment_collectionform_pickuplocation_edittext_layout_holder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:theme="@style/fragmentFormHintStyle"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintEnd_toStartOf="@+id/list_item_order_image_roundedcornerimageview"

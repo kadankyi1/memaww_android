@@ -145,8 +145,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Wash &amp; Fold"
-                android:maxLength="40"
-                android:inputType="text"
+                android:digits="0123456789"
+                android:inputType="number"
                 android:labelFor="@id/fragment_collectionform_pickuplocation_edittext"
                 android:textColor="@drawable/login_activity_input_text_color" />
 
@@ -170,9 +170,9 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Wash &amp; Iron"
-                android:inputType="datetime"
+                android:digits="0123456789"
+                android:inputType="number"
                 android:labelFor="@id/fragment_collectionform_pickupdatetime_timepicker"
-                android:maxLength="20"
                 android:textColor="@drawable/login_activity_input_text_color" />
 
 

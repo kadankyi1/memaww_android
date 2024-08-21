@@ -37,11 +37,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mInfoIconImageView;
     private ConstraintLayout mNewNotificationIconHolderConstraintLayout, mNotificationIconHolderConstraintLayout;
     private Thread generalBackgroundThread = null;
+    private int defaultFragment = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        defaultFragment = getIntent().getIntExtra("goto", 2);
+
+
         mMainMenuBottomNavigationView = findViewById(R.id.activity_main_bottomnavigationview);
         mFragmentsHolderViewPager = findViewById(R.id.activity_main_fragmentsholder_viewpager);
         mInfoIconImageView = findViewById(R.id.activity_main_constraintlayout2_infoicon_imageview);
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<Fragment> fragmentsList = getFragments();
         pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragmentsList);
         mFragmentsHolderViewPager.setAdapter(pageAdapter);
-        mFragmentsHolderViewPager.setCurrentItem(2);
+        mFragmentsHolderViewPager.setCurrentItem(defaultFragment);
 
 
         generalBackgroundThread = new Thread(new Runnable() {

@@ -143,13 +143,8 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
             }
         } else if (view.getId() == mProceedButton.getId()) {
 
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //String currentDateandTime = sdf.format(new Date());
 
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            String currentDateandTime = sdf.format(new Date());
-
-            placeOrder(collectionAndDropOffLocation, collectionAndDropOffLocationGPS, currentDateandTime, contactPerson, "", collectionAndDropOffLocationGPS, "", lightWeightItemsJustWash, lightWeightItemsWashAndIron, lightWeightItemsJustIron, bulkyItemsJustWash, bulkyItemsWashAndIron, specialNotesOnOrder, discountOnOrder);
+            placeOrder(collectionAndDropOffLocation, collectionAndDropOffLocationGPS, collectionTime, contactPerson, "", collectionAndDropOffLocationGPS, "", lightWeightItemsJustWash, lightWeightItemsWashAndIron, lightWeightItemsJustIron, bulkyItemsJustWash, bulkyItemsWashAndIron, specialNotesOnOrder, discountOnOrder);
 
         }
     }
@@ -177,7 +172,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     }
 
     @Override
-    public void collectionFormDoneButtonClicked(String collectionLocation, String collectionLocationGPS, String collectionDateTime, String collectionContactPhone) {
+    public void collectionFormDoneButtonClicked(String collectionLocation, String collectionLocationGPS, String collectionDateTime, String collectionContactPhone, String collectionNiceTimeFormat) {
         Log.e("collectionFormDone", collectionLocation + ", " + collectionLocationGPS + ", " + collectionDateTime + ", " + collectionContactPhone);
         fragmentOpenStatus = 0;
         mProceedButton.setVisibility(View.VISIBLE);
@@ -198,7 +193,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
 
         if(!collectionDateTime.equalsIgnoreCase("Not Set") &&  !collectionDateTime.trim().equalsIgnoreCase("")){
             collectionTime = collectionDateTime;
-            mCollectionTimeTextView.setText(collectionTime);
+            mCollectionTimeTextView.setText(collectionNiceTimeFormat);
         }
 
 

@@ -237,6 +237,7 @@
             android:id="@+id/fragment_confirmorder_payonpickup_button"
             android:layout_width="0dp"
             android:layout_height="35dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/button_rounded_dull_pressed_white"
             android:text="Pay-On-Pickup"
             android:textColor="@color/black"
