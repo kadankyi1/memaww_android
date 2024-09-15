@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.memaww.memaww.Fragments.PlaceOrderFragment;
 import com.memaww.memaww.Fragments.SupportFragment;
 import com.memaww.memaww.R;
 import com.memaww.memaww.Services.BackgroundService;
+import com.memaww.memaww.Services.MyFirebaseMessagingService;
 import com.memaww.memaww.Util.Config;
 
 import java.util.ArrayList;
@@ -82,6 +84,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         generalBackgroundThread.start();
 
+        MyFirebaseMessagingService.
+                Notification.
+                getInstance().
+                getNewOrder(). //getViewLifecycleOwner()
+                observe(this, new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        //TODO: update your ui here...
+                        Log.e("FIREBASE-MSG", "NEW NON-MESSAGE NOTIFICATION");
+                        mNewNotificationIconHolderConstraintLayout.setVisibility(View.VISIBLE);
+                    }
+                });
 
         Log.e("VERSION-CODE", "SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE: " + Config.getSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE));
         Log.e("VERSION-CODE", "SUCCESS: " + Config.getAppVersionCode(getApplicationContext()));

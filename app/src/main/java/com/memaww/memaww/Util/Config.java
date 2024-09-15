@@ -35,12 +35,12 @@ import java.util.Set;
 public class Config {
 
     // CURRENT HTTP
-    public static final String CURRENT_HTTP_IN_USE = "http://";
-    //public static final String CURRENT_HTTP_IN_USE = "https://";
+    //public static final String CURRENT_HTTP_IN_USE = "http://";
+    public static final String CURRENT_HTTP_IN_USE = "https://";
 
     // LIVE OR TEST ENVIRONMENT
-    public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "10.0.2.2/memaww/public"; // TEST
-    //public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "memaww.com"; // LIVE
+    //public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "10.0.2.2/memaww/public"; // TEST
+    public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "memaww.com"; // LIVE
 
     // SERVER-SIDE API FOR LOGIN
     public static final String LINK_LOGIN = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/sign-in";
@@ -486,6 +486,15 @@ public class Config {
         }
 
         return backgroundThread;
+    }
+
+    public static void setTextWithLengthRestriction(TextView textView, String theText, int maxLength, boolean addThreeDotsAtEnd){
+        if(theText.trim().length() > maxLength-3){
+            textView.setText(theText.substring(0, maxLength-3) + "...");
+        } else {
+            textView.setText(theText);
+        }
+
     }
 
 }

@@ -239,8 +239,8 @@
                     android:maxLength="10"
                     android:ems="10"
                     android:hint="Invite Code (Optional)"
-                    android:digits="0123456789"
-                    android:inputType="phone"
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:inputType="text"
                     android:labelFor="@id/activity_login_invitecode_edit_text"
                     android:textColor="@drawable/login_activity_input_text_color" />
 

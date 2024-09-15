@@ -68,7 +68,7 @@ public class BackgroundService extends Service {
             @Override
             public void run () {
                 // schedule task
-                Log.e("SERVER-REQUEST", "NEWS FETCH STARTED 1");
+                Log.e("updateUserInfo", "STARTED 1");
                 mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 0, NOTIFY_INTERVAL);
             }
         });
@@ -96,7 +96,8 @@ public class BackgroundService extends Service {
 
 
     public static void updateUserInfo(final Context context, final String fcm){
-        Log.e("SERVER-REQUEST", "NEWS FETCH STARTED 2");
+        Log.e("updateUserInfo", "STARTED 2");
+        Log.e("updateUserInfo", "fcm: " + fcm);
         AndroidNetworking.post(Config.LINK_COLLECTION_UPDATE_USER_INFO)
                 .addHeaders("Accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + Config.getSharedPreferenceString(context, Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN))
@@ -109,7 +110,7 @@ public class BackgroundService extends Service {
                 .build().getAsString(new StringRequestListener() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("SERVER-REQUEST", "response: " + response.toString());
+                        Log.e("updateUserInfo", "response: " + response.toString());
                         try {
                             JSONObject main_response = new JSONObject(response);
                             String myStatus = main_response.getString("status");
@@ -125,7 +126,7 @@ public class BackgroundService extends Service {
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.e("SERVER-REQUEST", "anError: " + anError.toString());
+                        Log.e("updateUserInfo", "anError: " + anError.toString());
                     }
                 });
 

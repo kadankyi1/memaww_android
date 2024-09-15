@@ -327,7 +327,7 @@ public class SupportFragment extends Fragment {
                                                 mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                                 mRecyclerview.setVisibility(View.VISIBLE);
                                                 mMainParentSwipeRefreshLayout.setRefreshing(false);
-                                                Config.showToastType1(getActivity(), "No Messages found");
+                                                //Config.showToastType1(getActivity(), "No Messages found");
                                             }
                                         }
                                     });

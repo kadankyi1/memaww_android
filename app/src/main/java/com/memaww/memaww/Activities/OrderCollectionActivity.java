@@ -229,7 +229,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     @Override
     public void specialNotesFormDoneButtonClicked(String specialNotes) {
         specialNotesOnOrder = specialNotes;
-        mSpecialNotesTextView.setText(specialNotesOnOrder);
+        Config.setTextWithLengthRestriction(mSpecialNotesTextView, specialNotes, 53, true);
     }
 
 
