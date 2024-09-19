@@ -39,7 +39,7 @@ public class Config {
     public static final String CURRENT_HTTP_IN_USE = "https://";
 
     // LIVE OR TEST ENVIRONMENT
-    //public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "10.0.2.2/memaww/public"; // TEST
+    //public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "10.0.2.2/memaww/public"; //TEST
     public static final String CURRENT_ENVIRONMENT_DOMAIN_IN_USE = "memaww.com"; // LIVE
 
     // SERVER-SIDE API FOR LOGIN
