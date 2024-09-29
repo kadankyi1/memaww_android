@@ -13,35 +13,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.03" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fragment_placeorder_h_guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.97" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fragment_placeorder_h_guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.30" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fragment_placeorder_h_guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.33" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fragment_placeorder_h_guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.60" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fragment_placeorder_h_guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.63" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fragment_placeorder_v_guideline4"
@@ -78,8 +86,8 @@
 
             <ImageView
                 android:id="@+id/fragment_placeorder_goodordericon_imageview"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/distribution"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_goodordertitle_textview"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +105,7 @@
                 android:layout_marginEnd="15dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_goodorderinfodesc_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,8 +149,8 @@
         app:cardCornerRadius="20dp"
         android:elevation="20dp"
         android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_h_guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_h_guideline5"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_h_guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_h_guideline6"
         app:layout_constraintStart_toEndOf="@+id/fragment_placeorder_v_guideline4"
         app:layout_constraintEnd_toStartOf="@+id/fragment_placeorder_v_guideline5">
 
@@ -152,10 +160,10 @@
 
             <ImageView
                 android:id="@+id/fragment_placeorder_fastordericon_imageview"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/smartphone"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="17dp"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_fastordertitle_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +181,7 @@
                 android:text="Request Callback"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_fastorderinfodesc_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -186,7 +194,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:gravity="center"
-                android:text="We Call You  &#8226; Take Order Info  &#8226; No Discounts"
+                android:text="We Call  &#8226; Take Order Info  &#8226; No Discounts"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -195,5 +203,153 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/fragment_placeorder_subscriptionofforderholder_constraintlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="20dp"
+        android:elevation="20dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_h_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_h_guideline7"
+        app:layout_constraintStart_toEndOf="@+id/fragment_placeorder_v_guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_placeorder_v_guideline5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/fragment_placeorder_subscriptionoffordericon_imageview"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/subscriptionoff"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_subscriptionoffordertitle_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.6"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+
+            <TextView
+                android:id="@+id/fragment_placeorder_subscriptionoffordertitle_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:text="No Subscription Active"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_subscriptionofforderinfodesc_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_subscriptionoffordericon_imageview" />
+
+            <TextView
+                android:id="@+id/fragment_placeorder_subscriptionofforderinfodesc_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:text="You save up to 80% on your laundry cost. Save more than even doing it at home"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_subscriptionoffbuy_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_subscriptionoffordertitle_textview" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_placeorder_subscriptionoffbuy_button"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/button_rounded_green_pressed_white"
+                android:text="Subscribe"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_subscriptionofforderinfodesc_textview"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/fragment_placeorder_subscriptionactiveorderholder_constraintlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="20dp"
+        android:elevation="20dp"
+        android:visibility="gone"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_h_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_h_guideline7"
+        app:layout_constraintStart_toEndOf="@+id/fragment_placeorder_v_guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_placeorder_v_guideline5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/fragment_placeorder_subscriptionactiveordericon_imageview"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/smartphone"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_subscriptionactiveordertitle_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+
+            <TextView
+                android:id="@+id/fragment_placeorder_subscriptionactiveordertitle_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:text="Request Callback"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_placeorder_subscriptionactiveorderinfodesc_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_subscriptionactiveordericon_imageview" />
+
+            <TextView
+                android:id="@+id/fragment_placeorder_subscriptionactiveorderinfodesc_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:text="We Call You  &#8226; Take Order Info  &#8226; No Discounts"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_placeorder_subscriptionactiveordertitle_textview" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

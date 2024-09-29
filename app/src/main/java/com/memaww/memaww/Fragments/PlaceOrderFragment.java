@@ -2,6 +2,7 @@ package com.memaww.memaww.Fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.memaww.memaww.Activities.BuySubscriptionActivity;
 import com.memaww.memaww.Activities.OrderCollectionActivity;
 import com.memaww.memaww.R;
 import com.memaww.memaww.Util.Config;
@@ -32,6 +34,7 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
     private CardView mGoodOrderCardView, mFastOrderCardView;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
     private Thread backgroundThread1 = null;
+    private AppCompatButton mBuySubscriptionAppCompatButton;
 
     public PlaceOrderFragment() {
         // Required empty public constructor
@@ -54,11 +57,13 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
 
         mGoodOrderCardView = view.findViewById(R.id.fragment_placeorder_goodorderholder_constraintlayout);
         mFastOrderCardView = view.findViewById(R.id.fragment_placeorder_fastorderholder_constraintlayout);
+        mBuySubscriptionAppCompatButton = view.findViewById(R.id.fragment_placeorder_subscriptionoffbuy_button);
         mLoadingContentLoadingProgressBar = view.findViewById(R.id.fragment_placeorder_loading_contentloadingprogressbar);
 
 
         mGoodOrderCardView.setOnClickListener(this);
         mFastOrderCardView.setOnClickListener(this);
+        mBuySubscriptionAppCompatButton.setOnClickListener(this);
 
         return view;
     }
@@ -75,6 +80,8 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                 }
             });
             backgroundThread1.start();
+        } else if(view.getId() == mBuySubscriptionAppCompatButton.getId()){
+            Config.openActivity(getActivity(), BuySubscriptionActivity.class, 0, 0, 0, "", "");
         }
     }
 
