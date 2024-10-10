@@ -24,7 +24,7 @@
         android:theme="@style/Theme.MeMaww"
         tools:targetApi="31" >
         <activity
-            android:name=".BuySubcriptionActivity"
+            android:name=".Activities.BuySubscriptionActivity"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"

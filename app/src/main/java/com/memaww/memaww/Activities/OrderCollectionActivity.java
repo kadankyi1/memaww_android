@@ -171,6 +171,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
 
     }
 
+
     @Override
     public void collectionFormDoneButtonClicked(String collectionLocation, String collectionLocationGPS, String collectionDateTime, String collectionContactPhone, String collectionNiceTimeFormat) {
         Log.e("collectionFormDone", collectionLocation + ", " + collectionLocationGPS + ", " + collectionDateTime + ", " + collectionContactPhone);
@@ -195,8 +196,6 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
             collectionTime = collectionDateTime;
             mCollectionTimeTextView.setText(collectionNiceTimeFormat);
         }
-
-
     }
 
 
@@ -260,7 +259,6 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
         fragmentOpenStatus = 0;
         mProceedButton.setVisibility(View.VISIBLE);
         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
