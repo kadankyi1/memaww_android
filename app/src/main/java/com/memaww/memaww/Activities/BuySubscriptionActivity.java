@@ -2,19 +2,28 @@ package com.memaww.memaww.Activities;
 
 import static gh.com.payswitch.thetellerandroid.thetellerConstants.theteller_results;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
 import androidx.core.widget.ContentLoadingProgressBar;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -24,32 +33,46 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.memaww.memaww.R;
 import com.memaww.memaww.Util.Config;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import gh.com.payswitch.thetellerandroid.thetellerManager;
 
 public class BuySubscriptionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int numberOfPeople = 0, numberOfMonths = 0, finalPriceNoCurrency = 0;
-    private String subscription1To2People1Month = "", subscriptionCurrency = "", subscription3To5People1Month = "", subscription6To10People1Month = "",subscription1To2People3Months,
-            subscription3To5People3Months = "", subscription6To10People3Months = "",subscription1To2People6Months = "",subscription3To5People6Months = "",
-            subscription6To10People6Months, subscription1To2People12Months = "",subscription3To5People12Months = "", subscription6To10People12Months = "",
-            pickupTimeString = "", pickupTimeNiceFormatString = "", subscriptionTxnID = "", userEmail = "", txnNarration = "", txnReference = "", collectionLoc = "",
-            merchantId = "", merchantApiUser = "", merchantApiKey = "", returnUrl = "", packageDescription = "", subscriptionCountryId = "";
+    private String subscription1To2People1Month = "", subscriptionCurrency = "", subscription3To5People1Month = "", subscription6To10People1Month = "",
+            subscription1To2People3Months, subscription3To5People3Months = "", subscription6To10People3Months = "",subscription1To2People6Months = "",
+            subscription3To5People6Months = "", subscription6To10People6Months, subscription1To2People12Months = "",subscription3To5People12Months = "",
+            subscription6To10People12Months = "", pickupTimeString = "", pickupTimeNiceFormatString = "", subscriptionTxnID = "", userEmail = "", txnNarration = "",
+            txnReference = "", collectionLoc = "", merchantId = "", merchantApiUser = "", merchantApiKey = "", returnUrl = "",
+            packageDescription = "", subscriptionCountryId = "", collectionLocGPS = "", oldTxnReference = "";
     private Dialog.OnCancelListener cancelListenerActive1;
     private ScrollView mMainHolderViewScrollView;
-    private AppCompatButton mBuyButtonAppCompatButton;
+    private AppCompatButton mBuyButtonAppCompatButton, mPaidButtonAppCompatButton;
     private EditText mPickupLocationEditText;
+    private Boolean useCurrentLocation = false;
     private ImageView mBackImageView, mReloadImageView, mGetMyLocationImageView;
     private TextView mInfoTextView, m1to2PeopleTextView, m3to5PeopleTextView, m6to10PeopleTextView,
             m1MonthSubscriptionTextView, m3MonthsSubscriptionTextView, m6MonthsSubscriptionTextView,
             m12MonthsSubscriptionTextView, mPackageInfo1TextView, mPackageInfo2TextView, mPackageInfo3TextView, mPackageInfo4TextView,
             mTermsTextView, m7amPickupTimeTextView, m12pmPickupTimeTextView, m4pmPickupTimeTextView;
     private ContentLoadingProgressBar mProgressBarContentLoadingProgressBar;
+    FusedLocationProviderClient mFusedLocationClient;
+    int PERMISSION_ID = 44;
 
 
     @Override
@@ -59,6 +82,8 @@ public class BuySubscriptionActivity extends AppCompatActivity implements View.O
 
         mBackImageView = findViewById(R.id.activity_buysubscription_menuholder_back_imageview);
         mMainHolderViewScrollView = findViewById(R.id.activity_buysubscription_formitemsholder_scrollview);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(BuySubscriptionActivity.this);
 
 
         m1to2PeopleTextView = findViewById(R.id.activity_buysubscription_1to2ppl_textview);
@@ -85,12 +110,14 @@ public class BuySubscriptionActivity extends AppCompatActivity implements View.O
 
         mTermsTextView = findViewById(R.id.activity_buysubscription_terms_textview);
         mBuyButtonAppCompatButton = findViewById(R.id.activity_buysubscription_proceedholder_button);
+        mPaidButtonAppCompatButton = findViewById(R.id.activity_checkpaymentsubscription_proceedholder_button);
         mReloadImageView = findViewById(R.id.activity_buysubscription_reload_imageview);
         mInfoTextView = findViewById(R.id.activity_buysubscription_info_textview);
         mProgressBarContentLoadingProgressBar = findViewById(R.id.activity_buysubscription_loader);
 
         getSubscriptionOffers();
 
+        mPaidButtonAppCompatButton.setOnClickListener(this);
         mBuyButtonAppCompatButton.setOnClickListener(this);
         mReloadImageView.setOnClickListener(this);
         mBackImageView.setOnClickListener(this);
@@ -119,7 +146,137 @@ public class BuySubscriptionActivity extends AppCompatActivity implements View.O
                 finish();
             }
         };
+
+
+
+        mGetMyLocationImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // method to get the location
+                view.startAnimation(AnimationUtils.loadAnimation(BuySubscriptionActivity.this, R.anim.main_activity_onclick_icon_anim));
+                useCurrentLocation = true;
+                getLastLocation();
+            }
+        });
     }
+
+
+    @SuppressLint("MissingPermission")
+    private void getLastLocation() {
+        // check if permissions are given
+        if (checkPermissions()) {
+
+            // check if location is enabled
+            if (isLocationEnabled()) {
+
+                // getting last
+                // location from
+                // FusedLocationClient
+                // object
+                mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        Location location = task.getResult();
+                        if (location == null) {
+                            requestNewLocationData();
+                        } else {
+                            if(useCurrentLocation){
+                                collectionLocGPS = location.getLatitude() + "," + location.getLongitude() + "";
+                                mPickupLocationEditText.setText("My Current Location");
+                                mPickupLocationEditText.setEnabled(false);
+                                mPickupLocationEditText.setFocusable(false);
+                            }
+                            //Config.showToastType1(getActivity(), location.getLatitude() + " " + location.getLongitude() + "");
+                        }
+                    }
+                });
+            } else {
+                Config.showToastType1(BuySubscriptionActivity.this, "Please turn on your location...");
+                //Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                //startActivity(intent);
+            }
+        } else {
+            // if permissions aren't available,
+            // request for permissions
+            requestPermissions();
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void requestNewLocationData() {
+
+        // Initializing LocationRequest
+        // object with appropriate methods
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(5);
+        mLocationRequest.setFastestInterval(0);
+        mLocationRequest.setNumUpdates(1);
+
+        // setting LocationRequest
+        // on FusedLocationClient
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(BuySubscriptionActivity.this);
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+    }
+
+    private LocationCallback mLocationCallback = new LocationCallback() {
+
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            if(useCurrentLocation) {
+                Location mLastLocation = locationResult.getLastLocation();
+                collectionLocGPS = mLastLocation.getLatitude() + "," + mLastLocation.getLongitude() + "";
+                mPickupLocationEditText.setText("Set To Your Current Location");
+            }
+            //Config.showToastType1(getActivity(), mLastLocation.getLatitude() + " " + mLastLocation.getLongitude() + "");
+        }
+    };
+
+    // method to check for permissions
+    private boolean checkPermissions() {
+        return ActivityCompat.checkSelfPermission(BuySubscriptionActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(BuySubscriptionActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+        // If we want background location
+        // on Android 10.0 and higher,
+        // use:
+        // ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED
+    }
+
+    // method to request for permissions
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(BuySubscriptionActivity.this, new String[]{
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
+    }
+
+    // method to check
+    // if location is enabled
+    private boolean isLocationEnabled() {
+        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    // If everything is alright then
+    @Override
+    public void
+    onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSION_ID) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLastLocation();
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (checkPermissions()) {
+            getLastLocation();
+        }
+    }
+
 
 
 
@@ -127,10 +284,16 @@ public class BuySubscriptionActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         if(view.getId() == mBackImageView.getId()){
             onBackPressed();
+        } else if(view.getId() == mPaidButtonAppCompatButton.getId()){
+            updateUserSubscription(true, oldTxnReference, String.valueOf(finalPriceNoCurrency), String.valueOf(numberOfPeople), String.valueOf(numberOfMonths), pickupTimeString, (useCurrentLocation) ? collectionLocGPS:collectionLoc, packageDescription, subscriptionCountryId);
         } else if(view.getId() == mBuyButtonAppCompatButton.getId()){
-            if(!mPickupLocationEditText.getText().toString().trim().equalsIgnoreCase("") && numberOfPeople > 0 && numberOfMonths > 0 & !pickupTimeString.trim().equalsIgnoreCase("")){
+            if(
+                    ((!useCurrentLocation && !mPickupLocationEditText.getText().toString().trim().equalsIgnoreCase("")) || (useCurrentLocation && !collectionLocGPS.equalsIgnoreCase("")))
+                    && numberOfPeople > 0
+                    && numberOfMonths > 0
+                    && !pickupTimeString.trim().equalsIgnoreCase("")){
                 collectionLoc = mPickupLocationEditText.getText().toString().trim();
-                Log.e("THETELLER", subscriptionTxnID);
+                Log.e("THETELLER", txnReference);
                 new thetellerManager(this)
                         .setAmount(00.10) //finalPriceNoCurrency
                     //.setAmount(Long.parseLong("01")) //finalPriceNoCurrency
@@ -224,10 +387,14 @@ public class BuySubscriptionActivity extends AppCompatActivity implements View.O
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("PAYMENT", theteller_results);
+
+        oldTxnReference = txnReference;
+        txnReference = subscriptionTxnID + getDateTime();
+        mPaidButtonAppCompatButton.setVisibility(View.VISIBLE);
         try {
             JSONObject payment_response = new JSONObject(theteller_results);
             if(payment_response.getString("status").trim().equalsIgnoreCase("approved")){
-                updateUserSubscription(payment_response.getString("transaction_id"), String.valueOf(finalPriceNoCurrency), String.valueOf(numberOfPeople), String.valueOf(numberOfMonths), pickupTimeString, collectionLoc, packageDescription, subscriptionCountryId);
+                updateUserSubscription(false, payment_response.getString("transaction_id"), String.valueOf(finalPriceNoCurrency), String.valueOf(numberOfPeople), String.valueOf(numberOfMonths), pickupTimeString, (useCurrentLocation) ? collectionLocGPS:collectionLoc, packageDescription, subscriptionCountryId);
                 Config.setSharedPreferenceBoolean(getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_IS_SET, true);
                 cancelListenerActive1 = Config.showDialogType1(BuySubscriptionActivity.this, "Subscription Successful", "You just saved a lot on laundry. Expect us at your pickup time", "show-positive-image", cancelListenerActive1, false,  "Finish","");
             } else {
@@ -235,16 +402,34 @@ public class BuySubscriptionActivity extends AppCompatActivity implements View.O
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Config.showToastType1(BuySubscriptionActivity.this, "Payment error. Try again and if it persists, please call us");
+            //Config.showToastType1(BuySubscriptionActivity.this, "Payment error. Try again and if it persists, please call us");
         }
 
     }
 
-    public void updateUserSubscription(final String subscriptionPaymentTransactionId, final String subscriptionAmountPaid, final String subscriptionMaxNumOfPeople,
+    public String getDateTime(){
+        return new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+    }
+
+    public void updateUserSubscription(Boolean reCheckingPayment, final String subscriptionPaymentTransactionId, final String subscriptionAmountPaid, final String subscriptionMaxNumOfPeople,
                                    final String subscriptionMonths, final String subscriptionPickupTime, final String subscriptionPickupLocation,
                                        final String subscriptionPackageDescription, final String subscriptionCountryId) {
-
+            if (reCheckingPayment && !isFinishing() && getApplicationContext() != null) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMainHolderViewScrollView.setVisibility(View.GONE);
+                        mPaidButtonAppCompatButton.setVisibility(View.GONE);
+                        mBuyButtonAppCompatButton.setVisibility(View.GONE);
+                        mTermsTextView.setVisibility(View.GONE);
+                        mInfoTextView.setVisibility(View.GONE);
+                        mReloadImageView.setVisibility(View.GONE);
+                        mProgressBarContentLoadingProgressBar.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
         Log.e("SERVER-REQUEST-SUB", "SUBSCRIPTION  HERE 1");
+        Log.e("SERVER-REQUEST-SUB", "SUBSCRIPTION PAYMENT ID - " + subscriptionPaymentTransactionId);
         AndroidNetworking.post(Config.LINK_SET_USER_SUBSCRIPTION)
                 .addHeaders("Accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + Config.getSharedPreferenceString(BuySubscriptionActivity.this, Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN))
@@ -271,6 +456,7 @@ public class BuySubscriptionActivity extends AppCompatActivity implements View.O
                                 final String myStatusMessage = main_response.getString("message");
                                 JSONObject subscription = new JSONObject(response).getJSONObject("subscription");
 
+
                                 if (myStatus.trim().equalsIgnoreCase("success")) {
 
                                     Config.setSharedPreferenceBoolean(getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_IS_SET, true);
@@ -284,20 +470,64 @@ public class BuySubscriptionActivity extends AppCompatActivity implements View.O
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUP_LOCATION, subscription.getString("subscription_pickup_location"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PACKAGE_DESCRIPTION, subscription.getString("subscription_package_description"));
 
+                                    if (reCheckingPayment && !isFinishing() && getApplicationContext() != null) {
+                                        Config.setSharedPreferenceBoolean(getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_IS_SET, true);
+                                        cancelListenerActive1 = Config.showDialogType1(BuySubscriptionActivity.this, "Subscription Successful", "You just saved a lot on laundry. Expect us at your pickup time", "show-positive-image", cancelListenerActive1, false, "Finish", "");
+                                    }
                                 } else {
+
+                                    if (reCheckingPayment && !isFinishing() && getApplicationContext() != null) {
+                                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                mMainHolderViewScrollView.setVisibility(View.VISIBLE);
+                                                mProgressBarContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                                mReloadImageView.setVisibility(View.INVISIBLE);
+                                                mInfoTextView.setVisibility(View.INVISIBLE);
+
+                                            }
+                                        });
+                                    }
 
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
+
+                                if (reCheckingPayment && !isFinishing() && getApplicationContext() != null) {
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mMainHolderViewScrollView.setVisibility(View.VISIBLE);
+                                            mBuyButtonAppCompatButton.setVisibility(View.VISIBLE);
+                                            mPaidButtonAppCompatButton.setVisibility(View.VISIBLE);
+                                            mProgressBarContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            mReloadImageView.setVisibility(View.INVISIBLE);
+                                            mInfoTextView.setVisibility(View.INVISIBLE);
+
+                                        }
+                                    });
+                                }
                             }
                         }
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        if (!BuySubscriptionActivity.this.isFinishing() && getApplicationContext() != null) {
+                        if (reCheckingPayment && !BuySubscriptionActivity.this.isFinishing() && getApplicationContext() != null) {
                             Log.e("SERVER-REQUEST", "anError: " + anError.getErrorDetail());
                             Log.e("SERVER-REQUEST", "anError: " + anError.getMessage());
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mMainHolderViewScrollView.setVisibility(View.VISIBLE);
+                                        mBuyButtonAppCompatButton.setVisibility(View.VISIBLE);
+                                        mPaidButtonAppCompatButton.setVisibility(View.VISIBLE);
+                                        mProgressBarContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                        mReloadImageView.setVisibility(View.INVISIBLE);
+                                        mInfoTextView.setVisibility(View.INVISIBLE);
+
+                                    }
+                                });
                         }
                     }
                 });
@@ -422,11 +652,11 @@ public class BuySubscriptionActivity extends AppCompatActivity implements View.O
                                     subscriptionCurrency = main_response.getString("currency_symbol");
                                     subscriptionTxnID = main_response.getString("subscription_id");
                                     txnNarration = main_response.getString("txn_narration");
-                                    txnReference = main_response.getString("txn_reference");
+                                    txnReference = subscriptionTxnID + getDateTime();
                                     merchantId = main_response.getString("merchant_id");
                                     merchantApiUser = main_response.getString("merchant_api_user");
                                     merchantApiKey = main_response.getString("merchant_api_key");
-                                    returnUrl = main_response.getString("return_url");
+                                    returnUrl = main_response.getString("return_url") + txnReference;
                                     userEmail = main_response.getString("user_email");
 
                                     subscription1To2People1Month = main_response.getString("sub_1_to_2_ppl_1month");

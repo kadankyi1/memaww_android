@@ -49,7 +49,7 @@ public class CollectionFormFragment extends Fragment implements View.OnClickList
     private ImageView mGetMyLocationTextView;
     private AppCompatButton mDoneButton;
     private Boolean useCurrentLocation = false;
-    private String collectionLoc = "Not set", collectionDate = "Not Set", collectionPhone = "Not Set", collectionLocGPS = "0";
+    private String collectionLoc = "Not set", collectionDate = "Not Set", collectionPhone = "Not Set", collectionLocGPS = "";
 
 
     public interface onCollectionFormDoneButtonClickedEventListener {

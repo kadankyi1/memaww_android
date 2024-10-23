@@ -608,20 +608,39 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/activity_buysubscription_proceedholder_button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/button_rounded_green_pressed_white"
-        android:text="Buy"
+        android:text="SUBSCRIBE"
         android:layout_marginBottom="15dp"
         android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/activity_buysubscription_terms_textview"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_checkpaymentsubscription_proceedholder_button"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/activity_checkpaymentsubscription_proceedholder_button"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_rounded_dull_pressed_white"
+        android:text="I Paid. Find My Payment"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_buysubscription_proceedholder_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/activity_buysubscription_proceedholder_button"
+        app:layout_constraintTop_toTopOf="@+id/activity_buysubscription_proceedholder_button"
+        app:layout_constraintVertical_bias="0.0" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
@@ -28,6 +29,7 @@ import com.memaww.memaww.Fragments.CollectionFormFragment;
 import com.memaww.memaww.Fragments.ConfirmOrderFragment;
 import com.memaww.memaww.Fragments.DiscountFormFragment;
 import com.memaww.memaww.Fragments.LightWeightItemsFormFragment;
+import com.memaww.memaww.Fragments.MediumWeightItemsFormFragment;
 import com.memaww.memaww.Fragments.SpecialNotesFormFragment;
 import com.memaww.memaww.R;
 import com.memaww.memaww.Util.Config;
@@ -35,31 +37,23 @@ import com.memaww.memaww.Util.Config;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import co.paystack.android.Paystack;
-import co.paystack.android.PaystackSdk;
-import co.paystack.android.Transaction;
-import co.paystack.android.model.Card;
-import co.paystack.android.model.Charge;
-import gh.com.payswitch.thetellerandroid.thetellerManager;
-
 public class OrderCollectionActivity extends AppCompatActivity implements View.OnClickListener, CollectionFormFragment.onCollectionFormDoneButtonClickedEventListener,
         LightWeightItemsFormFragment.onLightWeightItemsFormDoneButtonClickedEventListener, BulkyItemsFormFragment.onBulkyItemsFormDoneButtonClickedEventListener,
         SpecialNotesFormFragment.onSpecialNotesFormDoneButtonClickedEventListener, DiscountFormFragment.onDiscountFormDoneButtonClickedEventListener,
-        ConfirmOrderFragment.onConfirmOrderDoneButtonClickedEventListener {
+        ConfirmOrderFragment.onConfirmOrderDoneButtonClickedEventListener, MediumWeightItemsFormFragment.onmediumWeightItemsFormDoneButtonClickedEventListener {
 
     private ImageView mBackImageView;
-    private CardView mCollectionAndDropOffInfoCardView, mLightweighItemsInfoCardView, mBulkyItemsInfoCardView, mSpecialInstructionsCardView, mDiscountCardView;
+    private CardView mCollectionAndDropOffInfoCardView, mLightweighItemsInfoCardView, mMediumweightItemsInfoCardView, mHeavyweightItemsInfoCardView, mSpecialInstructionsCardView, mDiscountCardView;
     private TextView mCollectionAndDropOffLocationTextView, mCollectionTimeTextView, mContactPersonTextView, mLightWeightItemsTextView,
-            mBulkyItemsTextView, mSpecialNotesTextView, mDiscountTextView;
-    private int fragmentOpenStatus = 0, allLightWeightItems = 0, allBulkyItems = 0;
-    private AppCompatButton mProceedButton;
+            mBulkyItemsTextView, mSpecialNotesTextView, mDiscountTextView, mMediumWeightItemsTextView;
+    private int fragmentOpenStatus = 0, allLightWeightItems = 0, allBulkyItems = 0, allMediumWeightItems = 0;
+    private AppCompatButton mProceedButton, mPaidButton;
+    private ScrollView mMainContentHolderScrollView;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
     private Dialog.OnCancelListener cancelListenerActive1;
-    private String collectionAndDropOffLocation = "", collectionAndDropOffLocationGPS = "", collectionTime = "", contactPerson = "", lightWeightItemsJustWash = "0", lightWeightItemsWashAndIron = "0",
-            lightWeightItemsJustIron = "0", bulkyItemsJustWash = "0", bulkyItemsWashAndIron = "0", specialNotesOnOrder = "", discountOnOrder = "";
+    private String collectionAndDropOffLocation = "", collectionAndDropOffLocationGPS = "", collectionTime = "", contactPerson = "", lightWeightItemsJustWash = "0",
+            lightWeightItemsWashAndIron = "0", lightWeightItemsJustIron = "0", bulkyItemsJustWash = "0", bulkyItemsWashAndIron = "0", specialNotesOnOrder = "",
+            discountOnOrder = "", mediumWeightItemsJustWash = "0", mediumWeightItemsWashAndIron = "0", mediumWeightItemsJustIron = "0", txnReference = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,17 +62,21 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
 
 
         mBackImageView = findViewById(R.id.activity_ordercollection_menuholder_back_imageview);
+        mMainContentHolderScrollView = findViewById(R.id.activity_ordercollection_formitemsholder_scrollview);
         mCollectionAndDropOffInfoCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_pickup_constraintlayout);
         mLightweighItemsInfoCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_justwash_constraintlayout);
-        mBulkyItemsInfoCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_justwashnonwearables_constraintlayout);
+        mMediumweightItemsInfoCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_mediumweight_constraintlayout);
+        mHeavyweightItemsInfoCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_justwashnonwearables_constraintlayout);
         mSpecialInstructionsCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_specialnote_constraintlayout);
         mDiscountCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_discount_constraintlayout);
         mProceedButton = findViewById(R.id.activity_ordercollection_proceedholder_button);
+        mPaidButton = findViewById(R.id.activity_ordercollection_paid_button);
 
         mCollectionAndDropOffLocationTextView = findViewById(R.id.activity_ordercollection_date_textview);
         mCollectionTimeTextView = findViewById(R.id.activity_ordercollection_time_textview);
         mContactPersonTextView = findViewById(R.id.activity_ordercollection_collectperson_textview);
         mLightWeightItemsTextView = findViewById(R.id.activity_ordercollection_justwashquantity_textview);
+        mMediumWeightItemsTextView = findViewById(R.id.activity_ordercollection_mediumweightquantity_textview);
         mBulkyItemsTextView = findViewById(R.id.activity_ordercollection_justwashnonwearablesquantity_textview);
         mSpecialNotesTextView = findViewById(R.id.activity_ordercollection_specialnotesquantity_textview);
         mDiscountTextView = findViewById(R.id.activity_ordercollection_discountquantity_textview);
@@ -86,9 +84,11 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
 
         // NEEDED THINGS TO BE DONE ONE-TIME
         mBackImageView.setOnClickListener(this);
+        mPaidButton.setOnClickListener(this);
         mCollectionAndDropOffInfoCardView.setOnClickListener(this);
         mLightweighItemsInfoCardView.setOnClickListener(this);
-        mBulkyItemsInfoCardView.setOnClickListener(this);
+        mMediumweightItemsInfoCardView.setOnClickListener(this);
+        mHeavyweightItemsInfoCardView.setOnClickListener(this);
         mSpecialInstructionsCardView.setOnClickListener(this);
         mDiscountCardView.setOnClickListener(this);
         mProceedButton.setOnClickListener(this);
@@ -107,7 +107,11 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         if (view.getId() == mBackImageView.getId()) {
             //finish();
             onBackPressed();
-        } else if (view.getId() == mCollectionAndDropOffInfoCardView.getId()) {
+        } else if (view.getId() == mPaidButton.getId()) {
+
+            updateOrderPayment(true, txnReference, "approved", "paid", "PaySwitch", "1");
+
+        }else if (view.getId() == mCollectionAndDropOffInfoCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
                 mProceedButton.setVisibility(View.INVISIBLE);
@@ -121,7 +125,14 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, LightWeightItemsFormFragment.newInstance("", ""), "LightWeightItemsFormFragment", 3);
 
             }
-        } else if (view.getId() == mBulkyItemsInfoCardView.getId()) {
+        } else if (view.getId() == mMediumweightItemsInfoCardView.getId()) {
+            if (fragmentOpenStatus == 0) {
+                fragmentOpenStatus = 1;
+                mProceedButton.setVisibility(View.INVISIBLE);
+                Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, MediumWeightItemsFormFragment.newInstance("", ""), "MediumWeightItemsFormFragment", 3);
+
+            }
+        } else if (view.getId() == mHeavyweightItemsInfoCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
                 mProceedButton.setVisibility(View.INVISIBLE);
@@ -144,7 +155,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         } else if (view.getId() == mProceedButton.getId()) {
 
 
-            placeOrder(collectionAndDropOffLocation, collectionAndDropOffLocationGPS, collectionTime, contactPerson, "", collectionAndDropOffLocationGPS, "", lightWeightItemsJustWash, lightWeightItemsWashAndIron, lightWeightItemsJustIron, bulkyItemsJustWash, bulkyItemsWashAndIron, specialNotesOnOrder, discountOnOrder);
+            placeOrder(collectionAndDropOffLocation, collectionAndDropOffLocationGPS, collectionTime, contactPerson, "", collectionAndDropOffLocationGPS, "", lightWeightItemsJustWash, lightWeightItemsWashAndIron, lightWeightItemsJustIron, mediumWeightItemsJustWash, mediumWeightItemsWashAndIron, mediumWeightItemsJustIron, bulkyItemsJustWash, bulkyItemsWashAndIron, specialNotesOnOrder, discountOnOrder);
 
         }
     }
@@ -153,19 +164,19 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("PAYMENT", theteller_results);
-
+        mPaidButton.setVisibility(View.VISIBLE);
         try {
             JSONObject payment_response = new JSONObject(theteller_results);
-            updateOrderPayment(payment_response.getString("transaction_id"), payment_response.getString("status"), payment_response.getString("reason"), "PaySwitch", "1");
+            updateOrderPayment(false, payment_response.getString("transaction_id"), payment_response.getString("status"), payment_response.getString("reason"), "PaySwitch", "1");
             if(payment_response.getString("status").trim().equalsIgnoreCase("approved")){
                 cancelListenerActive1 = Config.showDialogType1(OrderCollectionActivity.this, "Order Successful", "We will be on our way. Check progress in the Order Tab", "show-positive-image", cancelListenerActive1, false,  "Finish","");
             } else {
-                Config.showToastType1(OrderCollectionActivity.this, payment_response.getString("reason"));
+                //Config.showToastType1(OrderCollectionActivity.this, payment_response.getString("reason"));
                 popFragment();
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Config.showToastType1(OrderCollectionActivity.this, "Payment error. Try again and if it persists, please call us");
+            //Config.showToastType1(OrderCollectionActivity.this, "Payment error. Try again and if it persists, please call us");
             popFragment();
         }
 
@@ -177,7 +188,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         Log.e("collectionFormDone", collectionLocation + ", " + collectionLocationGPS + ", " + collectionDateTime + ", " + collectionContactPhone);
         fragmentOpenStatus = 0;
         mProceedButton.setVisibility(View.VISIBLE);
-        if(collectionLocationGPS.equalsIgnoreCase("0")){
+        if(collectionLocationGPS.equalsIgnoreCase("")){
             if(!collectionLocation.equalsIgnoreCase("Not Set")  &&  !collectionLocation.trim().equalsIgnoreCase("")){
                 collectionAndDropOffLocation = collectionLocation;
                 mCollectionAndDropOffLocationTextView.setText((collectionAndDropOffLocation.length() > 15) ? collectionAndDropOffLocation.substring(0, 13)+"..." : collectionAndDropOffLocation);
@@ -212,6 +223,19 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         mLightWeightItemsTextView.setText(String.valueOf(allLightWeightItems) + " Items");
     }
 
+
+    @Override
+    public void mediumWeightItemsFormDoneButtonClicked(String justWashItemsQuantity, String washAndIronItemsQuantity, String justIronItemsQuantity) {
+        fragmentOpenStatus = 0;
+        mProceedButton.setVisibility(View.VISIBLE);
+        mediumWeightItemsJustWash = justWashItemsQuantity;
+        mediumWeightItemsWashAndIron = washAndIronItemsQuantity;
+        mediumWeightItemsJustIron = justIronItemsQuantity;
+
+        allMediumWeightItems = Integer.valueOf(mediumWeightItemsJustWash) + Integer.valueOf(mediumWeightItemsWashAndIron) + Integer.valueOf(mediumWeightItemsJustIron);
+        mMediumWeightItemsTextView.setText(String.valueOf(allMediumWeightItems) + " Items");
+    }
+
     @Override
     public void bulkyItemsFormDoneButtonClicked(String justWashItemsQuantity, String washAndIronItemsQuantity) {
         //Config.showToastType1(OrderCollectionActivity.this, justWashItemsQuantity + ", " + washAndIronItemsQuantity);
@@ -240,9 +264,10 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
 
     @Override
     public void confirmOrderDoneButtonClicked(String transactionId, String action) {
-        updateOrderPayment(transactionId, "pay_on_pickup", "User will pay on pickup", "PAY-ON-PICKUP", "1");
+        updateOrderPayment(false, transactionId, "pay_on_pickup", "User will pay on pickup", "PAY-ON-PICKUP", "1");
         cancelListenerActive1 = Config.showDialogType1(OrderCollectionActivity.this, "Order Successful", "We will be on our way. Check progress in the Order Tab", "show-positive-image", cancelListenerActive1, false, "Finish", "");
     }
+
 
     public void popFragment(){
         fragmentOpenStatus = 0;
@@ -250,7 +275,8 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         getSupportFragmentManager().popBackStack();
         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
         mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
-        mBulkyItemsInfoCardView.setVisibility(View.VISIBLE);
+        mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);
+        mHeavyweightItemsInfoCardView.setVisibility(View.VISIBLE);
         mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
         mDiscountCardView.setVisibility(View.VISIBLE);
         mProceedButton.setVisibility(View.VISIBLE);
@@ -263,7 +289,8 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         mProceedButton.setVisibility(View.VISIBLE);
         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
         mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
-        mBulkyItemsInfoCardView.setVisibility(View.VISIBLE);
+        mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);
+        mHeavyweightItemsInfoCardView.setVisibility(View.VISIBLE);
         mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
         mDiscountCardView.setVisibility(View.VISIBLE);
         mProceedButton.setVisibility(View.VISIBLE);
@@ -271,50 +298,21 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     }
 
 
-    /*
-    // This is the subroutine you will call after creating the charge
-    // adding a card and setting the access_code
-    public void performCharge(Card card){
-        //create a Charge object
-        Charge charge = new Charge();
-        charge.setCard(card); //sets the card to charge
-        charge.setAmount(100);
-
-        PaystackSdk.chargeCard(OrderCollectionActivity.this, charge, new Paystack.TransactionCallback() {
-            @Override
-            public void onSuccess(Transaction transaction) {
-                // This is called only after transaction is deemed successful.
-                // Retrieve the transaction, and send its reference to your server
-                // for verification.
-            }
-
-
-            @Override
-            public void beforeValidate(Transaction transaction) {
-                // This is called only before requesting OTP.
-                // Save reference so you may send to server. If
-                // error occurs with OTP, you should still verify on server.
-            }
-
-           @Override
-           public void showLoading(Boolean isProcessing) {
-               // This is called whenever the SDK makes network requests.
-               // Use this to display loading indicators in your application UI
-           }
-
-            @Override
-            public void onError(Throwable error, Transaction transaction) {
-                //handle error here
-            }
-
-        });
-    }
-    */
-
-
-    public void updateOrderPayment(final String orderId, final String orderPayStatus, final String orderPaymentDetails,
+    public void updateOrderPayment(Boolean reCheckingPayment, final String orderId, final String orderPayStatus, final String orderPaymentDetails,
                                    final String orderPaymentMethod, final String purge) {
 
+        if (reCheckingPayment && !isFinishing() && getApplicationContext() != null) {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    mMainContentHolderScrollView.setVisibility(View.GONE);
+                    mProceedButton.setVisibility(View.GONE);
+                    mPaidButton.setVisibility(View.GONE);
+                    mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
+
+                }
+            });
+        }
         Log.e("SERVER-REQUEST", "orderId: " + orderId);
         Log.e("SERVER-REQUEST", "orderPayStatus: " + orderPayStatus);
         Log.e("SERVER-REQUEST", "orderPaymentDetails: " + orderPaymentDetails);
@@ -337,16 +335,60 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                 .build().getAsString(new StringRequestListener() {
                     @Override
                     public void onResponse(String response) {
-                        if (!OrderCollectionActivity.this.isFinishing() && getApplicationContext() != null) {
+                        if (reCheckingPayment && !OrderCollectionActivity.this.isFinishing() && getApplicationContext() != null) {
                             Log.e("SERVER-REQUEST", "response: " + response.toString());
+                            try {
+                                JSONObject main_response = new JSONObject(response);
+                                String myStatus = main_response.getString("status");
+                                final String myStatusMessage = main_response.getString("message");
+
+                                if (myStatus.equalsIgnoreCase("success")) {
+                                    cancelListenerActive1 = Config.showDialogType1(OrderCollectionActivity.this, "Order Successful", "We will be on our way. Check progress in the Order Tab", "show-positive-image", cancelListenerActive1, false,  "Finish","");
+                                } else {
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Config.showToastType1(OrderCollectionActivity.this,  myStatusMessage);
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
+                                            mMainContentHolderScrollView.setVisibility(View.VISIBLE);
+                                            mProceedButton.setVisibility(View.VISIBLE);
+                                            mPaidButton.setVisibility(View.VISIBLE);
+
+                                        }
+                                    });
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Config.showDialogType1(OrderCollectionActivity.this, getString(R.string.error), getString(R.string.an_unexpected_error_occured), "", null, false, "", "");
+                                        mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
+                                        mMainContentHolderScrollView.setVisibility(View.VISIBLE);
+                                        mProceedButton.setVisibility(View.VISIBLE);
+                                        mPaidButton.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                            }
                         }
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        if (!OrderCollectionActivity.this.isFinishing() && getApplicationContext() != null) {
+                        if (reCheckingPayment && !OrderCollectionActivity.this.isFinishing() && getApplicationContext() != null) {
                             Log.e("SERVER-REQUEST", "anError: " + anError.getErrorDetail());
                             Log.e("SERVER-REQUEST", "anError: " + anError.getMessage());
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
+                                        mMainContentHolderScrollView.setVisibility(View.VISIBLE);
+                                        mProceedButton.setVisibility(View.VISIBLE);
+                                        mPaidButton.setVisibility(View.VISIBLE);
+                                    }
+                                });
                         }
                     }
                 });
@@ -356,6 +398,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     public void placeOrder(final String collect_loc_raw, final String collect_loc_gps, final String collect_datetime
             , final String contact_person_phone, final String drop_loc_raw, final String drop_loc_gps, final String drop_datetime
             , final String smallitems_justwash_quantity, final String smallitems_washandiron_quantity, final String smallitems_justiron_quantity
+            , final String mediumitems_justwash_quantity, final String mediumitems_washandiron_quantity, final String mediumitems_justiron_quantity
             , final String bigitems_justwash_quantity, final String bigitems_washandiron_quantity, final String specialNotes, final String discount) {
 
         if (!this.isFinishing() && getApplicationContext() != null) {
@@ -364,10 +407,12 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                 public void run() {
                     mCollectionAndDropOffInfoCardView.setVisibility(View.INVISIBLE);
                     mLightweighItemsInfoCardView.setVisibility(View.INVISIBLE);
-                    mBulkyItemsInfoCardView.setVisibility(View.INVISIBLE);
+                    mMediumweightItemsInfoCardView.setVisibility(View.INVISIBLE);
+                    mHeavyweightItemsInfoCardView.setVisibility(View.INVISIBLE);
                     mSpecialInstructionsCardView.setVisibility(View.INVISIBLE);
                     mDiscountCardView.setVisibility(View.INVISIBLE);
                     mProceedButton.setVisibility(View.INVISIBLE);
+                    mPaidButton.setVisibility(View.INVISIBLE);
                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                 }
             });
@@ -383,6 +428,9 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         Log.e("SERVER-REQUEST", "smallitems_justwash_quantity: " + smallitems_justwash_quantity);
         Log.e("SERVER-REQUEST", "smallitems_washandiron_quantity: " + smallitems_washandiron_quantity);
         Log.e("SERVER-REQUEST", "smallitems_justiron_quantity: " + smallitems_justiron_quantity);
+        Log.e("SERVER-REQUEST", "mediumitems_justwash_quantity: " + mediumitems_justwash_quantity);
+        Log.e("SERVER-REQUEST", "mediumitems_washandiron_quantity: " + mediumitems_washandiron_quantity);
+        Log.e("SERVER-REQUEST", "mediumitems_justiron_quantity: " + mediumitems_justiron_quantity);
         Log.e("SERVER-REQUEST", "bigitems_justwash_quantity: " + bigitems_justwash_quantity);
         Log.e("SERVER-REQUEST", "bigitems_washandiron_quantity: " + bigitems_washandiron_quantity);
         Log.e("SERVER-REQUEST", "special_instructions: " + specialNotes);
@@ -403,6 +451,9 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                 .addBodyParameter("smallitems_justwash_quantity", smallitems_justwash_quantity)
                 .addBodyParameter("smallitems_washandiron_quantity", smallitems_washandiron_quantity)
                 .addBodyParameter("smallitems_justiron_quantity", smallitems_justiron_quantity)
+                .addBodyParameter("mediumitems_justwash_quantity", mediumitems_justwash_quantity)
+                .addBodyParameter("mediumitems_washandiron_quantity", mediumitems_washandiron_quantity)
+                .addBodyParameter("mediumitems_justiron_quantity", mediumitems_justiron_quantity)
                 .addBodyParameter("bigitems_justwash_quantity", bigitems_justwash_quantity)
                 .addBodyParameter("bigitems_washandiron_quantity", bigitems_washandiron_quantity)
                 .addBodyParameter("discount_code", discount)
@@ -430,7 +481,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                     String priceFinal = main_response.getString("price_final");
                                     String priceFinalNoCurrency = main_response.getString("price_final_no_currency");
                                     String txnNarration = main_response.getString("txn_narration");
-                                    String txnReference = main_response.getString("txn_reference");
+                                    txnReference = main_response.getString("txn_reference");
                                     String merchantId = main_response.getString("merchant_id");
                                     String merchantApiUser = main_response.getString("merchant_api_user");
                                     String merchantApiKey = main_response.getString("merchant_api_key");
@@ -443,6 +494,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                             public void run() {
                                                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, ConfirmOrderFragment.newInstance(originalPrice, discountAmount, priceFinal, payOnline, payOnPickup, priceFinalNoCurrency, txnNarration, txnReference, merchantId, merchantApiUser, merchantApiKey, returnUrl, userEmail), "ConfirmOrderFragment", 3);
                                                 mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                                mPaidButton.setVisibility(View.INVISIBLE);
                                             }
                                         });
                                     }
@@ -454,10 +506,12 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                             Config.showToastType1(OrderCollectionActivity.this,  myStatusMessage);
                                             mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
                                             mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
-                                            mBulkyItemsInfoCardView.setVisibility(View.VISIBLE);
+                                            mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);
+                                            mHeavyweightItemsInfoCardView.setVisibility(View.VISIBLE);
                                             mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
                                             mDiscountCardView.setVisibility(View.VISIBLE);
                                             mProceedButton.setVisibility(View.VISIBLE);
+                                            mPaidButton.setVisibility(View.INVISIBLE);
                                             mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
 
                                         }
@@ -473,10 +527,12 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                         Config.showDialogType1(OrderCollectionActivity.this, getString(R.string.error), getString(R.string.an_unexpected_error_occured), "", null, false, "", "");
                                         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
                                         mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
-                                        mBulkyItemsInfoCardView.setVisibility(View.VISIBLE);
+                                        mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);
+                                        mHeavyweightItemsInfoCardView.setVisibility(View.VISIBLE);
                                         mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
                                         mDiscountCardView.setVisibility(View.VISIBLE);
                                         mProceedButton.setVisibility(View.VISIBLE);
+                                        mPaidButton.setVisibility(View.INVISIBLE);
                                         mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
                                     }
                                 });
@@ -495,10 +551,12 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                     Config.showToastType1(OrderCollectionActivity.this, getResources().getString(R.string.check_your_internet_connection_and_try_again));
                                     mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
                                     mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
-                                    mBulkyItemsInfoCardView.setVisibility(View.VISIBLE);
+                                    mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);
+                                    mHeavyweightItemsInfoCardView.setVisibility(View.VISIBLE);
                                     mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
                                     mDiscountCardView.setVisibility(View.VISIBLE);
                                     mProceedButton.setVisibility(View.VISIBLE);
+                                    mPaidButton.setVisibility(View.INVISIBLE);
                                     mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
 
                                 }
@@ -508,5 +566,4 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                 });
 
     }
-
 }
