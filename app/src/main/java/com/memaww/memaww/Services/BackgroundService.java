@@ -89,7 +89,7 @@ public class BackgroundService extends Service {
 
         @Override
         public void run() {
-            updateUserInfo(getApplicationContext(), Config.getSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FCM_TOKEN));
+            updateUserInfo(getApplicationContext(), "");//getApplicationContext(), Config.getSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FCM_TOKEN));
         }
 
     }
@@ -97,7 +97,7 @@ public class BackgroundService extends Service {
 
     public static void updateUserInfo(final Context context, final String fcm){
         Log.e("updateUserInfo", "STARTED 2");
-        Log.e("updateUserInfo", "fcm: " + fcm);
+        Log.e("updateUserInfo", "fcm-xx: " + fcm);
         AndroidNetworking.post(Config.LINK_COLLECTION_UPDATE_USER_INFO)
                 .addHeaders("Accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + Config.getSharedPreferenceString(context, Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN))

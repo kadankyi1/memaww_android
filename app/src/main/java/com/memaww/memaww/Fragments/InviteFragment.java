@@ -49,7 +49,7 @@ public class InviteFragment extends Fragment {
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Download the MeMaww App for your laundry. Use my invite code " + Config.getSharedPreferenceString(getActivity(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_INVITE_CODE) + " when you register so we can both enjoy up to 100% off on your first order");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "You and I will get a discount on our laundry if you use my invite code " + Config.getSharedPreferenceString(getActivity(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_INVITE_CODE) + " to register on the MeMaww Laundry App and place your first order.");
                 sendIntent.setType("text/plain");
 
                 Intent shareIntent = Intent.createChooser(sendIntent, null);

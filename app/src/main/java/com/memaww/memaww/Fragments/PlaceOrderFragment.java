@@ -26,8 +26,9 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
-import com.memaww.memaww.Activities.BuySubscriptionActivity;
+import com.memaww.memaww.Activities.BuySubscriptionOfferActivity;
 import com.memaww.memaww.Activities.OrderCollectionActivity;
+import com.memaww.memaww.Activities.UpdateActivity;
 import com.memaww.memaww.R;
 import com.memaww.memaww.Util.Config;
 
@@ -40,7 +41,7 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
 
     private CardView mGoodOrderCardView, mFastOrderCardView, mActiveSubscriptionCardView, mInactiveSubscriptionCardView;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar, mLoadingSubscriptionContentLoadingProgressBar;
-    private Thread backgroundThread1 = null;
+    private Thread backgroundThread1 = null, backgroundThread2 = null;
     private AppCompatButton mBuySubscriptionAppCompatButton;
     private TextView mSubscriptionInfoTextView, mPickupsDoneView, mPickupTimeTextView, mItemsWashedTextView;
 
@@ -82,7 +83,13 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
         mFastOrderCardView.setOnClickListener(this);
         mBuySubscriptionAppCompatButton.setOnClickListener(this);
 
-        updateUserInfoAndSubscription(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FCM_TOKEN));
+        backgroundThread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                updateUserInfoAndSubscription("");//Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FCM_TOKEN));
+            }
+        });
+        backgroundThread2.start();
         return view;
     }
 
@@ -90,15 +97,25 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
 
 
     public void updateUserInfoAndSubscription(final String fcm){
-        mInactiveSubscriptionCardView.setVisibility(View.GONE);
-        mActiveSubscriptionCardView.setVisibility(View.VISIBLE);
-        mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.VISIBLE);
-        mSubscriptionInfoTextView.setText("Looking for your subscription...");
-        mPickupsDoneView.setText("...");
-        mPickupTimeTextView.setText("...");
-        mItemsWashedTextView.setText("...");
 
-        AndroidNetworking.post("https:memaww.com/api/v1/user/update-user-info")
+        Log.e("updateUserInfo", "fcm-cc: " + fcm);
+        if(!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    mInactiveSubscriptionCardView.setVisibility(View.GONE);
+                    mActiveSubscriptionCardView.setVisibility(View.VISIBLE);
+                    mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.VISIBLE);
+                    mSubscriptionInfoTextView.setText("Looking for your subscription...");
+                    mPickupsDoneView.setText("...");
+                    mPickupTimeTextView.setText("...");
+                    mItemsWashedTextView.setText("...");
+                }
+            });
+        }
+
+
+        AndroidNetworking.post(Config.LINK_COLLECTION_UPDATE_USER_INFO)
                 .addHeaders("Accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN))
                 .addBodyParameter("fcm_token", fcm)
@@ -110,12 +127,21 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                 .build().getAsString(new StringRequestListener() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("updateUserInfo", "response: " + response.toString());
+                        Log.e("updateUserInfo", "response-cc: " + response.toString());
                         try {
                             JSONObject main_response = new JSONObject(response);
                             String myStatus = main_response.getString("status");
                             String myStatusMessage = main_response.getString("message");
+                            String appLink = main_response.getString("app_link");
                             Boolean SubscriptionSet = main_response.getBoolean("subscription_set");
+
+                            if(myStatus.trim().equalsIgnoreCase("update")){
+                                String minVersionCode = main_response.getString("minvc");
+                                Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE, minVersionCode);
+                                Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_GOOGLE_PLAYSTORE_APPID, appLink);
+                                Config.openActivity(getActivity(), UpdateActivity.class, 0, 2, 0, "", "");
+                                return;
+                            }
 
                             if(SubscriptionSet){
                                 JSONObject subscription = new JSONObject(response).getJSONObject("subscription");
@@ -133,27 +159,55 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                                 Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUP_LOCATION, subscription.getString("subscription_pickup_location"));
                                 Config.setSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PACKAGE_DESCRIPTION, subscription.getString("subscription_package_description"));
 
-                                mSubscriptionInfoTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_INFO));
-                                mPickupsDoneView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUPS_DONE));
-                                mPickupTimeTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUP_TIME));
-                                mItemsWashedTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_ITEMS_WASHED));
-                                mInactiveSubscriptionCardView.setVisibility(View.GONE);
-                                mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.GONE);
-                                mActiveSubscriptionCardView.setVisibility(View.VISIBLE);
+                                if(!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mSubscriptionInfoTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_INFO));
+                                            mPickupsDoneView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUPS_DONE));
+                                            mPickupTimeTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUP_TIME));
+                                            mItemsWashedTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_ITEMS_WASHED));
+                                            mInactiveSubscriptionCardView.setVisibility(View.GONE);
+                                            mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.GONE);
+                                            mActiveSubscriptionCardView.setVisibility(View.VISIBLE);
+                                        }
+                                    });
+                                }
                             } else {
-                                mActiveSubscriptionCardView.setVisibility(View.GONE);
-                                mInactiveSubscriptionCardView.setVisibility(View.VISIBLE);
+                                if(!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mActiveSubscriptionCardView.setVisibility(View.GONE);
+                                            mInactiveSubscriptionCardView.setVisibility(View.VISIBLE);
+                                        }
+                                    });
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.GONE);
+                            if(!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.GONE);
+                                    }
+                                });
+                            }
                         }
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.e("updateUserInfo", "anError: " + anError.toString());
-                        mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.GONE);
+                        Log.e("updateUserInfo", "anError-cc: " + anError.getErrorDetail());
+                        if(!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.GONE);
+                                }
+                            });
+                        }
                     }
                 });
 
@@ -171,13 +225,20 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                         //String myStr = data.getStringExtra("MyData");
                         //Config.showToastType1(getActivity(), "Results is in");
 
-                        mSubscriptionInfoTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_INFO));
-                        mPickupsDoneView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUPS_DONE));
-                        mPickupTimeTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUP_TIME));
-                        mItemsWashedTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_ITEMS_WASHED));
-                        mInactiveSubscriptionCardView.setVisibility(View.GONE);
-                        mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.GONE);
-                        mActiveSubscriptionCardView.setVisibility(View.VISIBLE);
+                        if(!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mSubscriptionInfoTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_INFO));
+                                    mPickupsDoneView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUPS_DONE));
+                                    mPickupTimeTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_PICKUP_TIME));
+                                    mItemsWashedTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_ITEMS_WASHED));
+                                    mInactiveSubscriptionCardView.setVisibility(View.GONE);
+                                    mLoadingSubscriptionContentLoadingProgressBar.setVisibility(View.GONE);
+                                    mActiveSubscriptionCardView.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        }
                     }
                 }
             });
@@ -196,9 +257,8 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
             backgroundThread1.start();
         } else if(view.getId() == mBuySubscriptionAppCompatButton.getId()){
 
-            Intent intent = new Intent(getActivity(), BuySubscriptionActivity.class);
+            Intent intent = new Intent(getActivity(), BuySubscriptionOfferActivity.class);
             activityResultLaunch.launch(intent);
-            //Config.openActivity(getActivity(), BuySubscriptionActivity.class, 0, 0, 0, "", "");
         }
     }
 
@@ -208,10 +268,10 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    mGoodOrderCardView.setVisibility(View.INVISIBLE);
+                    mGoodOrderCardView.setVisibility(View.GONE);
                     mInactiveSubscriptionCardView.setVisibility(View.GONE);
                     mActiveSubscriptionCardView.setVisibility(View.GONE);
-                    mFastOrderCardView.setVisibility(View.INVISIBLE);
+                    mFastOrderCardView.setVisibility(View.GONE);
                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                 }
             });
@@ -240,7 +300,7 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
                                             mGoodOrderCardView.setVisibility(View.VISIBLE);
                                             mFastOrderCardView.setVisibility(View.VISIBLE);
                                             if(Config.getSharedPreferenceBoolean(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_IS_SET)){
@@ -260,7 +320,7 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                                         @Override
                                         public void run() {
                                             Config.showToastType1(getActivity(), myStatusMessage);
-                                            mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
                                             if(Config.getSharedPreferenceBoolean(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_IS_SET)){
                                                 mActiveSubscriptionCardView.setVisibility(View.VISIBLE);
                                                 mInactiveSubscriptionCardView.setVisibility(View.GONE);
@@ -281,7 +341,7 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                                     @Override
                                     public void run() {
                                         Config.showDialogType1(getActivity(), getString(R.string.error), getString(R.string.an_unexpected_error_occured), "", null, false, "", "");
-                                        mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                        mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
                                         if(Config.getSharedPreferenceBoolean(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_IS_SET)){
                                             mActiveSubscriptionCardView.setVisibility(View.VISIBLE);
                                             mInactiveSubscriptionCardView.setVisibility(View.GONE);
@@ -305,7 +365,7 @@ public class PlaceOrderFragment extends Fragment implements View.OnClickListener
                                 @Override
                                 public void run() {
                                     Config.showToastType1(getActivity(), getResources().getString(R.string.check_your_internet_connection_and_try_again));
-                                    mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                    mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
                                     if(Config.getSharedPreferenceBoolean(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_SUBSCRIPTION_IS_SET)){
                                         mActiveSubscriptionCardView.setVisibility(View.VISIBLE);
                                         mInactiveSubscriptionCardView.setVisibility(View.GONE);

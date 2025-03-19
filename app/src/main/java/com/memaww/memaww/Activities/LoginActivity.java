@@ -35,8 +35,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private AppCompatButton mLoginAppCompatButton;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
     private NumberPicker.OnValueChangeListener mCountrySetNumberListener;
-    private String country = "", loginResponse = "", phone = "", firstName = "", lastName = "", inviteCode = "";
-    private int defaultCountry = 0;
+    private String country = "GHANA", loginResponse = "", phone = "", firstName = "", lastName = "", inviteCode = "";
+    private int defaultCountry = 1;
     private Thread backgroundThread1 = null;
 
     @Override
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mCountryTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCountrySetNumberListener = Config.openNumberPickerForCountries(LoginActivity.this, mCountrySetNumberListener, 0, countriesStringArraySet.length-1, true, getResources().getStringArray(R.array.countries_array_starting_with_choose_country), 0);
+                mCountrySetNumberListener = Config.openNumberPickerForCountries(LoginActivity.this, mCountrySetNumberListener, 0, countriesStringArraySet.length-1, true, getResources().getStringArray(R.array.countries_array_starting_with_choose_country), 1);
             }
         });
         mCountrySetNumberListener = new NumberPicker.OnValueChangeListener() {
@@ -113,11 +113,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    mCountryTextView.setVisibility(View.INVISIBLE);
-                    mPhoneNumberEditText.setVisibility(View.INVISIBLE);
-                    mFirstNameEditText.setVisibility(View.INVISIBLE);
-                    mLastNameEditText.setVisibility(View.INVISIBLE);
-                    mLoginAppCompatButton.setVisibility(View.INVISIBLE);
+                    mCountryTextView.setVisibility(View.GONE);
+                    mPhoneNumberEditText.setVisibility(View.GONE);
+                    mFirstNameEditText.setVisibility(View.GONE);
+                    mLastNameEditText.setVisibility(View.GONE);
+                    mInviteCodeEditText.setVisibility(View.GONE);
+                    mLoginAppCompatButton.setVisibility(View.GONE);
                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                 }
             });
@@ -164,21 +165,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PHONE, user_data_response.getString("user_phone"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_INVITE_CODE, user_data_response.getString("user_referral_code"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN, main_response.getString("access_token"));
+                                    Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_ANDROID_APP_LINK, main_response.getString("android_app_link"));
 
                                     Config.openActivity(LoginActivity.this, MainActivity.class, 1, 2, 0, "", "");
                                     return;
 
+                                } else if (myStatus.equalsIgnoreCase("update")) {
+                                    String minVersionCode = main_response.getString("minvc");
+                                    String appLink = main_response.getString("app_link");
+                                    Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE, minVersionCode);
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_GOOGLE_PLAYSTORE_APPID, appLink);
+                                            Config.openActivity(LoginActivity.this, UpdateActivity.class, 0, 2, 0, "", "");
+                                            return;
+                                        }
+                                    });
                                 } else {
                                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Config.showDialogType1(LoginActivity.this, "1", myStatusMessage, "", null, true, "", "");
+                                                Config.showDialogType1(LoginActivity.this, "1", myStatusMessage, "", null, true, "Ok", "");
                                                 mCountryTextView.setVisibility(View.VISIBLE);
                                                 mPhoneNumberEditText.setVisibility(View.VISIBLE);
                                                 mFirstNameEditText.setVisibility(View.VISIBLE);
                                                 mLastNameEditText.setVisibility(View.VISIBLE);
+                                                mInviteCodeEditText.setVisibility(View.VISIBLE);
                                                 mLoginAppCompatButton.setVisibility(View.VISIBLE);
-                                                mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                                mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
 
                                             }
                                         });
@@ -195,8 +210,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             mPhoneNumberEditText.setVisibility(View.VISIBLE);
                                             mFirstNameEditText.setVisibility(View.VISIBLE);
                                             mLastNameEditText.setVisibility(View.VISIBLE);
+                                            mInviteCodeEditText.setVisibility(View.VISIBLE);
                                             mLoginAppCompatButton.setVisibility(View.VISIBLE);
-                                            mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
 
                                         }
                                     });
@@ -218,8 +234,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     mPhoneNumberEditText.setVisibility(View.VISIBLE);
                                     mFirstNameEditText.setVisibility(View.VISIBLE);
                                     mLastNameEditText.setVisibility(View.VISIBLE);
+                                    mInviteCodeEditText.setVisibility(View.VISIBLE);
                                     mLoginAppCompatButton.setVisibility(View.VISIBLE);
-                                    mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                    mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
 
                                 }
                             });

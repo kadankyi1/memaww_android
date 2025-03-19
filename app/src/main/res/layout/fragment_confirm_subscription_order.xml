@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="15dp"
+    android:paddingBottom="15dp"
+    android:background="@drawable/top_rounded_corner_gray_background"
+    tools:context=".Fragments.ConfirmSubscriptionOrderFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.61" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.71" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.86" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_h7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_v1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_v2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_v3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.70" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_guideline_v4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.30" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_v_guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_confirmsubscriptionorder_v_guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
+
+
+        <TextView
+            android:id="@+id/fragment_confirmsubscriptionorder_totallabel_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Price : $18"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmsubscriptionorder_guideline_h1" />
+
+
+        <TextView
+            android:id="@+id/fragment_confirmsubscriptionorder_subtotallabel_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="3 people in-houselhold for 3 months"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmsubscriptionorder_totallabel_textview" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/activity_buysubscription_packageincludesinfo1_constraintlayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:elevation="3dp"
+            app:cardCornerRadius="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmsubscriptionorder_subtotallabel_textview"
+            app:layout_constraintVertical_bias="0.0" >
+
+            <ImageView
+                android:id="@+id/activity_buysubscription_packageincludesinfo1_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/check_tick_circle"
+                app:layout_constraintBottom_toBottomOf="@+id/activity_buysubscription_packageincludesinfo1_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/activity_buysubscription_packageincludesinfo1_textview"
+                app:layout_constraintVertical_chainStyle="spread_inside"
+                app:tint="@color/color_green_light" />
+
+            <TextView
+                android:id="@+id/activity_buysubscription_packageincludesinfo1_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/activity_buysubscription_packageincludesinfo2_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/activity_buysubscription_packageincludesinfo1_imageview"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <ImageView
+                android:id="@+id/activity_buysubscription_packageincludesinfo2_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/check_tick_circle"
+                app:layout_constraintBottom_toBottomOf="@+id/activity_buysubscription_packageincludesinfo2_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/activity_buysubscription_packageincludesinfo2_textview"
+                app:tint="@color/color_green_light" />
+
+            <TextView
+                android:id="@+id/activity_buysubscription_packageincludesinfo2_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/activity_buysubscription_packageincludesinfo3_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/activity_buysubscription_packageincludesinfo2_imageview"
+                app:layout_constraintTop_toBottomOf="@+id/activity_buysubscription_packageincludesinfo1_textview"
+                app:layout_constraintVertical_bias="0.5" />
+
+
+            <ImageView
+                android:id="@+id/activity_buysubscription_packageincludesinfo3_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/check_tick_circle"
+                app:layout_constraintBottom_toBottomOf="@+id/activity_buysubscription_packageincludesinfo3_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/activity_buysubscription_packageincludesinfo3_textview"
+                app:tint="@color/color_green_light" />
+
+            <TextView
+                android:id="@+id/activity_buysubscription_packageincludesinfo3_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/activity_buysubscription_packageincludesinfo3_imageview"
+                app:layout_constraintTop_toBottomOf="@+id/activity_buysubscription_packageincludesinfo2_textview"
+                app:layout_constraintVertical_bias="0.5" />
+
+
+            <ImageView
+                android:id="@+id/activity_buysubscription_packageincludesinfo4_imageview"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/check_tick_circle"
+                app:layout_constraintBottom_toBottomOf="@+id/activity_buysubscription_packageincludesinfo4_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/activity_buysubscription_packageincludesinfo4_textview"
+                app:tint="@color/color_green_light" />
+
+            <TextView
+                android:id="@+id/activity_buysubscription_packageincludesinfo4_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/activity_buysubscription_packageincludesinfo3_imageview"
+                app:layout_constraintTop_toBottomOf="@+id/activity_buysubscription_packageincludesinfo3_imageview"
+                app:layout_constraintVertical_bias="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/fragment_confirmsubscriptionorder_terms_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textAlignment="textStart"
+            android:visibility="visible"
+            android:text="By subscribing, you agree to our terms and fair use policy. Click to read."
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/activity_buysubscription_packageincludesinfo1_constraintlayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fragment_confirmsubscriptionorder_payonline_button"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/button_rounded_green_pressed_white"
+            android:text="Pay Online"
+            android:textColor="@color/white"
+            android:layout_marginTop="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_confirmsubscriptionorder_guideline_v2"
+            app:layout_constraintStart_toStartOf="@+id/fragment_confirmsubscriptionorder_guideline_v1"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_confirmsubscriptionorder_terms_textview"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

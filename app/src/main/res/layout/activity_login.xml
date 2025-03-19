@@ -138,7 +138,7 @@
             android:id="@+id/activity_login_country_textview"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:text="Choose Country"
+            android:text="GHANA"
             android:textAlignment="center"
             android:background="@drawable/login_country_textview_background"
             android:gravity="center"

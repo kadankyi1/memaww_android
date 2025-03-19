@@ -1,5 +1,7 @@
 package com.memaww.memaww.Fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,7 +23,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private ConstraintLayout mFullnameConstraintLayout, mPhoneConstraintLayout,
             mAddressConstraintLayout, mEmailAddressConstraintLayout, mServicePolicyConstraintLayout, mRateAppConstraintLayout;
-    private TextView mFullnameTextView, mPhoneTextView, mAddressTextView, mEmailAddressTextView;
+    private TextView mFullnameTextView, mPhoneTextView, mAddressTextView, mEmailAddressTextView, mCallUsTextView;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -53,12 +55,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mPhoneTextView = view.findViewById(R.id.fragment_profile_phonemenutext_textview);
         mAddressTextView = view.findViewById(R.id.fragment_profile_addressmenutext_textview);
         mEmailAddressTextView = view.findViewById(R.id.fragment_profile_emailmenutext_textview);
+        mCallUsTextView = view.findViewById(R.id.fragment_profile_holygenmenutext_textview);
 
         mFullnameTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(),Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FIRST_NAME) + " " + Config.getSharedPreferenceString(getActivity().getApplicationContext(),Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_LAST_NAME));
         mPhoneTextView.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(),Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PHONE));
         mAddressTextView.setText(Config.getSharedPreferenceStringWithPlaceHolder(getActivity().getApplicationContext(),Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PICKUP_ADDRESS, "Not Set"));
         mEmailAddressTextView.setText(Config.getSharedPreferenceStringWithPlaceHolder(getActivity().getApplicationContext(),Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_EMAIL, "Not Set"));
 
+        mCallUsTextView.setOnClickListener(this);
         mServicePolicyConstraintLayout.setOnClickListener(this);
         return view;
     }
@@ -66,8 +70,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view.getId() == mServicePolicyConstraintLayout.getId()){
-            view.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.main_activity_onclick_icon_anim));
+            //view.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.main_activity_onclick_icon_anim));
             Config.openActivity(getActivity(), ReaderWebViewActivity.class, 0, 0, 1, Config.WEBVIEW_KEY_URL, "https://memaww.com/service-policy");
+        } else if(view.getId() == mCallUsTextView.getId()){
+            Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:+233538815095"));
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
         }
     }
 }

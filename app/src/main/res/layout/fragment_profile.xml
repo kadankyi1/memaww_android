@@ -351,7 +351,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Rate The App"
+                android:text="Call MeMaww | +233 53 881 5095"
                 android:textColor="@color/color_gray"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"

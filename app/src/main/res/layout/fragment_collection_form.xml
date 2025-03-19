@@ -301,6 +301,19 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/fragment_collectionform_picklocinfo_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="start"
+            android:text="Picking your actual location makes it easier to pickup your items and may get you a discount"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_collectionform_guideline_v2"
+            app:layout_constraintStart_toStartOf="@+id/fragment_collectionform_guideline_v1"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_pickuplocation_edittext_layout_holder" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_collectionform_contactpersonphone_layout_holder"
             android:layout_width="0dp"
@@ -309,7 +322,7 @@
             android:theme="@style/loginActivityHintStyle"
             app:layout_constraintEnd_toStartOf="@+id/fragment_collectionform_guideline_v2"
             app:layout_constraintStart_toStartOf="@+id/fragment_collectionform_guideline_v1"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_pickuplocation_edittext_layout_holder"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_collectionform_picklocinfo_textview"
             app:layout_constraintVertical_bias="0.0"
             android:hint="Contact Phone Number"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">

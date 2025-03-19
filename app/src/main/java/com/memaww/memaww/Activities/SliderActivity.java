@@ -24,7 +24,7 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
     private SliderAdapter sliderAdapter;
     private TextView[] mDots;
     private int mCurrenPage;
-    private Button mNextBtn;
+    private Button mNextBtn, mSkipBtn;
     private Button mBackBtn;
 
 
@@ -35,6 +35,7 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
 
         mSlideViewPager = findViewById(R.id.slider_activity_view_pager);
         mDotlayout = findViewById(R.id.slider_activity_linear_layout);
+        mSkipBtn = findViewById(R.id.slider_activity_skip_button);
         mBackBtn = findViewById(R.id.slider_activity_back_button);
         mNextBtn = findViewById(R.id.slider_activity_next_button);
 
@@ -44,6 +45,7 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
         mSlideViewPager.addOnPageChangeListener(viewListener);
         mSlideViewPager.setOffscreenPageLimit(0);
 
+        mSkipBtn.setOnClickListener(this);
         mBackBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
     }
@@ -60,6 +62,8 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
             }
         } else if(view.getId() == R.id.slider_activity_back_button){
             mSlideViewPager.setCurrentItem(mCurrenPage-1);
+        } else if(view.getId() == R.id.slider_activity_skip_button){
+            Config.openActivity(SliderActivity.this, LoginActivity.class, 1, 0, 0, "", "");
         }
 
     }
@@ -71,7 +75,7 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
         for (int i = 0; i < 3; i++ ){
             mDots[i] = new TextView (this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
-            mDots[i].setTextSize(50);
+            mDots[i].setTextSize(25);
             mDots[i].setTextColor(getResources().getColor(R.color.color_dot_inactive));
 
             mDotlayout.addView(mDots[i]);
@@ -94,12 +98,14 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
             if(i == 0){
                 mNextBtn.setEnabled(true);
                 mBackBtn.setEnabled(false);
-                mBackBtn.setVisibility(View.INVISIBLE);
+                mBackBtn.setVisibility(View.GONE);
+                mSkipBtn.setVisibility(View.VISIBLE);
                 mNextBtn.setText("Next");
                 mBackBtn.setText("");
             } else if(i == 1){
                 mNextBtn.setEnabled(true);
                 mBackBtn.setEnabled(true);
+                mSkipBtn.setVisibility(View.GONE);
                 mBackBtn.setVisibility(View.VISIBLE);
                 mNextBtn.setText("Next");
                 mBackBtn.setText("Back");
@@ -107,8 +113,9 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
             } else if(i == 2){
                 mNextBtn.setEnabled(true);
                 mBackBtn.setEnabled(true);
+                mSkipBtn.setVisibility(View.GONE);
                 mBackBtn.setVisibility(View.VISIBLE);
-                mNextBtn.setText("Finish");
+                mNextBtn.setText("Sign-In");
                 mBackBtn.setText("Back");
 
             }
@@ -143,12 +150,14 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
                 if(i == 0){
                     mNextBtn.setEnabled(true);
                     mBackBtn.setEnabled(false);
-                    mBackBtn.setVisibility(View.INVISIBLE);
+                    mBackBtn.setVisibility(View.GONE);
+                    mSkipBtn.setVisibility(View.VISIBLE);
                     mNextBtn.setText("Next");
                     mBackBtn.setText("");
                 }  else if(i == 1){
                     mNextBtn.setEnabled(true);
                     mBackBtn.setEnabled(true);
+                    mSkipBtn.setVisibility(View.GONE);
                     mBackBtn.setVisibility(View.VISIBLE);
                     mNextBtn.setText("Next");
                     mBackBtn.setText("Back");
@@ -156,6 +165,7 @@ public class SliderActivity extends AppCompatActivity implements View.OnClickLis
                 } else if(i == 2){
                     mNextBtn.setEnabled(true);
                     mBackBtn.setEnabled(true);
+                    mSkipBtn.setVisibility(View.GONE);
                     mBackBtn.setVisibility(View.VISIBLE);
                     mNextBtn.setText("Finish");
                     mBackBtn.setText("Back");

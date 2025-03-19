@@ -70,7 +70,8 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.update_activity_button1){
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.fishpott.fishpott5")));
+
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=org.christecclesia.pjdigitalpool")));
         }
     }
 

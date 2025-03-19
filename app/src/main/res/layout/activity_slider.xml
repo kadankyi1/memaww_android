@@ -82,6 +82,22 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/slider_activity_skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        android:text="Skip"
+        android:background="@drawable/transparent_background_transparent_stroke_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slider_activity_guideline_v2"
+        app:layout_constraintStart_toStartOf="@+id/slider_activity_guideline_v1"
+        app:layout_constraintTop_toTopOf="@+id/slider_activity_guideline_h1" />
+
+    <Button
         android:id="@+id/slider_activity_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

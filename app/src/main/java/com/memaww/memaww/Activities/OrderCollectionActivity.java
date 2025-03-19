@@ -51,6 +51,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
     private ScrollView mMainContentHolderScrollView;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
     private Dialog.OnCancelListener cancelListenerActive1;
+    private Thread backgroundThread1 = null;
     private String collectionAndDropOffLocation = "", collectionAndDropOffLocationGPS = "", collectionTime = "", contactPerson = "", lightWeightItemsJustWash = "0",
             lightWeightItemsWashAndIron = "0", lightWeightItemsJustIron = "0", bulkyItemsJustWash = "0", bulkyItemsWashAndIron = "0", specialNotesOnOrder = "",
             discountOnOrder = "", mediumWeightItemsJustWash = "0", mediumWeightItemsWashAndIron = "0", mediumWeightItemsJustIron = "0", txnReference = "";
@@ -109,54 +110,63 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
             onBackPressed();
         } else if (view.getId() == mPaidButton.getId()) {
 
-            updateOrderPayment(true, txnReference, "approved", "paid", "PaySwitch", "1");
-
+            backgroundThread1 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    updateOrderPayment(true, txnReference, "approved", "paid", "PaySwitch", "1");
+                }
+            });
+            backgroundThread1.start();
         }else if (view.getId() == mCollectionAndDropOffInfoCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
-                mProceedButton.setVisibility(View.INVISIBLE);
+                mProceedButton.setVisibility(View.GONE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, CollectionFormFragment.newInstance("", ""), "CollectionFormFragment", 3);
 
             }
         } else if (view.getId() == mLightweighItemsInfoCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
-                mProceedButton.setVisibility(View.INVISIBLE);
+                mProceedButton.setVisibility(View.GONE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, LightWeightItemsFormFragment.newInstance("", ""), "LightWeightItemsFormFragment", 3);
 
             }
         } else if (view.getId() == mMediumweightItemsInfoCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
-                mProceedButton.setVisibility(View.INVISIBLE);
+                mProceedButton.setVisibility(View.GONE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, MediumWeightItemsFormFragment.newInstance("", ""), "MediumWeightItemsFormFragment", 3);
 
             }
         } else if (view.getId() == mHeavyweightItemsInfoCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
-                mProceedButton.setVisibility(View.INVISIBLE);
+                mProceedButton.setVisibility(View.GONE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, BulkyItemsFormFragment.newInstance("", ""), "BulkyItemsFormFragment", 3);
 
             }
         } else if (view.getId() == mSpecialInstructionsCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
-                mProceedButton.setVisibility(View.INVISIBLE);
+                mProceedButton.setVisibility(View.GONE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, SpecialNotesFormFragment.newInstance("", ""), "SpecialNotesFormFragment", 3);
 
             }
         } else if (view.getId() == mDiscountCardView.getId()) {
             if (fragmentOpenStatus == 0) {
                 fragmentOpenStatus = 1;
-                mProceedButton.setVisibility(View.INVISIBLE);
+                mProceedButton.setVisibility(View.GONE);
                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, DiscountFormFragment.newInstance("", ""), "DiscountFormFragment", 3);
             }
         } else if (view.getId() == mProceedButton.getId()) {
 
-
-            placeOrder(collectionAndDropOffLocation, collectionAndDropOffLocationGPS, collectionTime, contactPerson, "", collectionAndDropOffLocationGPS, "", lightWeightItemsJustWash, lightWeightItemsWashAndIron, lightWeightItemsJustIron, mediumWeightItemsJustWash, mediumWeightItemsWashAndIron, mediumWeightItemsJustIron, bulkyItemsJustWash, bulkyItemsWashAndIron, specialNotesOnOrder, discountOnOrder);
-
+            backgroundThread1 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    placeOrder(collectionAndDropOffLocation, collectionAndDropOffLocationGPS, collectionTime, contactPerson, "", collectionAndDropOffLocationGPS, "", lightWeightItemsJustWash, lightWeightItemsWashAndIron, lightWeightItemsJustIron, mediumWeightItemsJustWash, mediumWeightItemsWashAndIron, mediumWeightItemsJustIron, bulkyItemsJustWash, bulkyItemsWashAndIron, specialNotesOnOrder, discountOnOrder);
+                }
+            });
+            backgroundThread1.start();
         }
     }
 
@@ -167,7 +177,16 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         mPaidButton.setVisibility(View.VISIBLE);
         try {
             JSONObject payment_response = new JSONObject(theteller_results);
-            updateOrderPayment(false, payment_response.getString("transaction_id"), payment_response.getString("status"), payment_response.getString("reason"), "PaySwitch", "1");
+            String this_transaction_id = payment_response.getString("transaction_id");
+            String this_payment_status = payment_response.getString("status");
+            String this_payment_reason = payment_response.getString("reason");
+            backgroundThread1 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    updateOrderPayment(false, this_transaction_id, this_payment_status, this_payment_reason, "PaySwitch", "1");
+                }
+            });
+            backgroundThread1.start();
             if(payment_response.getString("status").trim().equalsIgnoreCase("approved")){
                 cancelListenerActive1 = Config.showDialogType1(OrderCollectionActivity.this, "Order Successful", "We will be on our way. Check progress in the Order Tab", "show-positive-image", cancelListenerActive1, false,  "Finish","");
             } else {
@@ -191,7 +210,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         if(collectionLocationGPS.equalsIgnoreCase("")){
             if(!collectionLocation.equalsIgnoreCase("Not Set")  &&  !collectionLocation.trim().equalsIgnoreCase("")){
                 collectionAndDropOffLocation = collectionLocation;
-                mCollectionAndDropOffLocationTextView.setText((collectionAndDropOffLocation.length() > 15) ? collectionAndDropOffLocation.substring(0, 13)+"..." : collectionAndDropOffLocation);
+                mCollectionAndDropOffLocationTextView.setText(collectionAndDropOffLocation);
             }
         } else {
             collectionAndDropOffLocationGPS = collectionLocationGPS;
@@ -264,7 +283,14 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
 
     @Override
     public void confirmOrderDoneButtonClicked(String transactionId, String action) {
-        updateOrderPayment(false, transactionId, "pay_on_pickup", "User will pay on pickup", "PAY-ON-PICKUP", "1");
+
+        backgroundThread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                updateOrderPayment(false, transactionId, "pay_on_pickup", "User will pay on pickup", "PAY-ON-PICKUP", "1");
+            }
+        });
+        backgroundThread1.start();
         cancelListenerActive1 = Config.showDialogType1(OrderCollectionActivity.this, "Order Successful", "We will be on our way. Check progress in the Order Tab", "show-positive-image", cancelListenerActive1, false, "Finish", "");
     }
 
@@ -280,7 +306,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
         mDiscountCardView.setVisibility(View.VISIBLE);
         mProceedButton.setVisibility(View.VISIBLE);
-        mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+        mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
     }
     @Override
     public void onBackPressed() {
@@ -294,7 +320,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
         mDiscountCardView.setVisibility(View.VISIBLE);
         mProceedButton.setVisibility(View.VISIBLE);
-        mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+        mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
     }
 
 
@@ -405,14 +431,14 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    mCollectionAndDropOffInfoCardView.setVisibility(View.INVISIBLE);
-                    mLightweighItemsInfoCardView.setVisibility(View.INVISIBLE);
-                    mMediumweightItemsInfoCardView.setVisibility(View.INVISIBLE);
-                    mHeavyweightItemsInfoCardView.setVisibility(View.INVISIBLE);
-                    mSpecialInstructionsCardView.setVisibility(View.INVISIBLE);
-                    mDiscountCardView.setVisibility(View.INVISIBLE);
-                    mProceedButton.setVisibility(View.INVISIBLE);
-                    mPaidButton.setVisibility(View.INVISIBLE);
+                    mCollectionAndDropOffInfoCardView.setVisibility(View.GONE);
+                    mLightweighItemsInfoCardView.setVisibility(View.GONE);
+                    mMediumweightItemsInfoCardView.setVisibility(View.GONE);
+                    mHeavyweightItemsInfoCardView.setVisibility(View.GONE);
+                    mSpecialInstructionsCardView.setVisibility(View.GONE);
+                    mDiscountCardView.setVisibility(View.GONE);
+                    mProceedButton.setVisibility(View.GONE);
+                    mPaidButton.setVisibility(View.GONE);
                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                 }
             });
@@ -493,8 +519,8 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                             @Override
                                             public void run() {
                                                 Config.openFragment(getSupportFragmentManager(), R.id.activity_ordercollection_formholder_fragment, ConfirmOrderFragment.newInstance(originalPrice, discountAmount, priceFinal, payOnline, payOnPickup, priceFinalNoCurrency, txnNarration, txnReference, merchantId, merchantApiUser, merchantApiKey, returnUrl, userEmail), "ConfirmOrderFragment", 3);
-                                                mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
-                                                mPaidButton.setVisibility(View.INVISIBLE);
+                                                mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
+                                                mPaidButton.setVisibility(View.GONE);
                                             }
                                         });
                                     }
@@ -511,8 +537,8 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                             mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
                                             mDiscountCardView.setVisibility(View.VISIBLE);
                                             mProceedButton.setVisibility(View.VISIBLE);
-                                            mPaidButton.setVisibility(View.INVISIBLE);
-                                            mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            mPaidButton.setVisibility(View.GONE);
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
 
                                         }
                                     });
@@ -532,8 +558,8 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                         mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
                                         mDiscountCardView.setVisibility(View.VISIBLE);
                                         mProceedButton.setVisibility(View.VISIBLE);
-                                        mPaidButton.setVisibility(View.INVISIBLE);
-                                        mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                        mPaidButton.setVisibility(View.GONE);
+                                        mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
                                     }
                                 });
                             }
@@ -556,8 +582,8 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                     mSpecialInstructionsCardView.setVisibility(View.VISIBLE);
                                     mDiscountCardView.setVisibility(View.VISIBLE);
                                     mProceedButton.setVisibility(View.VISIBLE);
-                                    mPaidButton.setVisibility(View.INVISIBLE);
-                                    mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                    mPaidButton.setVisibility(View.GONE);
+                                    mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
 
                                 }
                             });

@@ -75,6 +75,7 @@ public class Config {
     // SERVER-SIDE API FOR PLACING CALLBACK REQUEST FOR COLLECTION ORDER
     public static final String LINK_SET_USER_SUBSCRIPTION = CURRENT_HTTP_IN_USE + CURRENT_ENVIRONMENT_DOMAIN_IN_USE + "/api/v1/user/set-user-subscription";
 
+    public static final String SHARED_PREF_KEY_GOOGLE_PLAYSTORE_APPID = "SHARED_PREF_KEY_GOOGLE_PLAYSTORE_APPID";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT = "USER_ID";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_LONG = "USER_ID_LONG";
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_FIRST_NAME = "USER_FIRST_NAME";
@@ -89,6 +90,7 @@ public class Config {
     public static final String SHARED_PREF_KEY_USER_CREDENTIALS_USER_APP_MINIMUM_VERSION_CODE = "APP_MINIMUM_VERSION_CODE";
 
 
+    public static final String SHARED_PREF_KEY_USER_CREDENTIALS_ANDROID_APP_LINK = "ANDROID_APP_LINK";
     public static final String SHARED_PREF_KEY_LAST_ORDER_LOCATION = "LAST_ORDER_LOCATION";
     public static final String SHARED_PREF_KEY_LAST_ORDER_CONTACT_PERSON_PHONE = "LAST_ORDER_CONTACT_PERSON_PHONE";
     public static final String SHARED_PREF_KEY_LAST_ORDER_TIME = "LAST_ORDER_TIME";
@@ -427,6 +429,7 @@ public class Config {
             if (!positiveButtonText.trim().equalsIgnoreCase("")) {
                 positiveDialogButton.setText(positiveButtonText);
             }
+            
             if (!negativeButtonText.trim().equalsIgnoreCase("")) {
                 negativeDialogButton.setText(negativeButtonText);
             } else {

@@ -235,7 +235,7 @@ public class CollectionFormFragment extends Fragment implements View.OnClickList
             if(useCurrentLocation) {
                 Location mLastLocation = locationResult.getLastLocation();
                 collectionLocGPS = mLastLocation.getLatitude() + "," + mLastLocation.getLongitude() + "";
-                mLocationEditText.setText("Set To Your Current Location");
+                mLocationEditText.setText("Current Location");
             }
             //Config.showToastType1(getActivity(), mLastLocation.getLatitude() + " " + mLastLocation.getLongitude() + "");
         }

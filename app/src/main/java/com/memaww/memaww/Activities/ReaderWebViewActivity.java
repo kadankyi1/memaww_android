@@ -41,7 +41,7 @@ public class ReaderWebViewActivity extends AppCompatActivity implements View.OnC
             websiteUrl =(String) getIntent().getExtras().get(Config.WEBVIEW_KEY_URL);
             domainName = Config.getUrlComponent(websiteUrl, 1);
             domainName = Config.removeWwwAndHttpFromUrl(domainName);
-            mPageLoadingProgressBar.setVisibility(View.INVISIBLE);
+            mPageLoadingProgressBar.setVisibility(View.GONE);
         } else {
             finish();
         }
@@ -96,7 +96,7 @@ public class ReaderWebViewActivity extends AppCompatActivity implements View.OnC
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            mPageLoadingProgressBar.setVisibility(View.INVISIBLE);
+            mPageLoadingProgressBar.setVisibility(View.GONE);
         }
 
     }

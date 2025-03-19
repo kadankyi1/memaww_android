@@ -139,7 +139,8 @@ public class ConfirmOrderFragment extends Fragment {
 
                 Log.e("THETELLER", txnReference);
                 new thetellerManager(getActivity())
-                        .setAmount(Long.parseLong("01")) //finalPriceNoCurrency
+                        //.setAmount(Double.parseDouble("0.10"))
+                        .setAmount(Double.parseDouble(finalPriceNoCurrency))
                         .setEmail(userEmail)
                         .setfName(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FIRST_NAME))
                         .setlName(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_LAST_NAME))

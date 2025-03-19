@@ -140,7 +140,14 @@ public class SupportFragment extends Fragment {
                     public void onChanged(String s) {
                         //TODO: update your ui here...
                         Log.e("FIREBASE-MSG", "NEW MESSAGE FOR UI");
-                        getMyMessages(false);
+
+                        backgroundThread1 = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                getMyMessages(false);
+                            }
+                        });
+                        backgroundThread1.start();
                     }
                 });
 
@@ -251,9 +258,9 @@ public class SupportFragment extends Fragment {
                 @Override
                 public void run() {
                     if(firstCall){
-                        mRecyclerview.setVisibility(View.INVISIBLE);
-                        mBackgroundImageImageView.setVisibility(View.INVISIBLE);
-                        mBackgroundTextTextView.setVisibility(View.INVISIBLE);
+                        mRecyclerview.setVisibility(View.GONE);
+                        mBackgroundImageImageView.setVisibility(View.GONE);
+                        mBackgroundTextTextView.setVisibility(View.GONE);
                         mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                     }
                 }
@@ -270,12 +277,21 @@ public class SupportFragment extends Fragment {
                 .build().getAsString(new StringRequestListener() {
                     @Override
                     public void onResponse(String response) {
-                        if (!getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
+                        if (getActivity() != null & !getActivity().isFinishing() && getActivity().getApplicationContext() != null) {
                             //Log.e("SERVER-REQUEST", "response: " + response.toString());
                             try {
                                 JSONObject main_response = new JSONObject(response);
                                 String myStatus = main_response.getString("status");
                                 final String myStatusMessage = main_response.getString("message");
+                                if(!myStatus.equalsIgnoreCase("success")){
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Config.showToastType1(getActivity(), myStatusMessage);
+                                        }
+                                    });
+                                    return;
+                                }
                                 JSONArray myMessagesArray = main_response.getJSONArray("data");
                                 if (myMessagesArray.length() > 0) {
                                     MyMessagesListDataGenerator.getAllData().clear();
@@ -304,9 +320,9 @@ public class SupportFragment extends Fragment {
                                                 mRecyclerview.getAdapter().notifyItemInserted(MyMessagesListDataGenerator.getAllData().size());
 
                                             if(firstCall){
-                                                mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
-                                                mBackgroundImageImageView.setVisibility(View.INVISIBLE);
-                                                mBackgroundTextTextView.setVisibility(View.INVISIBLE);
+                                                mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
+                                                mBackgroundImageImageView.setVisibility(View.GONE);
+                                                mBackgroundTextTextView.setVisibility(View.GONE);
                                                 mRecyclerview.setVisibility(View.VISIBLE);
                                                 mMainParentSwipeRefreshLayout.setRefreshing(false);
                                             }
@@ -324,7 +340,7 @@ public class SupportFragment extends Fragment {
                                                 mBackgroundImageImageView.setVisibility(View.VISIBLE);
                                                 mBackgroundTextTextView.setVisibility(View.VISIBLE);
                                                 mBackgroundTextTextView.setText("No Messages found");
-                                                mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                                mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
                                                 mRecyclerview.setVisibility(View.VISIBLE);
                                                 mMainParentSwipeRefreshLayout.setRefreshing(false);
                                                 //Config.showToastType1(getActivity(), "No Messages found");
@@ -339,7 +355,7 @@ public class SupportFragment extends Fragment {
                                     public void run() {
                                         Config.showToastType1(getActivity(), getString(R.string.an_unexpected_error_occured));
                                         if(firstCall) {
-                                            mRecyclerview.setVisibility(View.INVISIBLE);
+                                            mRecyclerview.setVisibility(View.GONE);
                                             mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                                             mMainParentSwipeRefreshLayout.setRefreshing(false);
                                         }
@@ -357,7 +373,7 @@ public class SupportFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     Config.showToastType1(getActivity(), getResources().getString(R.string.check_your_internet_connection_and_try_again));
-                                    mRecyclerview.setVisibility(View.INVISIBLE);
+                                    mRecyclerview.setVisibility(View.GONE);
                                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                                     mMainParentSwipeRefreshLayout.setRefreshing(false);
                                 }
@@ -407,6 +423,15 @@ public class SupportFragment extends Fragment {
                                 String myStatus = main_response.getString("status");
                                 final String myStatusMessage = main_response.getString("message");
 
+                                if(myStatus.equalsIgnoreCase("update")){
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Config.showToastType1(getActivity(), myStatusMessage);
+                                        }
+                                    });
+                                    return;
+                                }
                                 if(!myStatus.trim().equalsIgnoreCase("success")){
                                     MyMessagesListDataGenerator.getAllData().remove(MyMessagesListDataGenerator.getAllData().size()-1);
                                     new Handler(Looper.getMainLooper()).post(new Runnable() {

@@ -168,9 +168,9 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    mRecyclerview.setVisibility(View.INVISIBLE);
-                    mBackgroundImageImageView.setVisibility(View.INVISIBLE);
-                    mBackgroundTextTextView.setVisibility(View.INVISIBLE);
+                    mRecyclerview.setVisibility(View.GONE);
+                    mBackgroundImageImageView.setVisibility(View.GONE);
+                    mBackgroundTextTextView.setVisibility(View.GONE);
                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                 }
             });
@@ -192,6 +192,15 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
                                 JSONObject main_response = new JSONObject(response);
                                 String myStatus = main_response.getString("status");
                                 final String myStatusMessage = main_response.getString("message");
+                                if(!myStatus.equalsIgnoreCase("success")){
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Config.showToastType1(NotificationsActivity.this, myStatusMessage);
+                                        }
+                                    });
+                                    return;
+                                }
                                 JSONArray myOrdersArray = main_response.getJSONArray("data");
                                 if (myOrdersArray.length() > 0) {
                                     MyNotificationsListDataGenerator.getAllData().clear();
@@ -216,9 +225,9 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
                                             @Override
                                             public void run() {
                                                 mRecyclerview.getAdapter().notifyItemInserted(MyNotificationsListDataGenerator.getAllData().size());
-                                                mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
-                                                mBackgroundImageImageView.setVisibility(View.INVISIBLE);
-                                                mBackgroundTextTextView.setVisibility(View.INVISIBLE);
+                                                mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
+                                                mBackgroundImageImageView.setVisibility(View.GONE);
+                                                mBackgroundTextTextView.setVisibility(View.GONE);
                                                 mRecyclerview.setVisibility(View.VISIBLE);
                                                 mMainParentSwipeRefreshLayout.setRefreshing(false);
                                             }
@@ -232,7 +241,7 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
                                             mBackgroundImageImageView.setVisibility(View.VISIBLE);
                                             mBackgroundTextTextView.setVisibility(View.VISIBLE);
                                             mBackgroundTextTextView.setText("No Notifications found");
-                                            mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
                                             mRecyclerview.setVisibility(View.VISIBLE);
                                             mMainParentSwipeRefreshLayout.setRefreshing(false);
                                             //Config.showToastType1(NotificationsActivity.this, "No Orders found");
@@ -247,7 +256,7 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
                                     @Override
                                     public void run() {
                                         Config.showToastType1(NotificationsActivity.this, getString(R.string.an_unexpected_error_occured));
-                                        mRecyclerview.setVisibility(View.INVISIBLE);
+                                        mRecyclerview.setVisibility(View.GONE);
                                         mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                                         mMainParentSwipeRefreshLayout.setRefreshing(false);
                                     }
@@ -264,7 +273,7 @@ public class NotificationsActivity extends AppCompatActivity implements View.OnC
                                 @Override
                                 public void run() {
                                     Config.showToastType1(NotificationsActivity.this, getResources().getString(R.string.check_your_internet_connection_and_try_again));
-                                    mRecyclerview.setVisibility(View.INVISIBLE);
+                                    mRecyclerview.setVisibility(View.GONE);
                                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                                     mMainParentSwipeRefreshLayout.setRefreshing(false);
                                 }

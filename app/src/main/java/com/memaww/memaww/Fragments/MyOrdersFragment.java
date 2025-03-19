@@ -24,6 +24,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.kofigyan.stateprogressbar.StateProgressBar;
+import com.memaww.memaww.Activities.LoginActivity;
 import com.memaww.memaww.Activities.OrderCollectionActivity;
 import com.memaww.memaww.ListDataGenerators.MyOrdersListDataGenerator;
 import com.memaww.memaww.Models.OrderModel;
@@ -208,9 +209,9 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    mRecyclerview.setVisibility(View.INVISIBLE);
-                    mBackgroundImageImageView.setVisibility(View.INVISIBLE);
-                    mBackgroundTextTextView.setVisibility(View.INVISIBLE);
+                    mRecyclerview.setVisibility(View.GONE);
+                    mBackgroundImageImageView.setVisibility(View.GONE);
+                    mBackgroundTextTextView.setVisibility(View.GONE);
                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                 }
             });
@@ -232,6 +233,16 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                 JSONObject main_response = new JSONObject(response);
                                 String myStatus = main_response.getString("status");
                                 final String myStatusMessage = main_response.getString("message");
+                                if(!myStatus.equalsIgnoreCase("success")){
+
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Config.showToastType1(getActivity(), myStatusMessage);
+                                        }
+                                    });
+                                    return;
+                                }
                                 JSONArray myOrdersArray = main_response.getJSONArray("data");
                                 if (myOrdersArray.length() > 0) {
                                     MyOrdersListDataGenerator.getAllData().clear();
@@ -286,9 +297,9 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                         @Override
                                         public void run() {
                                                 mRecyclerview.getAdapter().notifyItemInserted(MyOrdersListDataGenerator.getAllData().size());
-                                                mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
-                                                mBackgroundImageImageView.setVisibility(View.INVISIBLE);
-                                                mBackgroundTextTextView.setVisibility(View.INVISIBLE);
+                                                mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
+                                                mBackgroundImageImageView.setVisibility(View.GONE);
+                                                mBackgroundTextTextView.setVisibility(View.GONE);
                                                 mRecyclerview.setVisibility(View.VISIBLE);
                                                 mMainParentSwipeRefreshLayout.setRefreshing(false);
                                         }
@@ -302,7 +313,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                             mBackgroundImageImageView.setVisibility(View.VISIBLE);
                                             mBackgroundTextTextView.setVisibility(View.VISIBLE);
                                             mBackgroundTextTextView.setText("No Orders found");
-                                            mLoadingContentLoadingProgressBar.setVisibility(View.INVISIBLE);
+                                            mLoadingContentLoadingProgressBar.setVisibility(View.GONE);
                                             mRecyclerview.setVisibility(View.VISIBLE);
                                             mMainParentSwipeRefreshLayout.setRefreshing(false);
                                             //Config.showToastType1(getActivity(), "No Orders found");
@@ -317,7 +328,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                     @Override
                                     public void run() {
                                         Config.showToastType1(getActivity(), getString(R.string.an_unexpected_error_occured));
-                                        mRecyclerview.setVisibility(View.INVISIBLE);
+                                        mRecyclerview.setVisibility(View.GONE);
                                         mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                                         mMainParentSwipeRefreshLayout.setRefreshing(false);
                                     }
@@ -334,7 +345,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                 @Override
                                 public void run() {
                                     Config.showToastType1(getActivity(), getResources().getString(R.string.check_your_internet_connection_and_try_again));
-                                    mRecyclerview.setVisibility(View.INVISIBLE);
+                                    mRecyclerview.setVisibility(View.GONE);
                                     mLoadingContentLoadingProgressBar.setVisibility(View.VISIBLE);
                                     mMainParentSwipeRefreshLayout.setRefreshing(false);
                                 }

@@ -3,7 +3,7 @@
     <item
         android:id="@+id/myorders"
         android:title="MyOrders"
-        android:icon="@drawable/list_clipboard"
+        android:icon="@drawable/ordersnew"
         />
     <item
         android:id="@+id/invite"
