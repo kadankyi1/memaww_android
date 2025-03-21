@@ -293,7 +293,7 @@
             android:layout_marginBottom="10dp"
             android:textAlignment="textStart"
             android:visibility="visible"
-            android:text="By subscribing, you agree to our terms and fair use policy. Click to read."
+            android:text="By subscribing, you agree to our service and fair use policies. Click here to read."
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@+id/activity_buysubscription_packageincludesinfo1_constraintlayout"

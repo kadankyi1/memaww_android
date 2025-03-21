@@ -1,6 +1,6 @@
 [versions]
 aescrypt = "0.0.1"
-agp = "8.7.2"
+agp = "8.9.0"
 androidNetworking = "1.0.2"
 androidNetworkingVersion = "1.0.4"
 converterGson = "2.3.0"

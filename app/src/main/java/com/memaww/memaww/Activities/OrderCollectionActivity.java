@@ -43,7 +43,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         ConfirmOrderFragment.onConfirmOrderDoneButtonClickedEventListener, MediumWeightItemsFormFragment.onmediumWeightItemsFormDoneButtonClickedEventListener {
 
     private ImageView mBackImageView;
-    private CardView mCollectionAndDropOffInfoCardView, mLightweighItemsInfoCardView, mMediumweightItemsInfoCardView, mHeavyweightItemsInfoCardView, mSpecialInstructionsCardView, mDiscountCardView;
+    private CardView mHowWeWashCardView, mCollectionAndDropOffInfoCardView, mLightweighItemsInfoCardView, mMediumweightItemsInfoCardView, mHeavyweightItemsInfoCardView, mSpecialInstructionsCardView, mDiscountCardView;
     private TextView mCollectionAndDropOffLocationTextView, mCollectionTimeTextView, mContactPersonTextView, mLightWeightItemsTextView,
             mBulkyItemsTextView, mSpecialNotesTextView, mDiscountTextView, mMediumWeightItemsTextView;
     private int fragmentOpenStatus = 0, allLightWeightItems = 0, allBulkyItems = 0, allMediumWeightItems = 0;
@@ -63,6 +63,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
 
 
         mBackImageView = findViewById(R.id.activity_ordercollection_menuholder_back_imageview);
+        mHowWeWashCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_washtype_constraintlayout);
         mMainContentHolderScrollView = findViewById(R.id.activity_ordercollection_formitemsholder_scrollview);
         mCollectionAndDropOffInfoCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_pickup_constraintlayout);
         mLightweighItemsInfoCardView = findViewById(R.id.activity_ordercollection_formitemsholderscrollview_justwash_constraintlayout);
@@ -299,6 +300,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         fragmentOpenStatus = 0;
         mProceedButton.setVisibility(View.VISIBLE);
         getSupportFragmentManager().popBackStack();
+        mHowWeWashCardView.setVisibility(View.VISIBLE);
         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
         mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
         mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);
@@ -313,6 +315,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
         super.onBackPressed();
         fragmentOpenStatus = 0;
         mProceedButton.setVisibility(View.VISIBLE);
+        mHowWeWashCardView.setVisibility(View.VISIBLE);
         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
         mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
         mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);
@@ -431,6 +434,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
+                    mHowWeWashCardView.setVisibility(View.GONE);
                     mCollectionAndDropOffInfoCardView.setVisibility(View.GONE);
                     mLightweighItemsInfoCardView.setVisibility(View.GONE);
                     mMediumweightItemsInfoCardView.setVisibility(View.GONE);
@@ -530,6 +534,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                         @Override
                                         public void run() {
                                             Config.showToastType1(OrderCollectionActivity.this,  myStatusMessage);
+                                            mHowWeWashCardView.setVisibility(View.VISIBLE);
                                             mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
                                             mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
                                             mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);
@@ -551,6 +556,8 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                     @Override
                                     public void run() {
                                         Config.showDialogType1(OrderCollectionActivity.this, getString(R.string.error), getString(R.string.an_unexpected_error_occured), "", null, false, "", "");
+
+                                        mHowWeWashCardView.setVisibility(View.VISIBLE);
                                         mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
                                         mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
                                         mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);
@@ -575,6 +582,7 @@ public class OrderCollectionActivity extends AppCompatActivity implements View.O
                                 @Override
                                 public void run() {
                                     Config.showToastType1(OrderCollectionActivity.this, getResources().getString(R.string.check_your_internet_connection_and_try_again));
+                                    mHowWeWashCardView.setVisibility(View.VISIBLE);
                                     mCollectionAndDropOffInfoCardView.setVisibility(View.VISIBLE);
                                     mLightweighItemsInfoCardView.setVisibility(View.VISIBLE);
                                     mMediumweightItemsInfoCardView.setVisibility(View.VISIBLE);

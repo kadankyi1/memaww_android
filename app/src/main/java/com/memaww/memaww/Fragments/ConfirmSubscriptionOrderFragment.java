@@ -145,7 +145,7 @@ public class ConfirmSubscriptionOrderFragment extends Fragment {
         mTermsTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Config.openActivity(getActivity(), ReaderWebViewActivity.class, 0, 0, 1, Config.WEBVIEW_KEY_URL, "https://memaww.com/fair-use-policy");
+                Config.openActivity(getActivity(), ReaderWebViewActivity.class, 0, 0, 1, Config.WEBVIEW_KEY_URL, "https://memaww.com/fair-usage-policy");
             }
         });
 

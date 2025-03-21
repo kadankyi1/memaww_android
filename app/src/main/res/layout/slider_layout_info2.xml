@@ -107,7 +107,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="With the option to pay on pick-up, as soon as we get your order, we will have our pickup team contact you at your scheduled pickup time and come for the unwashed laundry"
+        android:text="With the option to pay on pick-up, as soon as we get your order, we will have our pickup team contact you at your scheduled pickup time and come for the laundry"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/slider_activity_slider_layout_guideline_h3"

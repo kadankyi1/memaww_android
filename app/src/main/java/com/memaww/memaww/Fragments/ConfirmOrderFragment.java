@@ -127,7 +127,7 @@ public class ConfirmOrderFragment extends Fragment {
         mDiscountAmountTextView.setText(mDiscountAmount);
         mFinalPriceTextView.setText(mFinalPrice);
 
-        mPayOnlineAppCompatButton.setText("Pay Online - " + mFinalPrice);
+        mPayOnlineAppCompatButton.setText("Pay Online | " + mFinalPrice);
         mPayOnPickUpAppCompatButton.setText("Pay-On-Pickup");
 
         //confirmOrderDoneButtonClickedListener.confirmOrderDoneButtonClicked(discount);

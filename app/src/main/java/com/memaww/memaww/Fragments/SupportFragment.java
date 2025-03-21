@@ -95,7 +95,7 @@ public class SupportFragment extends Fragment {
         backgroundThread1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                getMyMessages(true);
+                //getMyMessages(true);
             }
         });
         backgroundThread1.start();
@@ -106,7 +106,7 @@ public class SupportFragment extends Fragment {
                 backgroundThread1 = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        getMyMessages(true);
+                        //getMyMessages(true);
                     }
                 });
                 backgroundThread1.start();
@@ -144,7 +144,7 @@ public class SupportFragment extends Fragment {
                         backgroundThread1 = new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                getMyMessages(false);
+                                //getMyMessages(false);
                             }
                         });
                         backgroundThread1.start();
@@ -391,7 +391,7 @@ public class SupportFragment extends Fragment {
             String currentDateandTime = sdf.format(new Date());
             MessageModel thisMessage = new MessageModel();
             //thisMessage.setMessageId(k.getLong(""));
-            thisMessage.setMessageText(message);
+            thisMessage.setMessageText("Chat is currently not available. Reach us via phone call or email us at support@memaww.com");
             thisMessage.setSenderUserId(Integer.valueOf(Config.getSharedPreferenceString(getActivity(),Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_ID_SHORT)));
             thisMessage.setReceiverUserId(1);
             thisMessage.setMessageDate(currentDateandTime);
@@ -405,6 +405,7 @@ public class SupportFragment extends Fragment {
             });
         }
 
+        /*
         AndroidNetworking.post(Config.LINK_SEND_MESSAGE)
                 .addHeaders("Accept", "application/json")
                 .addHeaders("Authorization", "Bearer " + Config.getSharedPreferenceString(getActivity(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN))
@@ -469,6 +470,7 @@ public class SupportFragment extends Fragment {
                         }
                     }
                 });
+        */
 
     }
 }

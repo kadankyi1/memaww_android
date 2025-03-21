@@ -163,9 +163,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_FIRST_NAME, user_data_response.getString("user_first_name"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_LAST_NAME, user_data_response.getString("user_last_name"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PHONE, user_data_response.getString("user_phone"));
+                                    Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PHONE_LOCAL, main_response.getString("user_phone_local"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_INVITE_CODE, user_data_response.getString("user_referral_code"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_USER_PASSWORD_ACCESS_TOKEN, main_response.getString("access_token"));
                                     Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_USER_CREDENTIALS_ANDROID_APP_LINK, main_response.getString("android_app_link"));
+
+                                    Config.setSharedPreferenceString(getApplicationContext(), Config.SHARED_PREF_KEY_LAST_ORDER_CONTACT_PERSON_PHONE, main_response.getString("user_phone_local"));
 
                                     Config.openActivity(LoginActivity.this, MainActivity.class, 1, 2, 0, "", "");
                                     return;

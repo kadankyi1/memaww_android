@@ -111,6 +111,7 @@ public class CollectionFormFragment extends Fragment implements View.OnClickList
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
 
+        ContactPersonPhoneEditText.setText(Config.getSharedPreferenceString(getActivity().getApplicationContext(), Config.SHARED_PREF_KEY_LAST_ORDER_CONTACT_PERSON_PHONE));
         mGetMyLocationTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
