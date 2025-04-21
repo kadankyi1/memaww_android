@@ -21,6 +21,7 @@ public class OrderModel {
     private int orderLightweightitemsWashAndIronQuantity;
     private int orderBulkyitemsJustWashQuantity;
     private int orderBulkyitemsWashAndIronQuantity;
+    private String orderItemsDescription;
     private String orderAllItemsQuantity;
     private int orderBeingWorkedOnStatus;
     private int orderPaymentStatus;
@@ -196,6 +197,14 @@ public class OrderModel {
 
     public void setOrderBulkyitemsWashAndIronQuantity(int orderBulkyitemsWashAndIronQuantity) {
         this.orderBulkyitemsWashAndIronQuantity = orderBulkyitemsWashAndIronQuantity;
+    }
+
+    public String getOrderItemsDescription() {
+        return orderItemsDescription;
+    }
+
+    public void setOrderItemsDescription(String orderItemsDescription) {
+        this.orderItemsDescription = orderItemsDescription;
     }
 
     public int getOrderBeingWorkedOnStatus() {

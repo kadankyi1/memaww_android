@@ -3,6 +3,7 @@ package com.memaww.memaww.Fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,7 @@ import com.androidnetworking.interfaces.StringRequestListener;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.memaww.memaww.Activities.LoginActivity;
 import com.memaww.memaww.Activities.OrderCollectionActivity;
+import com.memaww.memaww.Activities.RemainingItemsActivity;
 import com.memaww.memaww.ListDataGenerators.MyOrdersListDataGenerator;
 import com.memaww.memaww.Models.OrderModel;
 import com.memaww.memaww.R;
@@ -44,6 +46,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
     private TextView mBackgroundTextTextView;
     private LinearLayoutManager mLinearlayoutmanager;
     private ContentLoadingProgressBar mLoadingContentLoadingProgressBar;
+    private CardView mRemainingItemsCardView;
     private Thread backgroundThread1 = null;
     private String[] descriptionData = {"Pending", "Picked", "Washing", "Delivered"};
 
@@ -72,6 +75,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         mLoadingContentLoadingProgressBar = view.findViewById(R.id.fragment_myorders_loader);
         mBackgroundImageImageView = view.findViewById(R.id.fragment_myorders_noordersimage_imageview);
         mBackgroundTextTextView = view.findViewById(R.id.fragment_myorders_noorderstext_textview);
+        mRemainingItemsCardView = view.findViewById(R.id.fragment_myorders_rem_items_holder_cardview);
 
 
         //ONE-TIME ACTIONS
@@ -82,6 +86,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
         mRecyclerview.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mRecyclerview.setLayoutManager(mLinearlayoutmanager);
         mRecyclerview.setAdapter(new RecyclerViewAdapter());
+        mRemainingItemsCardView.setOnClickListener(this);
 
         backgroundThread1 = new Thread(new Runnable() {
             @Override
@@ -110,7 +115,9 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
+        if(view.getId() == mRemainingItemsCardView.getId()){
+            Config.openActivity(getActivity(), RemainingItemsActivity.class, 0, 0, 0, "", "");
+        }
     }
 
 
@@ -118,6 +125,8 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
     private void allOnClickHandlers(View v, int position){
         if(v.getId() == R.id.list_item_order_image_roundedcornerimageview){
             Config.showDialogType1(getActivity(), "1", "Price: " + MyOrdersListDataGenerator.getAllData().get(position).getOrderPriceCurrency() + " "  + MyOrdersListDataGenerator.getAllData().get(position).getOrderFinalPrice(), "", null, false, "", "");
+        } else if (v.getId() == R.id.list_item_order_orderitems_imageview || v.getId() == R.id.list_item_order_orderitemslabel_textview || v.getId() == R.id.list_item_order_orderitemsvalue_textview || v.getId() == R.id.list_item_order_viewitems_imageview){
+            Config.showDialogType1(getActivity(), "1", MyOrdersListDataGenerator.getAllData().get(position).getOrderItemsDescription(), "", null, false, "", "");
         }
 
     }
@@ -145,8 +154,8 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
 
 
         public class OrderViewHolder extends RecyclerView.ViewHolder  {
-            private ImageView mInfoImageView;
-            private TextView mOrderIdTextview, mItemsCountTextview, mDeliveryTextview, mStatusTextView, mDateTextView, mLocationTextView;
+            private ImageView mInfoImageView, mItemsLabelImageView, mItemsDecsriptionViewIconImageView;
+            private TextView mOrderIdTextview, mItemsCountTextview, mDeliveryTextview, mStatusTextView, mDateTextView, mItemsLabelTextView;
             private StateProgressBar mStateProgressBar;
 
             private View.OnClickListener innerClickListener = new View.OnClickListener() {
@@ -165,9 +174,15 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                 mStatusTextView = v.findViewById(R.id.list_item_order_statuslong_textview);
                 mDateTextView = v.findViewById(R.id.list_item_order_orderdatevalue_textview);
                 mStateProgressBar = v.findViewById(R.id.your_state_progress_bar_id);
-                //mLocationTextView = v.findViewById(R.id.list_item_order_loc_textview);
+                mItemsLabelTextView = v.findViewById(R.id.list_item_order_orderitemslabel_textview);
+                mItemsLabelImageView = v.findViewById(R.id.list_item_order_orderitems_imageview);
+                mItemsDecsriptionViewIconImageView = v.findViewById(R.id.list_item_order_viewitems_imageview);
 
                 mInfoImageView.setOnClickListener(innerClickListener);
+                mItemsCountTextview.setOnClickListener(innerClickListener);
+                mItemsLabelTextView.setOnClickListener(innerClickListener);
+                mItemsLabelImageView.setOnClickListener(innerClickListener);
+                mItemsDecsriptionViewIconImageView.setOnClickListener(innerClickListener);
 
             }
         }
@@ -274,6 +289,7 @@ public class MyOrdersFragment extends Fragment implements View.OnClickListener {
                                         thisOrder.setOrderLightweightitemsWashAndIronQuantity(k.getInt("order_lightweightitems_wash_and_iron_quantity"));
                                         thisOrder.setOrderBulkyitemsJustWashQuantity(k.getInt("order_bulkyitems_just_wash_quantity"));
                                         thisOrder.setOrderBulkyitemsWashAndIronQuantity(k.getInt("order_bulkyitems_wash_and_iron_quantity"));
+                                        thisOrder.setOrderItemsDescription(k.getString("order_all_items_full_description"));
                                         thisOrder.setOrderAllItemsQuantity(k.getString("all_items"));
                                         thisOrder.setOrderBeingWorkedOnStatus(k.getInt("order_status"));
                                         thisOrder.setOrderPaymentStatusMessage(k.getString("order_status_message"));

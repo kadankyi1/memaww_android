@@ -392,9 +392,25 @@
             android:text="x 15"
             android:textColor="@color/color_gray"
             android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/list_item_order_viewitems_imageview"
             app:layout_constraintStart_toEndOf="@+id/list_item_order_orderitemslabel_textview"
             app:layout_constraintTop_toBottomOf="@+id/list_item_order_orderdelivery_imageview" />
+
+
+        <ImageView
+            android:id="@+id/list_item_order_viewitems_imageview"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/info"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/list_item_order_orderitemsvalue_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/list_item_order_orderitemsvalue_textview"
+            app:layout_constraintTop_toTopOf="@+id/list_item_order_orderitemsvalue_textview" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
